@@ -1,0 +1,12 @@
+{
+  "site": "Babco Agent Pilot Router",
+  "version": "0.2.0",
+  "azureAppService": "app-babco-agent-pilot-router-rnd-260921",
+  "liveUrl": "https://app-babco-agent-pilot-router-rnd-260921.azurewebsites.net/",
+  "resourceGroup": "rg-babco-rnd-sandbox",
+  "sourceRepository": "KirtiBabco/Hello-8800",
+  "sourceBranch": "agent-pilot-router",
+  "evidenceBackend": "evidence-save.ashx",
+  "agentMaster": "/agent-master.html",
+  "recordedAt": "2026-09-21"
+}
