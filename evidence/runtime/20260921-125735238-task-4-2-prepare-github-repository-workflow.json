@@ -1,0 +1,30 @@
+{
+  "prompt": "Build a customer portal, create GitHub repo, deploy to Azure, and if deployment fails find root cause and solve it.",
+  "task": {
+    "mo": "Delivery",
+    "id": "4.2",
+    "t": "Prepare GitHub repository workflow",
+    "d": "Repository, branch, commit and handoff.",
+    "dep": [
+      "3.1",
+      "3.2"
+    ],
+    "ro": {
+      "k": "OpenAI API",
+      "n": "OpenAI",
+      "m": "gpt-5.6-sol",
+      "w": "No registered specialist Agent covers this task."
+    },
+    "s": "Done",
+    "res": "Task completed. Output is attached below.",
+    "inp": 1315,
+    "out": 685,
+    "tot": 2000,
+    "c": 0.012,
+    "sv": 0,
+    "ev": "",
+    "outUrl": "",
+    "attachmentType": "pdf"
+  },
+  "savedAt": "2026-09-21T12:57:34.692Z"
+}
