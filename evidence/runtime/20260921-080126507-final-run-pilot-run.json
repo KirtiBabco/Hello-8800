@@ -1,0 +1,266 @@
+{
+  "prompt": "Build a Customer Portal, Create GitHub Repo, Deploy to Azure and if deployment fails find root cause and solve it.",
+  "completedAt": "2026-09-21T08:01:26.431Z",
+  "liveUrl": "https://app-babco-agent-pilot-router-rnd-260921.azurewebsites.net/",
+  "tasks": [
+    {
+      "mo": "Discovery",
+      "id": "1.1",
+      "t": "Analyze project prompt and attachments",
+      "d": "Extract goals, constraints and deliverables.",
+      "dep": [],
+      "ro": {
+        "k": "OpenAI API",
+        "n": "OpenAI",
+        "m": "gpt-5.6-sol",
+        "w": "No registered specialist Agent covers this task."
+      },
+      "s": "Done",
+      "res": "Result envelope preserved for downstream tasks.",
+      "inp": 900,
+      "out": 450,
+      "tot": 1350,
+      "c": 0.0081,
+      "sv": 0,
+      "ev": ""
+    },
+    {
+      "mo": "Planning",
+      "id": "2.1",
+      "t": "Create build plan",
+      "d": "Create modules, milestones and acceptance criteria.",
+      "dep": [
+        "1.1"
+      ],
+      "ro": {
+        "k": "OpenAI API",
+        "n": "OpenAI",
+        "m": "gpt-5.6-sol",
+        "w": "No registered specialist Agent covers this task."
+      },
+      "s": "Done",
+      "res": "Result envelope preserved for downstream tasks.",
+      "inp": 983,
+      "out": 497,
+      "tot": 1480,
+      "c": 0.00888,
+      "sv": 0,
+      "ev": "https://github.com/KirtiBabco/Hello-8800/blob/agent-pilot-router/evidence/runtime/20260921-080114438-task-2-1-create-build-plan.json"
+    },
+    {
+      "mo": "Architecture",
+      "id": "3.1",
+      "t": "Recursively decompose modules into executable tasks",
+      "d": "Split plan into small independent tasks.",
+      "dep": [
+        "2.1"
+      ],
+      "ro": {
+        "k": "OpenAI API",
+        "n": "OpenAI",
+        "m": "gpt-5.6-sol",
+        "w": "No registered specialist Agent covers this task."
+      },
+      "s": "Done",
+      "res": "Result envelope preserved for downstream tasks.",
+      "inp": 1066,
+      "out": 544,
+      "tot": 1610,
+      "c": 0.00966,
+      "sv": 0,
+      "ev": "https://github.com/KirtiBabco/Hello-8800/blob/agent-pilot-router/evidence/runtime/20260921-080115792-task-3-1-recursively-decompose-modules-into-executable-tasks.json"
+    },
+    {
+      "mo": "Architecture",
+      "id": "3.2",
+      "t": "Resolve dependency graph and parallel lanes",
+      "d": "Find interdependencies and safe concurrency.",
+      "dep": [
+        "2.1"
+      ],
+      "ro": {
+        "k": "OpenAI API",
+        "n": "OpenAI",
+        "m": "gpt-5.6-sol",
+        "w": "No registered specialist Agent covers this task."
+      },
+      "s": "Done",
+      "res": "Result envelope preserved for downstream tasks.",
+      "inp": 1149,
+      "out": 591,
+      "tot": 1740,
+      "c": 0.01044,
+      "sv": 0,
+      "ev": "https://github.com/KirtiBabco/Hello-8800/blob/agent-pilot-router/evidence/runtime/20260921-080117363-task-3-2-resolve-dependency-graph-and-parallel-lanes.json"
+    },
+    {
+      "mo": "Implementation",
+      "id": "4.1",
+      "t": "Prepare application implementation tasks",
+      "d": "Create coding and integration work packages.",
+      "dep": [
+        "3.1",
+        "3.2"
+      ],
+      "ro": {
+        "k": "OpenAI API",
+        "n": "OpenAI",
+        "m": "gpt-5.6-sol",
+        "w": "No registered specialist Agent covers this task."
+      },
+      "s": "Done",
+      "res": "Result envelope preserved for downstream tasks.",
+      "inp": 1232,
+      "out": 638,
+      "tot": 1870,
+      "c": 0.01122,
+      "sv": 0,
+      "ev": "https://github.com/KirtiBabco/Hello-8800/blob/agent-pilot-router/evidence/runtime/20260921-080118737-task-4-1-prepare-application-implementation-tasks.json"
+    },
+    {
+      "mo": "Delivery",
+      "id": "4.2",
+      "t": "Prepare GitHub repository workflow",
+      "d": "Repository, branch, commit and handoff.",
+      "dep": [
+        "3.1",
+        "3.2"
+      ],
+      "ro": {
+        "k": "OpenAI API",
+        "n": "OpenAI",
+        "m": "gpt-5.6-sol",
+        "w": "No registered specialist Agent covers this task."
+      },
+      "s": "Done",
+      "res": "Result envelope preserved for downstream tasks.",
+      "inp": 1315,
+      "out": 685,
+      "tot": 2000,
+      "c": 0.012,
+      "sv": 0,
+      "ev": "https://github.com/KirtiBabco/Hello-8800/blob/agent-pilot-router/evidence/runtime/20260921-080119832-task-4-2-prepare-github-repository-workflow.json"
+    },
+    {
+      "mo": "Delivery",
+      "id": "4.3",
+      "t": "Prepare Azure deployment workflow",
+      "d": "App Service deployment and verification.",
+      "dep": [
+        "4.2"
+      ],
+      "ro": {
+        "k": "OpenAI API",
+        "n": "OpenAI",
+        "m": "gpt-5.6-sol",
+        "w": "No registered specialist Agent covers this task."
+      },
+      "s": "Done",
+      "res": "Result envelope preserved for downstream tasks.",
+      "inp": 1398,
+      "out": 732,
+      "tot": 2130,
+      "c": 0.01278,
+      "sv": 0,
+      "ev": "https://github.com/KirtiBabco/Hello-8800/blob/agent-pilot-router/evidence/runtime/20260921-080121276-task-4-3-prepare-azure-deployment-workflow.json"
+    },
+    {
+      "mo": "Reliability",
+      "id": "4.4",
+      "t": "Find root cause of failure",
+      "d": "Analyze evidence and determine why failure occurred.",
+      "dep": [
+        "4.3"
+      ],
+      "ro": {
+        "k": "Agent",
+        "n": "Babco Labs RCA Analysis Agent v5",
+        "m": "gpt-5.6-sol",
+        "w": "Registered capability match.",
+        "e": "https://ca-babco-rca-agent-rnd.mangodesert-69aab027.eastus2.azurecontainerapps.io/mcp"
+      },
+      "s": "Done",
+      "res": "Result envelope preserved for downstream tasks.",
+      "inp": 0,
+      "out": 0,
+      "tot": 0,
+      "c": 0,
+      "sv": 0.009834,
+      "ev": "https://github.com/KirtiBabco/Hello-8800/blob/agent-pilot-router/evidence/runtime/20260921-080122626-task-4-4-find-root-cause-of-failure.json"
+    },
+    {
+      "mo": "Reliability",
+      "id": "4.5",
+      "t": "Solve failure and prevent recurrence",
+      "d": "Apply verified correction and prevention.",
+      "dep": [
+        "4.4"
+      ],
+      "ro": {
+        "k": "Agent",
+        "n": "Babco Labs RCS Solver Agent v2",
+        "m": "gpt-5.6-sol",
+        "w": "Registered capability match.",
+        "e": "https://ca-babco-rcs-agent-rnd.mangodesert-69aab027.eastus2.azurecontainerapps.io/mcp"
+      },
+      "s": "Done",
+      "res": "Result envelope preserved for downstream tasks.",
+      "inp": 0,
+      "out": 0,
+      "tot": 0,
+      "c": 0,
+      "sv": 0.010296,
+      "ev": "https://github.com/KirtiBabco/Hello-8800/blob/agent-pilot-router/evidence/runtime/20260921-080125222-task-4-5-solve-failure-and-prevent-recurrence.json"
+    },
+    {
+      "mo": "Quality",
+      "id": "5.1",
+      "t": "Verify outputs and capture evidence",
+      "d": "Confirm deliverables and downstream evidence.",
+      "dep": [
+        "4.1",
+        "4.3"
+      ],
+      "ro": {
+        "k": "OpenAI API",
+        "n": "OpenAI",
+        "m": "gpt-5.6-sol",
+        "w": "No registered specialist Agent covers this task."
+      },
+      "s": "Done",
+      "res": "Result envelope preserved for downstream tasks.",
+      "inp": 1647,
+      "out": 873,
+      "tot": 2520,
+      "c": 0.01512,
+      "sv": 0,
+      "ev": "https://github.com/KirtiBabco/Hello-8800/blob/agent-pilot-router/evidence/runtime/20260921-080123800-task-5-1-verify-outputs-and-capture-evidence.json"
+    }
+  ],
+  "graph": [
+    [
+      "1.1"
+    ],
+    [
+      "2.1"
+    ],
+    [
+      "3.1",
+      "3.2"
+    ],
+    [
+      "4.1",
+      "4.2"
+    ],
+    [
+      "4.3"
+    ],
+    [
+      "4.4",
+      "5.1"
+    ],
+    [
+      "4.5"
+    ]
+  ]
+}
