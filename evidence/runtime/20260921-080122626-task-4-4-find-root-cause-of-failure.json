@@ -1,0 +1,29 @@
+{
+  "prompt": "Build a Customer Portal, Create GitHub Repo, Deploy to Azure and if deployment fails find root cause and solve it.",
+  "task": {
+    "mo": "Reliability",
+    "id": "4.4",
+    "t": "Find root cause of failure",
+    "d": "Analyze evidence and determine why failure occurred.",
+    "dep": [
+      "4.3"
+    ],
+    "ro": {
+      "k": "Agent",
+      "n": "Babco Labs RCA Analysis Agent v5",
+      "m": "gpt-5.6-sol",
+      "w": "Registered capability match.",
+      "e": "https://ca-babco-rca-agent-rnd.mangodesert-69aab027.eastus2.azurecontainerapps.io/mcp"
+    },
+    "s": "Done",
+    "res": "Result envelope preserved for downstream tasks.",
+    "inp": 0,
+    "out": 0,
+    "tot": 0,
+    "c": 0,
+    "sv": 0.009834,
+    "ev": ""
+  },
+  "liveUrl": "https://app-babco-agent-pilot-router-rnd-260921.azurewebsites.net/",
+  "savedAt": "2026-09-21T08:01:22.560Z"
+}
