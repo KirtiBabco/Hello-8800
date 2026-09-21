@@ -1,0 +1,28 @@
+{
+  "prompt": "Build a Customer Portal, Create GitHub Repo, Deploy to Azure and if deployment fails find root cause and solve it.",
+  "task": {
+    "mo": "Delivery",
+    "id": "4.3",
+    "t": "Prepare Azure deployment workflow",
+    "d": "App Service deployment and verification.",
+    "dep": [
+      "4.2"
+    ],
+    "ro": {
+      "k": "OpenAI API",
+      "n": "OpenAI",
+      "m": "gpt-5.6-sol",
+      "w": "No registered specialist Agent covers this task."
+    },
+    "s": "Done",
+    "res": "Result envelope preserved for downstream tasks.",
+    "inp": 1398,
+    "out": 732,
+    "tot": 2130,
+    "c": 0.01278,
+    "sv": 0,
+    "ev": ""
+  },
+  "liveUrl": "https://app-babco-agent-pilot-router-rnd-260921.azurewebsites.net/",
+  "savedAt": "2026-09-21T07:07:40.013Z"
+}
