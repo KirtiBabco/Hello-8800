@@ -1,0 +1,481 @@
+{
+  "prompt": "Build a Customer Portal, Create GitHub Repo, Deploy to Azure and if deployment fails find root cause and solve it.",
+  "task": {
+    "mo": "Implementation",
+    "id": "4.1",
+    "t": "Generate executable website source",
+    "d": "Real OpenAI execution produces self-contained prototype source files.",
+    "dep": [
+      "2.1",
+      "3.1",
+      "3.2"
+    ],
+    "ro": {
+      "k": "OpenAI API",
+      "n": "OpenAI",
+      "m": "gpt-5.6-sol",
+      "w": "Real source generation."
+    },
+    "s": "Running",
+    "res": "Generated 1 project source files.",
+    "proof": {
+      "executor": true,
+      "requestReceipt": true,
+      "executionId": "resp_096375645d5efba6006ab25106beec87d2936c95272d3abcf6",
+      "terminal": true,
+      "result": true,
+      "verification": true,
+      "evidence": ""
+    },
+    "inp": 2371,
+    "out": 7373,
+    "c": 0.156944,
+    "outUrl": "",
+    "requiresUrl": false
+  },
+  "context": {
+    "planning": {
+      "projectName": "customer-portal",
+      "analysis": {
+        "objective": "Build a secure, responsive customer portal, create a GitHub repository, deploy it to Microsoft Azure, and diagnose and resolve deployment failures.",
+        "assumptions": [
+          "The portal will use a React or Next.js frontend, a Node.js API, and a PostgreSQL database.",
+          "Customers will need authentication, profile management, and access to account-specific data.",
+          "Azure and GitHub credentials, subscription details, DNS settings, and required business rules will be provided securely.",
+          "Infrastructure will be provisioned through infrastructure as code rather than manual-only configuration.",
+          "Production secrets will be stored in Azure Key Vault and will not be committed to Git."
+        ],
+        "proposedArchitecture": {
+          "frontend": "Next.js with TypeScript and responsive UI components",
+          "backend": "Next.js server routes or a separate Node.js TypeScript API, selected after confirming scale and integration requirements",
+          "database": "Azure Database for PostgreSQL",
+          "authentication": "Microsoft Entra External ID or another approved identity provider",
+          "hosting": "Azure App Service or Azure Container Apps",
+          "secrets": "Azure Key Vault with managed identities",
+          "observability": "Azure Application Insights, Log Analytics, health checks, and deployment logs",
+          "sourceControl": "Private GitHub repository with protected main branch",
+          "ciCd": "GitHub Actions using Azure OpenID Connect instead of long-lived deployment credentials",
+          "infrastructure": "Bicep or Terraform"
+        },
+        "securityAndQuality": [
+          "Role-based authorization and tenant-safe data access",
+          "Input validation, secure headers, rate limiting, and CSRF/XSS protections where applicable",
+          "Automated unit, integration, accessibility, and end-to-end tests",
+          "Dependency, secret, and code scanning in CI",
+          "Database migrations with rollback or forward-fix procedures",
+          "Least-privilege Azure and GitHub permissions",
+          "Backup, restore, retention, and incident-response considerations"
+        ],
+        "constraints": [
+          "Repository creation and Azure deployment require authorized access to the target GitHub organization and Azure subscription.",
+          "Exact portal features, branding, data sources, compliance requirements, environments, region, and budget must be confirmed.",
+          "No implementation, repository creation, or deployment is represented as already completed."
+        ]
+      },
+      "buildPlan": [
+        {
+          "phase": "Discovery and acceptance criteria",
+          "actions": [
+            "Confirm personas, customer journeys, required pages, integrations, roles, compliance needs, branding, availability targets, Azure region, environments, and budget.",
+            "Define measurable acceptance criteria and a minimum viable product scope.",
+            "Create a threat model and data classification."
+          ],
+          "outputs": [
+            "Approved requirements",
+            "Architecture decision record",
+            "Acceptance-test checklist",
+            "Threat model"
+          ]
+        },
+        {
+          "phase": "Repository and engineering foundation",
+          "actions": [
+            "Create a private GitHub repository named customer-portal in the authorized organization.",
+            "Add README, license or proprietary notice, contribution guidance, CODEOWNERS, pull-request template, issue templates, and environment documentation.",
+            "Configure protected branches, required reviews, required status checks, Dependabot, secret scanning, and code scanning.",
+            "Initialize the TypeScript application, linting, formatting, tests, environment validation, and conventional commit workflow."
+          ],
+          "outputs": [
+            "Configured GitHub repository",
+            "Application scaffold",
+            "Branch protection and security controls",
+            "Local development instructions"
+          ]
+        },
+        {
+          "phase": "Portal implementation",
+          "actions": [
+            "Implement authentication, logout, session handling, password recovery or identity-provider equivalents, and role enforcement.",
+            "Build the dashboard, customer profile, account data views, settings, support/contact workflow, and error states.",
+            "Create API endpoints, domain services, database schema, migrations, validation, and audit logging.",
+            "Add responsive design, keyboard support, semantic markup, and WCAG-oriented accessibility checks.",
+            "Add unit, integration, and end-to-end tests using non-production test data."
+          ],
+          "outputs": [
+            "Working portal source code",
+            "Database migrations",
+            "Automated test suite",
+            "API and operational documentation"
+          ]
+        },
+        {
+          "phase": "Azure infrastructure",
+          "actions": [
+            "Define resource groups, hosting, PostgreSQL, Key Vault, Application Insights, Log Analytics, networking, managed identities, and role assignments in Bicep or Terraform.",
+            "Create separate development, staging, and production configurations where required.",
+            "Configure secure database connectivity, TLS, health probes, autoscaling parameters, backups, and retention.",
+            "Configure custom domain and certificates after DNS ownership is available."
+          ],
+          "outputs": [
+            "Versioned infrastructure code",
+            "Environment parameter files",
+            "Security and networking configuration",
+            "Monitoring and backup configuration"
+          ]
+        },
+        {
+          "phase": "Continuous integration and deployment",
+          "actions": [
+            "Create a pull-request workflow for install, lint, type-check, test, build, security scans, and infrastructure validation.",
+            "Configure GitHub-to-Azure federation with OpenID Connect and least-privilege deployment roles.",
+            "Create a deployment workflow that provisions infrastructure, applies migrations safely, deploys the application, and runs smoke tests.",
+            "Use staging slots or revisions and require approval before production promotion.",
+            "Implement rollback to the last healthy artifact or revision when post-deployment checks fail."
+          ],
+          "outputs": [
+            "CI workflow",
+            "Staging and production deployment workflows",
+            "Approval gates",
+            "Rollback procedure"
+          ]
+        },
+        {
+          "phase": "Deployment validation",
+          "actions": [
+            "Validate infrastructure state, application startup, database connectivity, identity callbacks, secrets, health endpoints, and external integrations.",
+            "Run smoke, accessibility, security, and critical-path end-to-end tests against staging.",
+            "Promote the verified immutable artifact to production after approval.",
+            "Verify telemetry, alerts, dashboards, backups, and operational runbooks."
+          ],
+          "outputs": [
+            "Deployment evidence",
+            "Validation results",
+            "Operational dashboard",
+            "Release and rollback notes"
+          ]
+        },
+        {
+          "phase": "Failure diagnosis and resolution",
+          "actions": [
+            "Capture the failed GitHub Actions job, Azure deployment operation ID, timestamps, artifact version, and correlation IDs.",
+            "Determine whether the failure occurred during authentication, infrastructure provisioning, build, migration, application startup, routing, or health verification.",
+            "Inspect GitHub Actions logs, Azure Activity Log, resource deployment operations, App Service or Container Apps logs, Application Insights traces, and PostgreSQL diagnostics.",
+            "Reproduce the failure in staging with the same immutable artifact and sanitized configuration.",
+            "Identify the root cause using evidence, implement the smallest durable correction, and add a regression test or preventive validation.",
+            "Redeploy through the pipeline, confirm health and critical user journeys, and document root cause, remediation, impact, and prevention.",
+            "If safe remediation cannot be completed immediately, roll back to the last healthy version and preserve diagnostic evidence."
+          ],
+          "commonChecks": [
+            "Expired or misconfigured OpenID Connect federation and insufficient Azure RBAC",
+            "Incorrect environment variables, Key Vault references, or managed identity permissions",
+            "Unsupported runtime, build command, package lock mismatch, or missing production dependency",
+            "Database firewall, DNS, TLS, credential, connection-pool, or migration failure",
+            "Container port, startup command, health probe, memory, or architecture mismatch",
+            "Infrastructure naming, quota, policy, region, provider-registration, or dependency errors",
+            "Identity-provider redirect URI, issuer, audience, cookie, or custom-domain mismatch"
+          ],
+          "outputs": [
+            "Root-cause analysis",
+            "Corrective change",
+            "Regression coverage",
+            "Successful validation or documented rollback"
+          ]
+        }
+      ],
+      "decomposition": {
+        "epics": [
+          {
+            "id": "E1",
+            "name": "Requirements and architecture",
+            "tasks": [
+              "Define MVP and personas",
+              "Confirm integrations and data model",
+              "Select Azure services and regions",
+              "Define security, compliance, SLOs, and acceptance criteria"
+            ]
+          },
+          {
+            "id": "E2",
+            "name": "GitHub repository",
+            "tasks": [
+              "Create private repository",
+              "Add project standards and documentation",
+              "Configure branch protection and ownership",
+              "Enable dependency, code, and secret scanning"
+            ]
+          },
+          {
+            "id": "E3",
+            "name": "Application foundation",
+            "tasks": [
+              "Scaffold TypeScript application",
+              "Configure linting, formatting, testing, and environment validation",
+              "Implement shared UI system and layouts",
+              "Add structured logging and health endpoints"
+            ]
+          },
+          {
+            "id": "E4",
+            "name": "Identity and authorization",
+            "tasks": [
+              "Configure identity provider",
+              "Implement login, logout, and session handling",
+              "Enforce roles and resource ownership",
+              "Add authentication and authorization tests"
+            ]
+          },
+          {
+            "id": "E5",
+            "name": "Customer features",
+            "tasks": [
+              "Build dashboard",
+              "Build profile and settings",
+              "Build customer account data views",
+              "Build support workflow and error states"
+            ]
+          },
+          {
+            "id": "E6",
+            "name": "Data and API",
+            "tasks": [
+              "Design schema",
+              "Implement migrations and seed strategy",
+              "Build validated APIs and domain services",
+              "Add audit logging and integration tests"
+            ]
+          },
+          {
+            "id": "E7",
+            "name": "Azure infrastructure",
+            "tasks": [
+              "Author infrastructure as code",
+              "Provision hosting, database, Key Vault, and monitoring",
+              "Configure identities, RBAC, networking, backups, and TLS",
+              "Prepare environment-specific configuration"
+            ]
+          },
+          {
+            "id": "E8",
+            "name": "CI/CD",
+            "tasks": [
+              "Build pull-request validation workflow",
+              "Configure Azure OpenID Connect federation",
+              "Build staging and production deployment workflows",
+              "Add migration safeguards, smoke tests, approvals, and rollback"
+            ]
+          },
+          {
+            "id": "E9",
+            "name": "Verification and operations",
+            "tasks": [
+              "Run accessibility, security, performance, and end-to-end checks",
+              "Configure dashboards and alerts",
+              "Write deployment, rollback, backup, and incident runbooks",
+              "Verify production readiness against acceptance criteria"
+            ]
+          },
+          {
+            "id": "E10",
+            "name": "Deployment failure remediation",
+            "tasks": [
+              "Collect logs and correlation identifiers",
+              "Classify the failing deployment stage",
+              "Reproduce safely in staging",
+              "Fix the evidence-backed root cause",
+              "Add regression prevention and redeploy or roll back",
+              "Publish a root-cause report"
+            ]
+          }
+        ],
+        "definitionOfDone": [
+          "All approved acceptance criteria pass.",
+          "Main branch checks, reviews, and security scans pass.",
+          "Infrastructure and application deployment are reproducible from version control.",
+          "No secrets are stored in the repository or build artifacts.",
+          "Staging and production health checks and critical customer journeys pass.",
+          "Monitoring, alerts, backups, rollback, and incident documentation are validated.",
+          "Any deployment failure has an evidence-backed root cause, durable remediation, and regression protection."
+        ]
+      },
+      "graph": {
+        "nodes": [
+          {
+            "id": "E1",
+            "label": "Requirements and architecture"
+          },
+          {
+            "id": "E2",
+            "label": "GitHub repository"
+          },
+          {
+            "id": "E3",
+            "label": "Application foundation"
+          },
+          {
+            "id": "E4",
+            "label": "Identity and authorization"
+          },
+          {
+            "id": "E5",
+            "label": "Customer features"
+          },
+          {
+            "id": "E6",
+            "label": "Data and API"
+          },
+          {
+            "id": "E7",
+            "label": "Azure infrastructure"
+          },
+          {
+            "id": "E8",
+            "label": "CI/CD"
+          },
+          {
+            "id": "E9",
+            "label": "Verification and operations"
+          },
+          {
+            "id": "E10",
+            "label": "Deployment failure remediation"
+          },
+          {
+            "id": "DONE",
+            "label": "Production-ready customer portal"
+          }
+        ],
+        "edges": [
+          {
+            "from": "E1",
+            "to": "E2",
+            "type": "blocks"
+          },
+          {
+            "from": "E1",
+            "to": "E3",
+            "type": "blocks"
+          },
+          {
+            "from": "E1",
+            "to": "E7",
+            "type": "blocks"
+          },
+          {
+            "from": "E2",
+            "to": "E3",
+            "type": "enables"
+          },
+          {
+            "from": "E3",
+            "to": "E4",
+            "type": "blocks"
+          },
+          {
+            "from": "E3",
+            "to": "E5",
+            "type": "blocks"
+          },
+          {
+            "from": "E3",
+            "to": "E6",
+            "type": "blocks"
+          },
+          {
+            "from": "E4",
+            "to": "E5",
+            "type": "enables"
+          },
+          {
+            "from": "E6",
+            "to": "E5",
+            "type": "enables"
+          },
+          {
+            "from": "E2",
+            "to": "E8",
+            "type": "blocks"
+          },
+          {
+            "from": "E7",
+            "to": "E8",
+            "type": "blocks"
+          },
+          {
+            "from": "E4",
+            "to": "E9",
+            "type": "blocks"
+          },
+          {
+            "from": "E5",
+            "to": "E9",
+            "type": "blocks"
+          },
+          {
+            "from": "E6",
+            "to": "E9",
+            "type": "blocks"
+          },
+          {
+            "from": "E8",
+            "to": "E9",
+            "type": "blocks"
+          },
+          {
+            "from": "E8",
+            "to": "E10",
+            "type": "triggers_on_failure"
+          },
+          {
+            "from": "E10",
+            "to": "E9",
+            "type": "returns_to_validation"
+          },
+          {
+            "from": "E9",
+            "to": "DONE",
+            "type": "gates"
+          }
+        ]
+      }
+    },
+    "projectName": "customer-portal",
+    "planningExecutionId": "resp_0e94cc3ab0b9f2e8006ab250c8febc87d297b14db78178a46b",
+    "files": [
+      {
+        "path": "index.html",
+        "content": "<!doctype html>\n<html lang='en'>\n<head>\n<meta charset='utf-8'>\n<meta name='viewport' content='width=device-width,initial-scale=1'>\n<meta name='description' content='Customer portal and Azure deployment operations prototype'>\n<title>Northstar Customer Portal</title>\n<style>\n:root{--azure:#0766d9;--azure-dark:#0755b8;--navy:#10233f;--ink:#15233b;--muted:#64748b;--line:#dce5ef;--bg:#f4f7fb;--card:#fff;--success:#15803d;--success-bg:#ecfdf3;--warn:#b45309;--warn-bg:#fff7ed;--danger:#c62828;--danger-bg:#fff1f2;--shadow:0 8px 24px rgba(15,35,63,.08);--radius:14px}\n*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Inter,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.45}button,input,select,textarea{font:inherit}button{cursor:pointer}.app{min-height:100vh;display:grid;grid-template-columns:248px 1fr}.sidebar{background:var(--navy);color:#fff;padding:24px 16px;display:flex;flex-direction:column;position:sticky;top:0;height:100vh}.brand{display:flex;align-items:center;gap:11px;padding:0 9px 25px;font-weight:750;font-size:17px}.brand-mark{width:34px;height:34px;background:linear-gradient(145deg,#4fb3ff,#1677e8);border-radius:9px;display:grid;place-items:center;font-weight:900}.prototype{margin-left:auto;font-size:10px;letter-spacing:.08em;text-transform:uppercase;background:#ffd43b;color:#3d3000;padding:4px 7px;border-radius:99px;font-weight:800}.nav-label{font-size:10px;color:#8fa4c2;text-transform:uppercase;letter-spacing:.12em;padding:12px 12px 7px}.nav{display:grid;gap:4px}.nav button{border:0;color:#b8c8df;background:transparent;text-align:left;border-radius:9px;padding:11px 12px;display:flex;gap:11px;align-items:center;font-size:14px}.nav button:hover,.nav button.active{background:#1c385f;color:#fff}.nav .icon{width:20px;text-align:center}.side-foot{margin-top:auto;border-top:1px solid #294464;padding:18px 10px 0;color:#b8c8df;font-size:12px}.side-foot strong{display:block;color:#fff;margin-bottom:3px}.main{min-width:0}.topbar{height:70px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 30px;gap:18px;position:sticky;top:0;z-index:5}.menu-btn{display:none;border:0;background:transparent;font-size:24px}.search{max-width:420px;flex:1;position:relative}.search input{width:100%;padding:10px 14px 10px 38px;border:1px solid var(--line);border-radius:9px;background:#f8fafc}.search span{position:absolute;left:13px;top:10px;color:var(--muted)}.top-actions{margin-left:auto;display:flex;align-items:center;gap:12px}.icon-btn{width:39px;height:39px;border:1px solid var(--line);background:#fff;border-radius:9px}.avatar{width:38px;height:38px;border-radius:50%;background:#dbeafe;color:#0755b8;display:grid;place-items:center;font-weight:750}.content{padding:28px 30px 48px;max-width:1440px;margin:auto}.page{display:none}.page.active{display:block}.heading{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;margin-bottom:24px}.heading h1{font-size:27px;margin:0 0 5px}.heading p{margin:0;color:var(--muted)}.primary,.secondary,.danger-btn{border-radius:9px;padding:10px 15px;font-weight:650;border:1px solid transparent}.primary{background:var(--azure);color:#fff}.primary:hover{background:var(--azure-dark)}.secondary{background:#fff;border-color:var(--line);color:var(--ink)}.danger-btn{background:var(--danger);color:#fff}.grid{display:grid;gap:18px}.stats{grid-template-columns:repeat(4,1fr);margin-bottom:18px}.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:0 2px 5px rgba(15,35,63,.025)}.stat{padding:20px}.stat-top{display:flex;align-items:center;justify-content:space-between;color:var(--muted);font-size:13px}.stat-icon{width:36px;height:36px;border-radius:10px;background:#edf5ff;color:var(--azure);display:grid;place-items:center}.stat strong{font-size:25px;display:block;margin:12px 0 3px}.trend{font-size:12px;color:var(--success)}.dashboard-grid{grid-template-columns:minmax(0,1.65fr) minmax(290px,.8fr)}.card-head{padding:19px 21px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}.card-head h2{font-size:16px;margin:0}.card-body{padding:21px}.account-row{display:flex;align-items:center;padding:15px 0;border-bottom:1px solid #edf1f6;gap:14px}.account-row:last-child{border-bottom:0}.account-icon{width:42px;height:42px;border-radius:10px;background:#edf5ff;display:grid;place-items:center;color:var(--azure);font-weight:800}.account-row strong{display:block}.account-row small{color:var(--muted)}.amount{margin-left:auto;text-align:right}.amount strong{font-size:16px}.badge{display:inline-flex;align-items:center;gap:6px;padding:4px 9px;border-radius:99px;font-size:11px;font-weight:750}.badge.success{background:var(--success-bg);color:var(--success)}.badge.warn{background:var(--warn-bg);color:var(--warn)}.badge.fail{background:var(--danger-bg);color:var(--danger)}.dot{width:7px;height:7px;border-radius:50%;background:currentColor}.quick{display:grid;grid-template-columns:1fr 1fr;gap:10px}.quick button{background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:15px 10px;color:var(--ink);font-weight:650}.quick button:hover{border-color:#8ebdf3;background:#f1f7ff}.activity{margin-top:18px}.activity-item{display:flex;gap:12px;margin-bottom:18px}.timeline-dot{width:10px;height:10px;border:3px solid #b8d8fc;border-radius:50%;background:var(--azure);margin-top:5px}.activity-item p{margin:0;font-size:13px}.activity-item time{font-size:11px;color:var(--muted)}.table-wrap{overflow:auto}.table{width:100%;border-collapse:collapse;min-width:720px}.table th,.table td{text-align:left;padding:14px 16px;border-bottom:1px solid var(--line);font-size:13px}.table th{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.05em;background:#f8fafc}.table tr:hover td{background:#fbfdff}.repo-hero{padding:24px;display:flex;align-items:center;gap:18px}.repo-logo{width:58px;height:58px;background:#172033;color:#fff;border-radius:14px;display:grid;place-items:center;font-size:25px}.repo-hero h2{margin:0 0 4px}.repo-hero p{margin:0;color:var(--muted)}.repo-meta{margin-left:auto;display:flex;gap:25px;text-align:center}.repo-meta strong{display:block;font-size:18px}.repo-meta span{font-size:11px;color:var(--muted)}.pipeline{padding:25px;display:flex;align-items:flex-start;justify-content:center;overflow:auto}.stage{min-width:130px;text-align:center}.stage-circle{margin:auto;width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:var(--success-bg);border:2px solid #72d39a;color:var(--success);font-weight:900}.stage.fail .stage-circle{background:var(--danger-bg);border-color:#ef8d98;color:var(--danger)}.stage h3{font-size:13px;margin:9px 0 2px}.stage small{color:var(--muted)}.connector{width:75px;height:2px;background:#72d39a;margin-top:21px;flex:none}.connector.fail{background:linear-gradient(90deg,#72d39a,#ef8d98)}.incident{border-left:4px solid var(--danger);margin-top:18px}.incident-top{padding:21px;display:flex;gap:16px;align-items:flex-start}.incident-icon{width:43px;height:43px;background:var(--danger-bg);color:var(--danger);border-radius:50%;display:grid;place-items:center;font-weight:bold;flex:none}.incident h2{margin:0 0 5px;font-size:18px}.incident p{margin:0;color:var(--muted);font-size:13px}.incident-actions{margin-left:auto;display:flex;gap:9px}.evidence{background:#111827;color:#d7e2f3;padding:18px 20px;border-radius:10px;font:12px/1.7 Consolas,monospace;margin-top:15px;overflow:auto}.evidence .red{color:#ff8b98}.evidence .green{color:#79e39e}.rca-grid{grid-template-columns:1fr 1fr}.checklist{list-style:none;margin:0;padding:0}.checklist li{padding:11px 0;border-bottom:1px solid var(--line);display:flex;gap:10px;font-size:13px}.check{color:var(--success);font-weight:bold}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:17px}.field label{display:block;font-size:12px;font-weight:700;margin-bottom:6px}.field input,.field select,.field textarea{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:9px;background:#fff}.field.full{grid-column:1/-1}.notice{padding:13px 15px;border-radius:9px;background:#eff6ff;color:#174f91;font-size:13px;margin-bottom:18px}.toast{position:fixed;right:25px;bottom:25px;background:#10233f;color:#fff;border-radius:10px;padding:13px 17px;box-shadow:var(--shadow);transform:translateY(90px);opacity:0;transition:.25s;z-index:20}.toast.show{transform:none;opacity:1}.mobile-overlay{display:none}\n@media(max-width:1050px){.stats{grid-template-columns:1fr 1fr}.dashboard-grid,.rca-grid{grid-template-columns:1fr}.repo-meta{display:none}}\n@media(max-width:760px){.app{display:block}.sidebar{position:fixed;left:-265px;z-index:30;width:248px;transition:.2s}.sidebar.open{left:0}.mobile-overlay.show{display:block;position:fixed;inset:0;background:#07142699;z-index:25}.menu-btn{display:block}.topbar{padding:0 16px}.search{display:none}.content{padding:22px 16px}.heading{display:block}.heading .primary{margin-top:14px}.stats{grid-template-columns:1fr 1fr;gap:11px}.stat{padding:15px}.stat strong{font-size:21px}.repo-hero{align-items:flex-start}.pipeline{justify-content:flex-start}.incident-top{flex-wrap:wrap}.incident-actions{margin-left:58px}.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}}\n@media(max-width:440px){.stats{grid-template-columns:1fr}.top-actions .icon-btn{display:none}.quick{grid-template-columns:1fr}.incident-actions{margin-left:0}}\n</style>\n</head>\n<body>\n<div class='mobile-overlay' id='overlay'></div>\n<div class='app'>\n<aside class='sidebar' id='sidebar'>\n <div class='brand'><div class='brand-mark'>N</div>Northstar <span class='prototype'>Prototype</span></div>\n <div class='nav-label'>Customer portal</div>\n <nav class='nav'>\n  <button class='active' data-page='dashboard'><span class='icon'>⌂</span>Overview</button>\n  <button data-page='accounts'><span class='icon'>▤</span>My accounts</button>\n  <button data-page='support'><span class='icon'>◌</span>Support</button>\n </nav>\n <div class='nav-label'>Operations</div>\n <nav class='nav'>\n  <button data-page='repository'><span class='icon'>◈</span>GitHub repository</button>\n  <button data-page='deployment'><span class='icon'>⇧</span>Azure deployment</button>\n  <button data-page='diagnostics'><span class='icon'>⚕</span>Diagnostics</button>\n </nav>\n <div class='side-foot'><strong>Northstar Services</strong>Secure customer workspace<br>Environment: Production</div>\n</aside>\n<main class='main'>\n<header class='topbar'>\n <button class='menu-btn' id='menuBtn' aria-label='Open navigation'>☰</button>\n <div class='search'><span>⌕</span><input aria-label='Search portal' placeholder='Search accounts, invoices, support...'></div>\n <div class='top-actions'><span class='badge success'><span class='dot'></span>Services healthy</span><button class='icon-btn' aria-label='Notifications'>♢</button><div class='avatar' title='Alex Morgan'>AM</div></div>\n</header>\n<div class='content'>\n<section class='page active' id='dashboard'>\n <div class='heading'><div><h1>Welcome back, Alex</h1><p>Here is a summary of your services and recent activity.</p></div><button class='primary action' data-message='Account report prepared for download'>Download report</button></div>\n <div class='grid stats'>\n  <article class='card stat'><div class='stat-top'><span>Active services</span><span class='stat-icon'>▦</span></div><strong>4</strong><span class='trend'>All operating normally</span></article>\n  <article class='card stat'><div class='stat-top'><span>Current balance</span><span class='stat-icon'>$</span></div><strong>$1,284.20</strong><span class='trend'>Paid through May 31</span></article>\n  <article class='card stat'><div class='stat-top'><span>Open requests</span><span class='stat-icon'>?</span></div><strong>2</strong><span style='font-size:12px;color:var(--muted)'>1 awaiting your reply</span></article>\n  <article class='card stat'><div class='stat-top'><span>Security score</span><span class='stat-icon'>✓</span></div><strong>94%</strong><span class='trend'>Excellent standing</span></article>\n </div>\n <div class='grid dashboard-grid'>\n  <article class='card'><div class='card-head'><h2>Your accounts</h2><button class='secondary nav-link' data-target='accounts'>View all</button></div><div class='card-body'>\n   <div class='account-row'><div class='account-icon'>CS</div><div><strong>Cloud Services</strong><small>Account •••• 2048</small></div><div class='amount'><strong>$864.20</strong><span class='badge success'>Active</span></div></div>\n   <div class='account-row'><div class='account-icon'>DS</div><div><strong>Data Services</strong><small>Account •••• 8731</small></div><div class='amount'><strong>$420.00</strong><span class='badge success'>Active</span></div></div>\n   <div class='account-row'><div class='account-icon'>SP</div><div><strong>Support Plus</strong><small>Renews Jun 18, 2025</small></div><div class='amount'><strong>Included</strong><span class='badge success'>Active</span></div></div>\n  </div></article>\n  <div><article class='card'><div class='card-head'><h2>Quick actions</h2></div><div class='card-body quick'><button class='action' data-message='Billing page opened'>▤<br>View invoice</button><button class='nav-link' data-target='support'>＋<br>New request</button><button class='action' data-message='Payment method is up to date'>◇<br>Payment method</button><button class='action' data-message='Profile settings opened'>⚙<br>Settings</button></div></article>\n  <article class='card activity'><div class='card-head'><h2>Recent activity</h2></div><div class='card-body'><div class='activity-item'><span class='timeline-dot'></span><div><p><strong>Invoice paid</strong> — May services</p><time>Today, 9:42 AM</time></div></div><div class='activity-item'><span class='timeline-dot'></span><div><p><strong>Support request updated</strong> — SR-1042</p><time>Yesterday, 3:18 PM</time></div></div></div></article></div>\n </div>\n</section>\n<section class='page' id='accounts'><div class='heading'><div><h1>My accounts</h1><p>Manage subscriptions, usage, and billing.</p></div><button class='primary action' data-message='Service catalog opened'>Add service</button></div><article class='card table-wrap'><table class='table'><thead><tr><th>Service</th><th>Account</th><th>Plan</th><th>Monthly usage</th><th>Status</th></tr></thead><tbody><tr><td><strong>Cloud Services</strong></td><td>•••• 2048</td><td>Business</td><td>$864.20</td><td><span class='badge success'>Active</span></td></tr><tr><td><strong>Data Services</strong></td><td>•••• 8731</td><td>Standard</td><td>$420.00</td><td><span class='badge success'>Active</span></td></tr><tr><td><strong>Support Plus</strong></td><td>•••• 5182</td><td>Premium</td><td>Included</td><td><span class='badge success'>Active</span></td></tr></tbody></table></article></section>\n<section class='page' id='support'><div class='heading'><div><h1>Support center</h1><p>Submit and track requests with our customer success team.</p></div></div><div class='grid dashboard-grid'><article class='card'><div class='card-head'><h2>Create a request</h2></div><div class='card-body'><div class='notice'>For urgent production issues, select High priority. Never include passwords or secrets.</div><form id='supportForm' class='form-grid'><div class='field'><label for='category'>Category</label><select id='category'><option>Account question</option><option>Billing</option><option>Technical issue</option></select></div><div class='field'><label for='priority'>Priority</label><select id='priority'><option>Normal</option><option>High</option></select></div><div class='field full'><label for='subject'>Subject</label><input id='subject' required placeholder='Brief description'></div><div class='field full'><label for='details'>Details</label><textarea id='details' rows='5' required placeholder='How can we help?'></textarea></div><div class='field full'><button class='primary' type='submit'>Submit request</button></div></form></div></article><article class='card'><div class='card-head'><h2>Open requests</h2></div><div class='card-body'><div class='account-row'><div><strong>SR-1042</strong><small>Invoice cost allocation</small></div><span class='badge warn' style='margin-left:auto'>Awaiting reply</span></div><div class='account-row'><div><strong>SR-1038</strong><small>New user access</small></div><span class='badge success' style='margin-left:auto'>In progress</span></div></div></article></div></section>\n<section class='page' id='repository'><div class='heading'><div><h1>GitHub repository</h1><p>Source control, governance, and delivery readiness.</p></div><button class='secondary action' data-message='Prototype: external repository links are disabled'>Open in GitHub ↗</button></div><article class='card repo-hero'><div class='repo-logo'>⌘</div><div><h2>northstar/customer-portal</h2><p>Private repository · main branch protected</p></div><div class='repo-meta'><div><strong>24</strong><span>COMMITS</span></div><div><strong>6</strong><span>CHECKS</span></div><div><strong>0</strong><span>ALERTS</span></div></div></article><div class='grid stats' style='margin-top:18px'><article class='card stat'><div class='stat-top'>Branch protection<span class='badge success'>Enabled</span></div><strong>2 reviews</strong><span class='trend'>Required before merge</span></article><article class='card stat'><div class='stat-top'>Security scanning<span class='badge success'>Passing</span></div><strong>0 alerts</strong><span class='trend'>Code and secrets scanned</span></article><article class='card stat'><div class='stat-top'>Last workflow<span class='badge fail'>Failed</span></div><strong>#148</strong><span style='font-size:12px;color:var(--danger)'>Azure deployment</span></article><article class='card stat'><div class='stat-top'>Artifact<span class='badge success'>Verified</span></div><strong>v1.8.3</strong><span class='trend'>Immutable build</span></article></div><article class='card table-wrap'><table class='table'><thead><tr><th>Workflow</th><th>Trigger</th><th>Commit</th><th>Duration</th><th>Status</th></tr></thead><tbody><tr><td><strong>Deploy production</strong></td><td>Release v1.8.3</td><td>8e32ad1</td><td>6m 42s</td><td><span class='badge fail'>Failed</span></td></tr><tr><td><strong>Pull request checks</strong></td><td>PR #81</td><td>8e32ad1</td><td>4m 11s</td><td><span class='badge success'>Passed</span></td></tr><tr><td><strong>Security scan</strong></td><td>Schedule</td><td>7a90f26</td><td>2m 38s</td><td><span class='badge success'>Passed</span></td></tr></tbody></table></article></section>\n<section class='page' id='deployment'><div class='heading'><div><h1>Azure deployment</h1><p>Production release v1.8.3 · West Europe · App Service</p></div><button class='primary nav-link' data-target='diagnostics'>View diagnostics</button></div><article class='card'><div class='card-head'><h2>Deployment pipeline</h2><span class='badge fail'><span class='dot'></span>Action required</span></div><div class='pipeline'><div class='stage'><div class='stage-circle'>✓</div><h3>Authenticate</h3><small>12s</small></div><div class='connector'></div><div class='stage'><div class='stage-circle'>✓</div><h3>Build</h3><small>2m 08s</small></div><div class='connector'></div><div class='stage'><div class='stage-circle'>✓</div><h3>Test</h3><small>3m 17s</small></div><div class='connector'></div><div class='stage'><div class='stage-circle'>✓</div><h3>Deploy</h3><small>58s</small></div><div class='connector fail'></div><div class='stage fail'><div class='stage-circle'>!</div><h3>Health check</h3><small>Failed</small></div></div></article><article class='card incident'><div class='incident-top'><div class='incident-icon'>!</div><div><h2>Deployment health verification failed</h2><p>The artifact deployed successfully, but the application did not answer on the expected port within 230 seconds.</p></div><div class='incident-actions'><button class='secondary nav-link' data-target='diagnostics'>Investigate</button><button class='danger-btn action' data-message='Rollback simulation started'>Roll back</button></div></div></article><div class='grid stats' style='margin-top:18px'><article class='card stat'><div class='stat-top'>Environment</div><strong>Production</strong><span style='font-size:12px;color:var(--muted)'>customer-portal-prod</span></article><article class='card stat'><div class='stat-top'>Last healthy</div><strong>v1.8.2</strong><span class='trend'>May 28 · 14:32 UTC</span></article><article class='card stat'><div class='stat-top'>Availability</div><strong>99.98%</strong><span class='trend'>Previous 30 days</span></article><article class='card stat'><div class='stat-top'>Live traffic</div><strong>v1.8.2</strong><span class='trend'>Protected by slot swap</span></article></div></section>\n<section class='page' id='diagnostics'><div class='heading'><div><h1>Failure diagnostics</h1><p>Evidence-backed root cause analysis for workflow run #148.</p></div><button class='primary action' data-message='Remediation workflow queued in this prototype'>Apply correction</button></div><div class='grid rca-grid'><article class='card'><div class='card-head'><h2>Root cause</h2><span class='badge fail'>Confirmed</span></div><div class='card-body'><p><strong>Incorrect App Service startup port configuration.</strong></p><p style='color:var(--muted);font-size:13px'>The application listens on port <strong>3000</strong>, while the App Service configuration expected port <strong>8080</strong>. The process started, but the platform health probe could not reach it.</p><div class='evidence'><span class='red'>ERROR</span> Health probe failed: connection refused :8080<br>INFO Server listening on 0.0.0.0:<span class='green'>3000</span><br>INFO Artifact: customer-portal-v1.8.3<br>INFO Correlation: dep-148-f7a2</div></div></article><article class='card'><div class='card-head'><h2>Durable correction</h2><span class='badge success'>Ready</span></div><div class='card-body'><ul class='checklist'><li><span class='check'>✓</span><span>Set application to use the platform-provided <strong>PORT</strong> environment variable.</span></li><li><span class='check'>✓</span><span>Add startup validation that logs the effective host and port.</span></li><li><span class='check'>✓</span><span>Add a staging smoke test against <strong>/health</strong> before slot promotion.</span></li><li><span class='check'>✓</span><span>Keep production on healthy artifact v1.8.2 until validation passes.</span></li></ul></div></article></div><article class='card' style='margin-top:18px'><div class='card-head'><h2>Validation plan</h2><span class='badge warn'>Pending approval</span></div><div class='card-body'><div class='grid stats' style='margin:0'><div><strong>1. Deploy to staging</strong><p style='font-size:12px;color:var(--muted)'>Use immutable artifact v1.8.3-r1.</p></div><div><strong>2. Verify health</strong><p style='font-size:12px;color:var(--muted)'>Confirm startup, identity, and database.</p></div><div><strong>3. Run smoke tests</strong><p style='font-size:12px;color:var(--muted)'>Exercise login and account views.</p></div><div><strong>4. Promote safely</strong><p style='font-size:12px;color:var(--muted)'>Swap slots after approval.</p></div></div></div></article></section>\n</div>\n</main>\n</div>\n<div class='toast' id='toast' role='status' aria-live='polite'></div>\n<script>\nconst pages=[...document.querySelectorAll('.page')],nav=[...document.querySelectorAll('.nav button')],sidebar=document.getElementById('sidebar'),overlay=document.getElementById('overlay'),toast=document.getElementById('toast');\nfunction showPage(id){pages.forEach(p=>p.classList.toggle('active',p.id===id));nav.forEach(b=>b.classList.toggle('active',b.dataset.page===id));sidebar.classList.remove('open');overlay.classList.remove('show');window.scrollTo({top:0,behavior:'smooth'});}\nnav.forEach(b=>b.addEventListener('click',()=>showPage(b.dataset.page)));\ndocument.querySelectorAll('.nav-link').forEach(b=>b.addEventListener('click',()=>showPage(b.dataset.target)));\ndocument.getElementById('menuBtn').addEventListener('click',()=>{sidebar.classList.toggle('open');overlay.classList.toggle('show')});overlay.addEventListener('click',()=>{sidebar.classList.remove('open');overlay.classList.remove('show')});\nfunction notify(message){toast.textContent=message;toast.classList.add('show');clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>toast.classList.remove('show'),2800)}\ndocument.querySelectorAll('.action').forEach(b=>b.addEventListener('click',()=>notify(b.dataset.message)));\ndocument.getElementById('supportForm').addEventListener('submit',e=>{e.preventDefault();notify('Support request SR-1051 created');e.target.reset()});\n</script>\n</body>\n</html>"
+      }
+    ]
+  },
+  "extra": {
+    "ok": true,
+    "executor": "OpenAI API",
+    "model": "gpt-5.6-sol",
+    "executionId": "resp_096375645d5efba6006ab25106beec87d2936c95272d3abcf6",
+    "result": "Generated 1 project source files.",
+    "usage": {
+      "input_tokens": 2371,
+      "input_tokens_details": {
+        "cache_write_tokens": 2368,
+        "cached_tokens": 0
+      },
+      "output_tokens": 7373,
+      "output_tokens_details": {
+        "reasoning_tokens": 158
+      },
+      "total_tokens": 9744
+    },
+    "estimatedCost": 0.156944
+  },
+  "savedAt": "2026-09-22T09:59:05.480Z"
+}
