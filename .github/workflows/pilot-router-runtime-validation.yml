@@ -1,0 +1,69 @@
+name: Pilot Router Runtime Validation
+
+on:
+  push:
+    branches:
+      - agent-pilot-router
+    paths:
+      - "index.html"
+      - "site.css"
+      - "shared.js"
+      - "pipeline-v05.js"
+      - "*.ashx"
+      - "web.config"
+      - ".github/workflows/pilot-router-runtime-validation.yml"
+  workflow_dispatch:
+
+jobs:
+  validate-runtime:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout exact commit
+        uses: actions/checkout@v4
+
+      - name: Validate JavaScript syntax
+        shell: pwsh
+        run: |
+          node --check pipeline-v05.js
+          node --check shared.js
+
+      - name: Precompile ASP.NET Web Site runtime
+        shell: pwsh
+        run: |
+          $site = Join-Path $env:RUNNER_TEMP "pilot-router-site"
+          $out = Join-Path $env:RUNNER_TEMP "pilot-router-precompiled"
+          New-Item -ItemType Directory -Force -Path $site | Out-Null
+          New-Item -ItemType Directory -Force -Path $out | Out-Null
+
+          $files = @(
+            "index.html",
+            "agent-master.html",
+            "evidence.html",
+            "site.css",
+            "shared.js",
+            "pipeline-v05.js",
+            "evidence-save.ashx",
+            "executor-preflight.ashx",
+            "openai-execute.ashx",
+            "github-publish.ashx",
+            "azure-deploy.ashx",
+            "web.config"
+          )
+          foreach ($f in $files) {
+            if (-not (Test-Path $f)) { throw "Missing runtime file: $f" }
+            Copy-Item $f -Destination (Join-Path $site $f)
+          }
+
+          $compiler = "$env:WINDIR\Microsoft.NET\Framework64\v4.0.30319\aspnet_compiler.exe"
+          if (-not (Test-Path $compiler)) {
+            $compiler = "$env:WINDIR\Microsoft.NET\Framework\v4.0.30319\aspnet_compiler.exe"
+          }
+          if (-not (Test-Path $compiler)) { throw "aspnet_compiler.exe not found" }
+
+          & $compiler -v / -p $site -f $out
+          if ($LASTEXITCODE -ne 0) { throw "ASP.NET precompile failed with exit code $LASTEXITCODE" }
+
+      - name: Validation summary
+        shell: pwsh
+        run: |
+          "Runtime validation passed for $env:GITHUB_SHA" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append
