@@ -148,7 +148,7 @@ public class GitHubPublish : IHttpHandler {
         string content = SRaw(d, "content");
         ValidatePath(path);
 
-        byte[] name = Encoding.UTF8.GetBytes(path.Replace('\', '/'));
+        byte[] name = Encoding.UTF8.GetBytes(path);
         byte[] data = new UTF8Encoding(false).GetBytes(content);
         uint crc = Crc32(data);
         uint offset = (uint)ms.Position;
