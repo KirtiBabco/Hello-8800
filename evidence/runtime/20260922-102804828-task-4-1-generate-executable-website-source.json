@@ -1,0 +1,573 @@
+{
+  "prompt": "Build a Customer Portal, Create GitHub Repo, Deploy to Azure and if deployment fails find root cause and solve it.",
+  "task": {
+    "mo": "Implementation",
+    "id": "4.1",
+    "t": "Generate executable website source",
+    "d": "Real OpenAI execution produces self-contained prototype source files.",
+    "dep": [
+      "2.1",
+      "3.1",
+      "3.2"
+    ],
+    "ro": {
+      "k": "OpenAI API",
+      "n": "OpenAI",
+      "m": "gpt-5.6-sol",
+      "w": "Real source generation."
+    },
+    "s": "Running",
+    "res": "Generated 3 project source files.",
+    "proof": {
+      "executor": true,
+      "requestReceipt": true,
+      "executionId": "resp_04888210ef42519a006ab257cf4e8087d2a496982870ef5565",
+      "terminal": true,
+      "result": true,
+      "verification": true,
+      "evidence": ""
+    },
+    "inp": 2368,
+    "out": 8236,
+    "c": 0.174192,
+    "outUrl": "",
+    "requiresUrl": false
+  },
+  "context": {
+    "planning": {
+      "projectName": "customer-portal",
+      "analysis": {
+        "objective": "Build a secure customer-facing web portal, maintain its source code in a GitHub repository, and deploy it to Microsoft Azure.",
+        "assumptions": [
+          "The portal will initially support customer authentication, profile management, a dashboard, and support requests.",
+          "A responsive web application with an API and relational database is appropriate.",
+          "Azure and GitHub credentials, subscription access, domain details, and branding assets will be supplied before deployment.",
+          "Infrastructure and deployments should be reproducible through infrastructure-as-code and CI/CD."
+        ],
+        "proposedStack": {
+          "frontend": "Next.js with TypeScript",
+          "backend": "Next.js server APIs or a separate Node.js TypeScript API if scaling boundaries require it",
+          "database": "Azure Database for PostgreSQL",
+          "authentication": "Microsoft Entra External ID or Azure AD B2C, subject to tenant availability",
+          "hosting": "Azure App Service",
+          "secrets": "Azure Key Vault",
+          "monitoring": "Azure Application Insights and Log Analytics",
+          "sourceControl": "GitHub",
+          "ciCd": "GitHub Actions",
+          "infrastructureAsCode": "Bicep"
+        },
+        "functionalScope": [
+          "Customer registration, sign-in, sign-out, and password recovery",
+          "Customer dashboard",
+          "Profile and contact-information management",
+          "Support request creation and status tracking",
+          "Role-based access for customers and administrators",
+          "Accessible, responsive user interface",
+          "Audit-friendly activity logging"
+        ],
+        "nonFunctionalRequirements": [
+          "TLS-only access",
+          "No secrets committed to source control",
+          "Input validation and secure authorization checks",
+          "Automated tests and deployment gates",
+          "Centralized logs, metrics, health checks, and alerts",
+          "Documented backup and rollback procedures",
+          "WCAG 2.1 AA-oriented user experience"
+        ],
+        "requiredInputs": [
+          "GitHub organization or account and repository visibility",
+          "Azure tenant, subscription, region, and resource naming constraints",
+          "Expected customer volume and availability target",
+          "Branding and domain requirements",
+          "Required portal features and external integrations",
+          "Identity-provider preference and compliance requirements",
+          "Budget limits and environment requirements"
+        ],
+        "successCriteria": [
+          "The application passes linting, type checks, automated tests, and security checks.",
+          "The GitHub repository contains application code, infrastructure code, workflows, and operational documentation.",
+          "The Azure environment can be provisioned reproducibly.",
+          "A deployment workflow can release the application without exposing credentials.",
+          "Health checks, telemetry, alerts, rollback, and troubleshooting procedures are available.",
+          "Deployment failures are diagnosed from evidence, corrected through code or configuration, and verified by rerunning relevant checks."
+        ]
+      },
+      "buildPlan": [
+        {
+          "phase": "Discovery and architecture",
+          "actions": [
+            "Confirm users, workflows, integrations, compliance constraints, service-level objectives, and environments.",
+            "Define the data model, authorization matrix, API contracts, and threat model.",
+            "Create architecture and deployment diagrams."
+          ],
+          "deliverables": [
+            "Approved scope",
+            "Architecture decision records",
+            "Data model",
+            "Authorization matrix",
+            "Acceptance criteria"
+          ]
+        },
+        {
+          "phase": "Application foundation",
+          "actions": [
+            "Scaffold the TypeScript application with formatting, linting, validation, and test tooling.",
+            "Create reusable UI components, layouts, error boundaries, and accessibility conventions.",
+            "Implement environment configuration with startup validation."
+          ],
+          "deliverables": [
+            "Runnable application skeleton",
+            "Development scripts",
+            "Configuration template",
+            "Baseline tests"
+          ]
+        },
+        {
+          "phase": "Portal implementation",
+          "actions": [
+            "Integrate customer identity and implement route protection.",
+            "Build dashboard, profile, and support-request workflows.",
+            "Implement database migrations, authorization checks, audit events, and safe error handling.",
+            "Add administrator capabilities only after the role model is approved."
+          ],
+          "deliverables": [
+            "Portal features",
+            "API endpoints",
+            "Database migrations",
+            "Authorization tests"
+          ]
+        },
+        {
+          "phase": "Quality and security",
+          "actions": [
+            "Add unit, integration, and end-to-end tests.",
+            "Run dependency, secret, and static-analysis scans.",
+            "Test accessibility, responsive behavior, authentication boundaries, and failure states.",
+            "Define performance baselines and perform targeted load tests."
+          ],
+          "deliverables": [
+            "Automated test suite",
+            "Security scan configuration",
+            "Accessibility report",
+            "Release checklist"
+          ]
+        },
+        {
+          "phase": "GitHub repository setup",
+          "actions": [
+            "Create the repository under the approved GitHub owner.",
+            "Push the reviewed initial codebase using a protected default branch.",
+            "Configure pull-request reviews, status checks, Dependabot, code ownership, issue templates, and environment protections.",
+            "Document local setup, architecture, release, rollback, and incident procedures."
+          ],
+          "deliverables": [
+            "Configured GitHub repository",
+            "Branch protection rules",
+            "CI workflows",
+            "Repository documentation"
+          ]
+        },
+        {
+          "phase": "Azure infrastructure",
+          "actions": [
+            "Define resource groups, App Service, PostgreSQL, Key Vault, Application Insights, Log Analytics, managed identities, and networking in Bicep.",
+            "Create separate development, staging, and production parameter files as required.",
+            "Apply least-privilege role assignments and configure secret references.",
+            "Configure database backups, retention, health checks, alerts, and budget notifications."
+          ],
+          "deliverables": [
+            "Bicep templates",
+            "Environment parameters",
+            "Identity and access configuration",
+            "Monitoring configuration"
+          ]
+        },
+        {
+          "phase": "Deployment pipeline",
+          "actions": [
+            "Configure GitHub Actions to authenticate to Azure using OpenID Connect rather than long-lived credentials.",
+            "Build, test, scan, package, provision, migrate, and deploy through staged jobs.",
+            "Deploy to a staging slot, run smoke tests, and swap to production after approval.",
+            "Retain the prior deployable artifact and define automated or manual rollback conditions."
+          ],
+          "deliverables": [
+            "CI/CD workflow",
+            "Staging validation",
+            "Production approval gate",
+            "Rollback workflow"
+          ]
+        },
+        {
+          "phase": "Deployment failure diagnosis and resolution",
+          "actions": [
+            "Capture the failing workflow run, exact step, timestamps, commit SHA, deployment operation ID, and sanitized error output.",
+            "Check GitHub Actions logs, Azure Activity Log, App Service deployment logs, application logs, Application Insights traces, resource health, and database migration output.",
+            "Classify the failure as build, test, authentication, authorization, infrastructure, configuration, networking, migration, startup, health-check, quota, or runtime related.",
+            "Reproduce the narrowest failing operation in a non-production environment.",
+            "Form and test a root-cause hypothesis using logs and configuration evidence.",
+            "Correct the defect in source code, infrastructure code, permissions, configuration, or pipeline logic without bypassing security controls.",
+            "Rerun automated checks, redeploy to staging, execute smoke tests, and only then promote to production.",
+            "Document the root cause, impact, resolution, and preventive action; add a regression test or pipeline guard where feasible."
+          ],
+          "commonFailureChecks": {
+            "build": [
+              "Runtime and package-manager version mismatch",
+              "Missing generated assets",
+              "Lockfile drift",
+              "Insufficient build memory"
+            ],
+            "identityAndPermissions": [
+              "Incorrect OIDC subject or audience",
+              "Expired or mis-scoped role assignment",
+              "Missing managed-identity access to Key Vault or database"
+            ],
+            "infrastructure": [
+              "Invalid Bicep parameters",
+              "Azure policy denial",
+              "Regional quota or service availability",
+              "Resource-name collision"
+            ],
+            "configuration": [
+              "Missing application setting",
+              "Incorrect secret reference",
+              "Wrong environment or callback URL"
+            ],
+            "networking": [
+              "Database firewall restriction",
+              "Private endpoint or DNS resolution issue",
+              "Blocked outbound dependency"
+            ],
+            "application": [
+              "Failed database migration",
+              "Incorrect startup command",
+              "Health-check timeout",
+              "Unhandled runtime exception"
+            ]
+          },
+          "deliverables": [
+            "Evidence-based root-cause record",
+            "Corrective change",
+            "Successful staging verification",
+            "Regression prevention",
+            "Production release or documented rollback"
+          ]
+        }
+      ],
+      "decomposition": {
+        "workstreams": [
+          {
+            "name": "Product and UX",
+            "tasks": [
+              "Define personas and journeys",
+              "Create wireframes",
+              "Specify accessibility behavior",
+              "Approve acceptance criteria"
+            ]
+          },
+          {
+            "name": "Frontend",
+            "tasks": [
+              "Create design system",
+              "Build authentication screens",
+              "Build dashboard",
+              "Build profile management",
+              "Build support-request screens",
+              "Add client-side validation and error states"
+            ]
+          },
+          {
+            "name": "Backend and data",
+            "tasks": [
+              "Define schema and migrations",
+              "Implement APIs",
+              "Implement authorization",
+              "Implement audit logging",
+              "Implement health endpoints"
+            ]
+          },
+          {
+            "name": "Identity and security",
+            "tasks": [
+              "Configure external customer identity",
+              "Define roles and claims",
+              "Model threats",
+              "Configure secret handling",
+              "Add security scanning"
+            ]
+          },
+          {
+            "name": "Testing",
+            "tasks": [
+              "Add unit tests",
+              "Add API integration tests",
+              "Add authentication and authorization tests",
+              "Add browser end-to-end tests",
+              "Add accessibility and smoke tests"
+            ]
+          },
+          {
+            "name": "GitHub and governance",
+            "tasks": [
+              "Create repository",
+              "Configure branch protections",
+              "Configure CODEOWNERS",
+              "Enable dependency updates",
+              "Configure protected deployment environments"
+            ]
+          },
+          {
+            "name": "Azure platform",
+            "tasks": [
+              "Author Bicep modules",
+              "Provision application hosting",
+              "Provision database",
+              "Provision Key Vault",
+              "Configure managed identities",
+              "Configure monitoring, alerts, and backups"
+            ]
+          },
+          {
+            "name": "CI/CD and operations",
+            "tasks": [
+              "Create continuous-integration workflow",
+              "Create infrastructure deployment workflow",
+              "Create application deployment workflow",
+              "Configure staging-slot validation",
+              "Create rollback and incident runbooks",
+              "Validate deployment-failure diagnostics"
+            ]
+          }
+        ],
+        "milestones": [
+          {
+            "name": "M1 Architecture approved",
+            "exitCriteria": [
+              "Scope and acceptance criteria are approved",
+              "Architecture, identity, data, and security decisions are documented"
+            ]
+          },
+          {
+            "name": "M2 Minimum viable portal complete",
+            "exitCriteria": [
+              "Core customer journeys work locally",
+              "Authorization and validation tests pass"
+            ]
+          },
+          {
+            "name": "M3 Repository and CI ready",
+            "exitCriteria": [
+              "GitHub controls are configured",
+              "Pull requests run required quality and security checks"
+            ]
+          },
+          {
+            "name": "M4 Azure staging ready",
+            "exitCriteria": [
+              "Infrastructure provisions from Bicep",
+              "Staging deployment and smoke tests pass",
+              "Telemetry and alerts are visible"
+            ]
+          },
+          {
+            "name": "M5 Production release ready",
+            "exitCriteria": [
+              "Security and accessibility criteria pass",
+              "Backup and rollback procedures are validated",
+              "Production approval is recorded"
+            ]
+          }
+        ]
+      },
+      "graph": {
+        "nodes": [
+          "requirements",
+          "architecture",
+          "ux-design",
+          "application-foundation",
+          "identity",
+          "database",
+          "frontend",
+          "backend",
+          "automated-tests",
+          "github-repository",
+          "azure-infrastructure",
+          "monitoring",
+          "ci-pipeline",
+          "cd-pipeline",
+          "staging-deployment",
+          "smoke-tests",
+          "production-deployment",
+          "failure-diagnosis",
+          "corrective-change",
+          "regression-verification",
+          "operational-handover"
+        ],
+        "edges": [
+          {
+            "from": "requirements",
+            "to": "architecture"
+          },
+          {
+            "from": "requirements",
+            "to": "ux-design"
+          },
+          {
+            "from": "architecture",
+            "to": "application-foundation"
+          },
+          {
+            "from": "architecture",
+            "to": "identity"
+          },
+          {
+            "from": "architecture",
+            "to": "database"
+          },
+          {
+            "from": "application-foundation",
+            "to": "frontend"
+          },
+          {
+            "from": "application-foundation",
+            "to": "backend"
+          },
+          {
+            "from": "ux-design",
+            "to": "frontend"
+          },
+          {
+            "from": "identity",
+            "to": "frontend"
+          },
+          {
+            "from": "identity",
+            "to": "backend"
+          },
+          {
+            "from": "database",
+            "to": "backend"
+          },
+          {
+            "from": "frontend",
+            "to": "automated-tests"
+          },
+          {
+            "from": "backend",
+            "to": "automated-tests"
+          },
+          {
+            "from": "application-foundation",
+            "to": "github-repository"
+          },
+          {
+            "from": "architecture",
+            "to": "azure-infrastructure"
+          },
+          {
+            "from": "azure-infrastructure",
+            "to": "monitoring"
+          },
+          {
+            "from": "github-repository",
+            "to": "ci-pipeline"
+          },
+          {
+            "from": "automated-tests",
+            "to": "ci-pipeline"
+          },
+          {
+            "from": "ci-pipeline",
+            "to": "cd-pipeline"
+          },
+          {
+            "from": "azure-infrastructure",
+            "to": "cd-pipeline"
+          },
+          {
+            "from": "cd-pipeline",
+            "to": "staging-deployment"
+          },
+          {
+            "from": "staging-deployment",
+            "to": "smoke-tests"
+          },
+          {
+            "from": "smoke-tests",
+            "to": "production-deployment",
+            "condition": "pass and approval granted"
+          },
+          {
+            "from": "staging-deployment",
+            "to": "failure-diagnosis",
+            "condition": "deployment failure"
+          },
+          {
+            "from": "smoke-tests",
+            "to": "failure-diagnosis",
+            "condition": "test failure"
+          },
+          {
+            "from": "production-deployment",
+            "to": "failure-diagnosis",
+            "condition": "deployment or health-check failure"
+          },
+          {
+            "from": "failure-diagnosis",
+            "to": "corrective-change"
+          },
+          {
+            "from": "corrective-change",
+            "to": "regression-verification"
+          },
+          {
+            "from": "regression-verification",
+            "to": "ci-pipeline",
+            "condition": "verification passes"
+          },
+          {
+            "from": "production-deployment",
+            "to": "operational-handover",
+            "condition": "release is healthy"
+          }
+        ]
+      }
+    },
+    "projectName": "customer-portal",
+    "planningExecutionId": "resp_075e51e621674d00006ab257922edc87d28cc5cda414fe72e8",
+    "files": [
+      {
+        "path": "index.html",
+        "content": "<!doctype html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"utf-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n  <meta name=\"description\" content=\"Customer portal and Azure deployment operations prototype\">\n  <title>Northstar Customer Portal</title>\n  <link rel=\"stylesheet\" href=\"styles.css\">\n</head>\n<body>\n  <a class=\"skip-link\" href=\"#main\">Skip to main content</a>\n  <div class=\"prototype-label\">PROTOTYPE</div>\n\n  <aside class=\"sidebar\" id=\"sidebar\" aria-label=\"Primary navigation\">\n    <div class=\"brand\">\n      <div class=\"brand-mark\" aria-hidden=\"true\">N</div>\n      <div><strong>Northstar</strong><span>Customer Portal</span></div>\n    </div>\n    <nav>\n      <button class=\"nav-item active\" data-page=\"dashboard\"><span aria-hidden=\"true\">▦</span> Dashboard</button>\n      <button class=\"nav-item\" data-page=\"requests\"><span aria-hidden=\"true\">◫</span> Support requests <span class=\"nav-count\">3</span></button>\n      <button class=\"nav-item\" data-page=\"profile\"><span aria-hidden=\"true\">◎</span> My profile</button>\n      <button class=\"nav-item\" data-page=\"deployment\"><span aria-hidden=\"true\">↗</span> Deployment center</button>\n    </nav>\n    <div class=\"sidebar-footer\">\n      <div class=\"service-health\"><span class=\"status-dot\"></span><div><strong>All systems operational</strong><small>Last checked just now</small></div></div>\n      <button class=\"nav-item\" id=\"signOut\"><span aria-hidden=\"true\">⇥</span> Sign out</button>\n    </div>\n  </aside>\n\n  <div class=\"app-shell\">\n    <header class=\"topbar\">\n      <button class=\"icon-button menu-button\" id=\"menuButton\" aria-label=\"Open navigation\" aria-expanded=\"false\">☰</button>\n      <div class=\"breadcrumbs\"><span>Portal</span><b>/</b><strong id=\"pageCrumb\">Dashboard</strong></div>\n      <div class=\"top-actions\">\n        <button class=\"icon-button notification-button\" aria-label=\"Notifications\">♢<span class=\"notification-dot\"></span></button>\n        <div class=\"user-menu\"><div class=\"avatar\">AM</div><div><strong>Alex Morgan</strong><span>Customer administrator</span></div></div>\n      </div>\n    </header>\n\n    <main id=\"main\" tabindex=\"-1\">\n      <section class=\"page active\" id=\"dashboardPage\">\n        <div class=\"page-heading\">\n          <div><p class=\"eyebrow\">Monday, 17 June</p><h1>Welcome back, Alex</h1><p>Here is an overview of your account and recent support activity.</p></div>\n          <button class=\"button primary new-request\">＋ New support request</button>\n        </div>\n\n        <div class=\"stats-grid\">\n          <article class=\"stat-card\"><div class=\"stat-icon blue\">◫</div><div><span>Open requests</span><strong>3</strong><small><b>1</b> updated today</small></div></article>\n          <article class=\"stat-card\"><div class=\"stat-icon green\">✓</div><div><span>Resolved this month</span><strong>12</strong><small>Average response: 42m</small></div></article>\n          <article class=\"stat-card\"><div class=\"stat-icon purple\">◈</div><div><span>Service plan</span><strong class=\"text-value\">Business</strong><small>Renews 12 Aug 2025</small></div></article>\n          <article class=\"stat-card\"><div class=\"stat-icon amber\">◷</div><div><span>Next review</span><strong class=\"text-value\">24 Jun</strong><small>Quarterly account review</small></div></article>\n        </div>\n\n        <div class=\"content-grid\">\n          <article class=\"panel requests-panel\">\n            <div class=\"panel-header\"><div><h2>Recent support requests</h2><p>Track progress and communicate with our team.</p></div><button class=\"text-button\" data-link-page=\"requests\">View all →</button></div>\n            <div class=\"table-wrap\">\n              <table>\n                <thead><tr><th>Request</th><th>Priority</th><th>Status</th><th>Updated</th></tr></thead>\n                <tbody id=\"dashboardRequestRows\"></tbody>\n              </table>\n            </div>\n          </article>\n          <aside class=\"side-stack\">\n            <article class=\"panel account-card\">\n              <div class=\"panel-header\"><h2>Account health</h2><span class=\"score\">92%</span></div>\n              <div class=\"progress\"><span style=\"width:92%\"></span></div>\n              <ul class=\"check-list\"><li><span>✓</span> Profile information complete</li><li><span>✓</span> Multi-factor authentication enabled</li><li class=\"warning\"><span>!</span> Add a backup contact</li></ul>\n              <button class=\"button secondary full\" data-link-page=\"profile\">Review account</button>\n            </article>\n            <article class=\"help-card\"><span class=\"help-icon\">?</span><div><h3>Need help?</h3><p>Our support team is available around the clock.</p><button class=\"text-button new-request\">Contact support →</button></div></article>\n          </aside>\n        </div>\n      </section>\n\n      <section class=\"page\" id=\"requestsPage\">\n        <div class=\"page-heading\"><div><p class=\"eyebrow\">Support center</p><h1>Support requests</h1><p>Create, review, and track requests from your organization.</p></div><button class=\"button primary new-request\">＋ New support request</button></div>\n        <article class=\"panel\">\n          <div class=\"toolbar\"><label class=\"search-field\"><span>⌕</span><input id=\"requestSearch\" type=\"search\" placeholder=\"Search requests\" aria-label=\"Search support requests\"></label><select id=\"statusFilter\" aria-label=\"Filter by status\"><option value=\"all\">All statuses</option><option>In progress</option><option>Waiting on you</option><option>Resolved</option></select></div>\n          <div class=\"table-wrap\"><table><thead><tr><th>Request</th><th>Priority</th><th>Status</th><th>Updated</th></tr></thead><tbody id=\"allRequestRows\"></tbody></table></div>\n        </article>\n      </section>\n\n      <section class=\"page\" id=\"profilePage\">\n        <div class=\"page-heading\"><div><p class=\"eyebrow\">Account settings</p><h1>My profile</h1><p>Manage your personal details and communication preferences.</p></div></div>\n        <form class=\"profile-grid\" id=\"profileForm\">\n          <article class=\"panel profile-summary\"><div class=\"large-avatar\">AM</div><h2>Alex Morgan</h2><p>Customer administrator</p><span class=\"verified\">✓ Verified account</span><button type=\"button\" class=\"button secondary full\" id=\"photoButton\">Change photo</button></article>\n          <article class=\"panel form-panel\"><div class=\"panel-header\"><div><h2>Personal information</h2><p>Used for account and support communications.</p></div></div><div class=\"form-grid\"><label>First name<input name=\"firstName\" value=\"Alex\" required></label><label>Last name<input name=\"lastName\" value=\"Morgan\" required></label><label>Email address<input type=\"email\" name=\"email\" value=\"alex.morgan@example.com\" required></label><label>Phone number<input type=\"tel\" name=\"phone\" value=\"+1 555 014 8820\"></label><label class=\"wide\">Organization<input name=\"organization\" value=\"Contoso Retail Group\"></label><label class=\"wide\">Time zone<select><option>UTC−05:00 Eastern Time</option><option>UTC+00:00 London</option><option>UTC+01:00 Central European Time</option></select></label></div><div class=\"form-actions\"><button type=\"button\" class=\"button secondary\" id=\"resetProfile\">Cancel</button><button class=\"button primary\" type=\"submit\">Save changes</button></div></article>\n        </form>\n      </section>\n\n      <section class=\"page\" id=\"deploymentPage\">\n        <div class=\"page-heading\"><div><p class=\"eyebrow\">Release operations</p><h1>Deployment center</h1><p>Prototype view of the GitHub-to-Azure release workflow and diagnostics.</p></div><button class=\"button primary\" id=\"runDeploy\">Run deployment simulation</button></div>\n        <div class=\"notice\"><strong>Prototype environment</strong><span>No GitHub repository or Azure resource is created by this static demonstration.</span></div>\n        <div class=\"deploy-grid\">\n          <article class=\"panel\"><div class=\"panel-header\"><div><h2>Release pipeline</h2><p>customer-portal · main · commit 8f4c2d1</p></div><span class=\"pill neutral\" id=\"pipelineStatus\">Ready</span></div><div class=\"pipeline\" id=\"pipelineSteps\"><div class=\"pipeline-step\"><span>1</span><div><strong>Build and test</strong><small>Lint, test, scan, and package</small></div><b>Pending</b></div><div class=\"pipeline-step\"><span>2</span><div><strong>Provision infrastructure</strong><small>Validate and deploy Bicep</small></div><b>Pending</b></div><div class=\"pipeline-step\"><span>3</span><div><strong>Deploy to staging</strong><small>Azure App Service staging slot</small></div><b>Pending</b></div><div class=\"pipeline-step\"><span>4</span><div><strong>Smoke test and promote</strong><small>Health checks before slot swap</small></div><b>Pending</b></div></div></article>\n          <article class=\"panel diagnosis\"><div class=\"panel-header\"><div><h2>Failure diagnostics</h2><p>Evidence-based root-cause analysis</p></div></div><div id=\"diagnosisEmpty\" class=\"empty-state\"><span>⌁</span><strong>No diagnostic event selected</strong><p>Run the simulation to inspect a representative deployment failure and corrective action.</p></div><div id=\"diagnosisResult\" class=\"hidden\"><div class=\"diagnostic-alert\"><strong>Health check failed</strong><span>HTTP 500 · staging slot · 14:32 UTC</span></div><dl><div><dt>Root cause</dt><dd>App setting <code>DATABASE_URL</code> was not resolved because the App Service managed identity lacked Key Vault Secrets User access.</dd></div><div><dt>Evidence</dt><dd>Key Vault returned 403 Forbidden in App Service startup logs. Build and infrastructure deployment succeeded.</dd></div><div><dt>Corrective action</dt><dd>Assign least-privilege Key Vault access to the staging slot identity, restart the slot, and rerun smoke tests.</dd></div><div><dt>Prevention</dt><dd>Add an identity-access preflight check before application deployment.</dd></div></dl><button class=\"button secondary full\" id=\"applyFix\">Apply corrective change and verify</button></div></article>\n        </div>\n      </section>\n    </main>\n  </div>\n\n  <div class=\"modal-backdrop hidden\" id=\"requestModal\">\n    <div class=\"modal\" role=\"dialog\" aria-modal=\"true\" aria-labelledby=\"modalTitle\">\n      <div class=\"modal-header\"><div><h2 id=\"modalTitle\">New support request</h2><p>Tell us what you need help with.</p></div><button class=\"icon-button modal-close\" aria-label=\"Close\">×</button></div>\n      <form id=\"requestForm\"><label>Subject<input name=\"subject\" required maxlength=\"80\" placeholder=\"Briefly describe the issue\"></label><div class=\"form-grid\"><label>Category<select name=\"category\"><option>Technical issue</option><option>Billing</option><option>Account access</option><option>Feature request</option></select></label><label>Priority<select name=\"priority\"><option>Normal</option><option>High</option><option>Urgent</option></select></label></div><label>Description<textarea name=\"description\" required rows=\"5\" placeholder=\"Include any relevant steps, dates, or error messages\"></textarea></label><div class=\"form-actions\"><button type=\"button\" class=\"button secondary modal-close\">Cancel</button><button class=\"button primary\" type=\"submit\">Submit request</button></div></form>\n    </div>\n  </div>\n  <div class=\"toast\" id=\"toast\" role=\"status\" aria-live=\"polite\"></div>\n  <script src=\"app.js\"></script>\n</body>\n</html>"
+      },
+      {
+        "path": "styles.css",
+        "content": "*{box-sizing:border-box}html{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif;color:#172033;background:#f4f6fa}body{margin:0;min-height:100vh}button,input,select,textarea{font:inherit}.skip-link{position:fixed;top:-50px;left:16px;background:#fff;padding:10px 14px;z-index:100;color:#164e9b}.skip-link:focus{top:10px}.prototype-label{position:fixed;right:14px;bottom:14px;z-index:50;background:#172033;color:#fff;font-size:10px;font-weight:800;letter-spacing:1.5px;padding:7px 11px;border-radius:5px;box-shadow:0 4px 14px #17203333}.sidebar{position:fixed;inset:0 auto 0 0;width:248px;background:#10233f;color:#dce6f3;padding:25px 16px 18px;display:flex;flex-direction:column;z-index:20}.brand{display:flex;align-items:center;gap:12px;padding:0 8px 28px}.brand-mark{width:38px;height:38px;display:grid;place-items:center;background:linear-gradient(135deg,#3184df,#59b7db);border-radius:10px;font-weight:800;color:#fff}.brand strong,.brand span{display:block}.brand strong{font-size:17px;color:#fff}.brand span{font-size:11px;color:#9eb2ca;margin-top:2px}.sidebar nav{display:grid;gap:5px}.nav-item{width:100%;display:flex;align-items:center;gap:12px;border:0;border-radius:7px;padding:11px 12px;background:transparent;color:#b8c7d9;text-align:left;cursor:pointer;font-size:13px}.nav-item>span:first-child{font-size:18px;width:19px}.nav-item:hover,.nav-item.active{background:#1b395f;color:#fff}.nav-count{margin-left:auto;background:#295683!important;width:auto!important;border-radius:10px;padding:2px 7px;font-size:11px}.sidebar-footer{margin-top:auto;border-top:1px solid #ffffff1c;padding-top:17px}.service-health{display:flex;gap:10px;padding:4px 9px 18px;font-size:11px}.service-health strong,.service-health small{display:block}.service-health small{color:#869db8;margin-top:4px}.status-dot{width:8px;height:8px;background:#35c78a;border-radius:50%;margin-top:3px;box-shadow:0 0 0 3px #35c78a20}.app-shell{margin-left:248px}.topbar{height:70px;background:#fff;border-bottom:1px solid #e2e7ef;display:flex;align-items:center;padding:0 34px;position:sticky;top:0;z-index:10}.breadcrumbs{display:flex;gap:9px;font-size:12px}.breadcrumbs span{color:#778399}.breadcrumbs b{color:#bcc4cf}.top-actions{margin-left:auto;display:flex;align-items:center;gap:22px}.icon-button{border:0;background:transparent;cursor:pointer;color:#536176;font-size:20px}.notification-button{position:relative}.notification-dot{position:absolute;right:1px;top:0;width:6px;height:6px;border-radius:50%;background:#e65656}.user-menu{display:flex;align-items:center;gap:10px;border-left:1px solid #e5e9ef;padding-left:20px}.avatar,.large-avatar{display:grid;place-items:center;border-radius:50%;font-weight:700;background:#dceaff;color:#17579e}.avatar{width:34px;height:34px;font-size:11px}.user-menu strong,.user-menu span{display:block}.user-menu strong{font-size:12px}.user-menu span{font-size:10px;color:#778399;margin-top:2px}.menu-button{display:none}main{padding:32px 36px 50px;max-width:1600px;margin:auto}.page{display:none}.page.active{display:block}.page-heading{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:28px}.page-heading h1{font-size:27px;margin:2px 0 7px;letter-spacing:-.6px}.page-heading p{color:#6c788c;font-size:13px;margin:0}.eyebrow{color:#2570c0!important;text-transform:uppercase;letter-spacing:1px;font-weight:700;font-size:10px!important}.button{border:1px solid transparent;border-radius:7px;padding:10px 15px;font-weight:700;font-size:12px;cursor:pointer}.button.primary{background:#1769bd;color:#fff;box-shadow:0 2px 5px #1769bd2e}.button.primary:hover{background:#0e59a4}.button.secondary{background:#fff;color:#3a4a60;border-color:#d7dee8}.button:disabled{opacity:.6;cursor:not-allowed}.full{width:100%}.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:18px}.stat-card,.panel{background:#fff;border:1px solid #e2e7ee;border-radius:10px;box-shadow:0 2px 6px #1c304508}.stat-card{padding:19px;display:flex;align-items:flex-start;gap:14px}.stat-icon{width:38px;height:38px;border-radius:9px;display:grid;place-items:center;font-weight:800}.blue{background:#e4f0ff;color:#1970c8}.green{background:#e1f7ed;color:#16845a}.purple{background:#eee9ff;color:#6747bd}.amber{background:#fff0d8;color:#b56c0c}.stat-card span,.stat-card strong,.stat-card small{display:block}.stat-card span{font-size:11px;color:#6d798c}.stat-card strong{font-size:24px;margin:2px 0}.stat-card strong.text-value{font-size:17px;margin:7px 0 6px}.stat-card small{font-size:10px;color:#8b95a5}.stat-card small b{color:#16845a}.content-grid{display:grid;grid-template-columns:minmax(0,2fr) minmax(270px,1fr);gap:18px}.panel{padding:21px}.panel-header{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:18px}.panel h2,.help-card h3{font-size:15px;margin:0 0 5px}.panel-header p,.help-card p{font-size:11px;color:#7d8899;margin:0}.text-button{border:0;background:transparent;color:#1769bd;font-weight:700;font-size:11px;cursor:pointer}.table-wrap{overflow-x:auto}table{width:100%;border-collapse:collapse;text-align:left}th{font-size:9px;text-transform:uppercase;letter-spacing:.7px;color:#8b95a4;padding:10px 9px;border-bottom:1px solid #e9edf2}td{padding:14px 9px;border-bottom:1px solid #edf0f4;font-size:11px;color:#586579}tbody tr:last-child td{border-bottom:0}td strong{display:block;color:#223047;font-size:12px;margin-bottom:3px}.pill{display:inline-block;padding:4px 8px;border-radius:12px;font-size:9px;font-weight:700;white-space:nowrap}.pill.progress{background:#e7f0ff;color:#226ab6}.pill.waiting{background:#fff2dc;color:#a76710}.pill.resolved{background:#dff5eb;color:#13724f}.pill.neutral{background:#eef1f5;color:#596678}.priority-high{color:#c44d4d;font-weight:700}.side-stack{display:grid;gap:18px}.score{font-weight:800;color:#16845a}.progress{height:7px;background:#edf1f5;border-radius:5px;overflow:hidden}.progress span{height:100%;display:block;background:#24a472;border-radius:5px}.check-list{list-style:none;padding:6px 0;margin:12px 0}.check-list li{font-size:11px;padding:7px 0;color:#556277}.check-list li span{display:inline-grid;place-items:center;width:17px;height:17px;margin-right:7px;background:#dff5eb;color:#16845a;border-radius:50%;font-weight:800}.check-list li.warning span{background:#fff0d8;color:#b56c0c}.help-card{background:linear-gradient(135deg,#12325a,#174e7d);color:#fff;border-radius:10px;padding:19px;display:flex;gap:14px}.help-card p{color:#c1d2e5}.help-card .text-button{padding:8px 0;color:#7ec5ff}.help-icon{width:31px;height:31px;display:grid;place-items:center;border-radius:8px;background:#ffffff18;font-weight:800}.toolbar{display:flex;justify-content:space-between;gap:12px;margin-bottom:16px}.search-field{display:flex;align-items:center;gap:8px;border:1px solid #d9e0e8;border-radius:7px;padding:0 11px;flex:1;max-width:360px}.search-field input{border:0;outline:0;padding:9px 0;width:100%}.toolbar select,input,select,textarea{border:1px solid #d8dfe8;border-radius:7px;background:#fff;padding:9px 10px;color:#354258}.profile-grid{display:grid;grid-template-columns:250px 1fr;gap:18px}.profile-summary{text-align:center}.large-avatar{width:82px;height:82px;margin:6px auto 14px;font-size:22px}.profile-summary p{color:#748095;font-size:12px}.verified{display:block;color:#16845a;font-size:11px;margin:17px 0}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:17px}.form-grid label,.modal form>label{font-size:11px;font-weight:700;color:#4f5d70}.form-grid input,.form-grid select,.modal input,.modal select,.modal textarea{display:block;width:100%;margin-top:7px}.wide{grid-column:1/-1}.form-actions{display:flex;justify-content:flex-end;gap:9px;border-top:1px solid #e8ecf1;margin-top:22px;padding-top:18px}.notice{display:flex;gap:12px;background:#e9f3ff;border:1px solid #cde3fa;color:#315b85;border-radius:8px;padding:12px 15px;margin-bottom:18px;font-size:11px}.deploy-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:18px}.pipeline{display:grid}.pipeline-step{display:grid;grid-template-columns:32px 1fr auto;align-items:center;gap:12px;padding:15px 0;border-bottom:1px solid #edf0f4}.pipeline-step:last-child{border:0}.pipeline-step>span{width:29px;height:29px;display:grid;place-items:center;background:#edf1f6;color:#667489;border-radius:50%;font-size:11px;font-weight:800}.pipeline-step strong,.pipeline-step small{display:block}.pipeline-step strong{font-size:12px}.pipeline-step small{font-size:10px;color:#8590a0;margin-top:3px}.pipeline-step>b{font-size:9px;color:#8a95a5}.pipeline-step.running>span{background:#e4f0ff;color:#1769bd}.pipeline-step.success>span{background:#dff5eb;color:#16845a}.pipeline-step.failed>span{background:#ffe5e5;color:#bf4141}.pipeline-step.success>b{color:#16845a}.pipeline-step.failed>b{color:#bf4141}.empty-state{text-align:center;padding:46px 20px;color:#7c8797}.empty-state>span{display:block;font-size:28px}.empty-state strong{display:block;color:#3f4c60;margin:10px}.empty-state p{font-size:11px;line-height:1.6}.hidden{display:none!important}.diagnostic-alert{background:#fff0f0;border-left:3px solid #d94b4b;padding:12px;margin-bottom:16px}.diagnostic-alert strong,.diagnostic-alert span{display:block;font-size:11px}.diagnostic-alert span{color:#8b6060;margin-top:4px}.diagnosis dl{margin:0}.diagnosis dl div{padding:10px 0;border-bottom:1px solid #edf0f4}.diagnosis dt{font-size:9px;text-transform:uppercase;color:#8590a0;font-weight:800}.diagnosis dd{margin:5px 0 0;font-size:11px;line-height:1.55;color:#4d5a6e}.diagnosis code{background:#eef1f5;padding:2px 4px;border-radius:3px}.modal-backdrop{position:fixed;inset:0;background:#0b172a99;z-index:80;display:grid;place-items:center;padding:20px}.modal{background:#fff;width:min(540px,100%);border-radius:12px;box-shadow:0 20px 60px #07142655;padding:24px}.modal-header{display:flex;justify-content:space-between;margin-bottom:20px}.modal-header h2{font-size:18px;margin:0 0 5px}.modal-header p{font-size:11px;color:#7b8798;margin:0}.modal textarea{resize:vertical}.toast{position:fixed;right:22px;bottom:52px;background:#17304f;color:#fff;border-radius:8px;padding:12px 17px;font-size:11px;box-shadow:0 9px 25px #14253e44;transform:translateY(20px);opacity:0;pointer-events:none;transition:.25s;z-index:100}.toast.show{transform:none;opacity:1}@media(max-width:1000px){.stats-grid{grid-template-columns:repeat(2,1fr)}.deploy-grid{grid-template-columns:1fr}.profile-grid{grid-template-columns:210px 1fr}}@media(max-width:760px){.sidebar{transform:translateX(-100%);transition:.25s}.sidebar.open{transform:none;box-shadow:10px 0 30px #0a1d3455}.app-shell{margin-left:0}.menu-button{display:block;margin-right:14px}.topbar{padding:0 17px}.user-menu>div:last-child{display:none}main{padding:24px 17px}.content-grid,.profile-grid{grid-template-columns:1fr}.page-heading{align-items:flex-start;flex-direction:column}.page-heading .button{width:100%}.prototype-label{bottom:8px;right:8px}.notice{flex-direction:column}.form-grid{grid-template-columns:1fr}.wide{grid-column:auto}}@media(max-width:500px){.stats-grid{grid-template-columns:1fr}.top-actions{gap:8px}.breadcrumbs span,.breadcrumbs b{display:none}.panel{padding:16px}.toolbar{flex-direction:column}.search-field{max-width:none}.toolbar select{width:100%}th:nth-child(4),td:nth-child(4){display:none}.form-actions .button{flex:1}.user-menu{padding-left:10px}.modal{padding:18px}}"
+      },
+      {
+        "path": "app.js",
+        "content": "const requests=[\n {id:'SR-1048',subject:'Unable to export monthly usage report',priority:'High',status:'In progress',updated:'18 min ago'},\n {id:'SR-1043',subject:'Update billing contact for our account',priority:'Normal',status:'Waiting on you',updated:'Yesterday'},\n {id:'SR-1039',subject:'SSO configuration assistance',priority:'Normal',status:'In progress',updated:'2 days ago'},\n {id:'SR-1027',subject:'Add users to customer workspace',priority:'Normal',status:'Resolved',updated:'8 Jun 2025'},\n {id:'SR-1018',subject:'Clarification on latest invoice',priority:'Normal',status:'Resolved',updated:'3 Jun 2025'}\n];\nconst pageNames={dashboard:'Dashboard',requests:'Support requests',profile:'My profile',deployment:'Deployment center'};\nconst esc=value=>String(value).replace(/[&<>\"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',\"'\":'&#039;'}[char]));\nfunction row(r){const cls=r.status==='In progress'?'progress':r.status==='Waiting on you'?'waiting':'resolved';return `<tr><td><strong>${esc(r.subject)}</strong>${esc(r.id)}</td><td class=\"${r.priority==='High'?'priority-high':''}\">${esc(r.priority)}</td><td><span class=\"pill ${cls}\">${esc(r.status)}</span></td><td>${esc(r.updated)}</td></tr>`}\nfunction renderRequests(){document.querySelector('#dashboardRequestRows').innerHTML=requests.slice(0,3).map(row).join('');filterRequests()}\nfunction filterRequests(){const query=document.querySelector('#requestSearch').value.toLowerCase();const status=document.querySelector('#statusFilter').value;const result=requests.filter(r=>(r.subject.toLowerCase().includes(query)||r.id.toLowerCase().includes(query))&&(status==='all'||r.status===status));document.querySelector('#allRequestRows').innerHTML=result.length?result.map(row).join(''):'<tr><td colspan=\"4\">No requests match your filters.</td></tr>'}\nfunction navigate(name){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.querySelector(`#${name}Page`).classList.add('active');document.querySelectorAll('.nav-item[data-page]').forEach(n=>n.classList.toggle('active',n.dataset.page===name));document.querySelector('#pageCrumb').textContent=pageNames[name];document.querySelector('#sidebar').classList.remove('open');document.querySelector('#menuButton').setAttribute('aria-expanded','false');document.querySelector('#main').focus();window.scrollTo(0,0)}\nfunction toast(message){const el=document.querySelector('#toast');el.textContent=message;el.classList.add('show');clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>el.classList.remove('show'),3000)}\ndocument.querySelectorAll('[data-page]').forEach(button=>button.addEventListener('click',()=>navigate(button.dataset.page)));\ndocument.querySelectorAll('[data-link-page]').forEach(button=>button.addEventListener('click',()=>navigate(button.dataset.linkPage)));\ndocument.querySelector('#menuButton').addEventListener('click',e=>{const sidebar=document.querySelector('#sidebar');sidebar.classList.toggle('open');e.currentTarget.setAttribute('aria-expanded',sidebar.classList.contains('open'))});\nconst modal=document.querySelector('#requestModal');\nfunction toggleModal(show){modal.classList.toggle('hidden',!show);if(show)setTimeout(()=>modal.querySelector('input').focus(),0)}\ndocument.querySelectorAll('.new-request').forEach(button=>button.addEventListener('click',()=>toggleModal(true)));\ndocument.querySelectorAll('.modal-close').forEach(button=>button.addEventListener('click',()=>toggleModal(false)));\nmodal.addEventListener('click',e=>{if(e.target===modal)toggleModal(false)});\ndocument.addEventListener('keydown',e=>{if(e.key==='Escape')toggleModal(false)});\ndocument.querySelector('#requestForm').addEventListener('submit',e=>{e.preventDefault();const data=new FormData(e.currentTarget);requests.unshift({id:`SR-${1049+requests.length}`,subject:data.get('subject'),priority:data.get('priority'),status:'In progress',updated:'Just now'});renderRequests();e.currentTarget.reset();toggleModal(false);toast('Support request submitted successfully')});\ndocument.querySelector('#requestSearch').addEventListener('input',filterRequests);document.querySelector('#statusFilter').addEventListener('change',filterRequests);\nconst profile=document.querySelector('#profileForm');const initialProfile=new FormData(profile);\nprofile.addEventListener('submit',e=>{e.preventDefault();toast('Profile changes saved')});\ndocument.querySelector('#resetProfile').addEventListener('click',()=>{for(const [key,value] of initialProfile.entries()){const field=profile.elements[key];if(field)field.value=value}toast('Unsaved changes discarded')});\ndocument.querySelector('#photoButton').addEventListener('click',()=>toast('Photo upload is unavailable in this prototype'));\ndocument.querySelector('#signOut').addEventListener('click',()=>toast('Sign-out flow is simulated in this prototype'));\nconst sleep=ms=>new Promise(resolve=>setTimeout(resolve,ms));\nfunction setStep(index,state,label){const step=document.querySelectorAll('.pipeline-step')[index];step.className=`pipeline-step ${state}`;step.querySelector('b').textContent=label;step.querySelector('span').textContent=state==='success'?'✓':state==='failed'?'!':index+1}\ndocument.querySelector('#runDeploy').addEventListener('click',async e=>{e.currentTarget.disabled=true;document.querySelector('#diagnosisEmpty').classList.remove('hidden');document.querySelector('#diagnosisResult').classList.add('hidden');document.querySelector('#pipelineStatus').textContent='Running';for(let i=0;i<4;i++)setStep(i,'','Pending');for(let i=0;i<2;i++){setStep(i,'running','Running');await sleep(650);setStep(i,'success','Passed')}setStep(2,'running','Deploying');await sleep(750);setStep(2,'failed','Failed');document.querySelector('#pipelineStatus').textContent='Failed';document.querySelector('#diagnosisEmpty').classList.add('hidden');document.querySelector('#diagnosisResult').classList.remove('hidden');e.currentTarget.disabled=false;toast('Deployment failure captured for diagnosis')});\ndocument.querySelector('#applyFix').addEventListener('click',async e=>{e.currentTarget.disabled=true;e.currentTarget.textContent='Verifying corrective change…';setStep(2,'running','Retrying');await sleep(800);setStep(2,'success','Passed');setStep(3,'running','Testing');await sleep(800);setStep(3,'success','Passed');document.querySelector('#pipelineStatus').textContent='Verified';e.currentTarget.textContent='Correction verified';toast('Staging health checks passed; release is ready for approval')});\nrenderRequests();"
+      }
+    ]
+  },
+  "extra": {
+    "ok": true,
+    "executor": "OpenAI API",
+    "model": "gpt-5.6-sol",
+    "executionId": "resp_04888210ef42519a006ab257cf4e8087d2a496982870ef5565",
+    "result": "Generated 3 project source files.",
+    "usage": {
+      "input_tokens": 2368,
+      "input_tokens_details": {
+        "cache_write_tokens": 2365,
+        "cached_tokens": 0
+      },
+      "output_tokens": 8236,
+      "output_tokens_details": {
+        "reasoning_tokens": 97
+      },
+      "total_tokens": 10604
+    },
+    "estimatedCost": 0.174192
+  },
+  "savedAt": "2026-09-22T10:28:05.278Z"
+}
