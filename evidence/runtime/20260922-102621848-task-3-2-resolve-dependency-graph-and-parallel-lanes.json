@@ -1,0 +1,541 @@
+{
+  "prompt": "Build a Customer Portal, Create GitHub Repo, Deploy to Azure and if deployment fails find root cause and solve it.",
+  "task": {
+    "mo": "Architecture",
+    "id": "3.2",
+    "t": "Resolve dependency graph and parallel lanes",
+    "d": "Derived from the real planning execution.",
+    "dep": [
+      "1.1"
+    ],
+    "ro": {
+      "k": "OpenAI API",
+      "n": "OpenAI",
+      "m": "Derived from planning",
+      "w": "Derived from one real OpenAI planning execution."
+    },
+    "s": "Planned",
+    "res": "[object Object]",
+    "proof": {
+      "executor": true,
+      "requestReceipt": true,
+      "executionId": "resp_075e51e621674d00006ab257922edc87d28cc5cda414fe72e8-graph",
+      "terminal": true,
+      "result": true,
+      "verification": true,
+      "evidence": ""
+    },
+    "inp": 0,
+    "out": 0,
+    "c": 0,
+    "outUrl": "",
+    "requiresUrl": false
+  },
+  "context": {
+    "planning": {
+      "projectName": "customer-portal",
+      "analysis": {
+        "objective": "Build a secure customer-facing web portal, maintain its source code in a GitHub repository, and deploy it to Microsoft Azure.",
+        "assumptions": [
+          "The portal will initially support customer authentication, profile management, a dashboard, and support requests.",
+          "A responsive web application with an API and relational database is appropriate.",
+          "Azure and GitHub credentials, subscription access, domain details, and branding assets will be supplied before deployment.",
+          "Infrastructure and deployments should be reproducible through infrastructure-as-code and CI/CD."
+        ],
+        "proposedStack": {
+          "frontend": "Next.js with TypeScript",
+          "backend": "Next.js server APIs or a separate Node.js TypeScript API if scaling boundaries require it",
+          "database": "Azure Database for PostgreSQL",
+          "authentication": "Microsoft Entra External ID or Azure AD B2C, subject to tenant availability",
+          "hosting": "Azure App Service",
+          "secrets": "Azure Key Vault",
+          "monitoring": "Azure Application Insights and Log Analytics",
+          "sourceControl": "GitHub",
+          "ciCd": "GitHub Actions",
+          "infrastructureAsCode": "Bicep"
+        },
+        "functionalScope": [
+          "Customer registration, sign-in, sign-out, and password recovery",
+          "Customer dashboard",
+          "Profile and contact-information management",
+          "Support request creation and status tracking",
+          "Role-based access for customers and administrators",
+          "Accessible, responsive user interface",
+          "Audit-friendly activity logging"
+        ],
+        "nonFunctionalRequirements": [
+          "TLS-only access",
+          "No secrets committed to source control",
+          "Input validation and secure authorization checks",
+          "Automated tests and deployment gates",
+          "Centralized logs, metrics, health checks, and alerts",
+          "Documented backup and rollback procedures",
+          "WCAG 2.1 AA-oriented user experience"
+        ],
+        "requiredInputs": [
+          "GitHub organization or account and repository visibility",
+          "Azure tenant, subscription, region, and resource naming constraints",
+          "Expected customer volume and availability target",
+          "Branding and domain requirements",
+          "Required portal features and external integrations",
+          "Identity-provider preference and compliance requirements",
+          "Budget limits and environment requirements"
+        ],
+        "successCriteria": [
+          "The application passes linting, type checks, automated tests, and security checks.",
+          "The GitHub repository contains application code, infrastructure code, workflows, and operational documentation.",
+          "The Azure environment can be provisioned reproducibly.",
+          "A deployment workflow can release the application without exposing credentials.",
+          "Health checks, telemetry, alerts, rollback, and troubleshooting procedures are available.",
+          "Deployment failures are diagnosed from evidence, corrected through code or configuration, and verified by rerunning relevant checks."
+        ]
+      },
+      "buildPlan": [
+        {
+          "phase": "Discovery and architecture",
+          "actions": [
+            "Confirm users, workflows, integrations, compliance constraints, service-level objectives, and environments.",
+            "Define the data model, authorization matrix, API contracts, and threat model.",
+            "Create architecture and deployment diagrams."
+          ],
+          "deliverables": [
+            "Approved scope",
+            "Architecture decision records",
+            "Data model",
+            "Authorization matrix",
+            "Acceptance criteria"
+          ]
+        },
+        {
+          "phase": "Application foundation",
+          "actions": [
+            "Scaffold the TypeScript application with formatting, linting, validation, and test tooling.",
+            "Create reusable UI components, layouts, error boundaries, and accessibility conventions.",
+            "Implement environment configuration with startup validation."
+          ],
+          "deliverables": [
+            "Runnable application skeleton",
+            "Development scripts",
+            "Configuration template",
+            "Baseline tests"
+          ]
+        },
+        {
+          "phase": "Portal implementation",
+          "actions": [
+            "Integrate customer identity and implement route protection.",
+            "Build dashboard, profile, and support-request workflows.",
+            "Implement database migrations, authorization checks, audit events, and safe error handling.",
+            "Add administrator capabilities only after the role model is approved."
+          ],
+          "deliverables": [
+            "Portal features",
+            "API endpoints",
+            "Database migrations",
+            "Authorization tests"
+          ]
+        },
+        {
+          "phase": "Quality and security",
+          "actions": [
+            "Add unit, integration, and end-to-end tests.",
+            "Run dependency, secret, and static-analysis scans.",
+            "Test accessibility, responsive behavior, authentication boundaries, and failure states.",
+            "Define performance baselines and perform targeted load tests."
+          ],
+          "deliverables": [
+            "Automated test suite",
+            "Security scan configuration",
+            "Accessibility report",
+            "Release checklist"
+          ]
+        },
+        {
+          "phase": "GitHub repository setup",
+          "actions": [
+            "Create the repository under the approved GitHub owner.",
+            "Push the reviewed initial codebase using a protected default branch.",
+            "Configure pull-request reviews, status checks, Dependabot, code ownership, issue templates, and environment protections.",
+            "Document local setup, architecture, release, rollback, and incident procedures."
+          ],
+          "deliverables": [
+            "Configured GitHub repository",
+            "Branch protection rules",
+            "CI workflows",
+            "Repository documentation"
+          ]
+        },
+        {
+          "phase": "Azure infrastructure",
+          "actions": [
+            "Define resource groups, App Service, PostgreSQL, Key Vault, Application Insights, Log Analytics, managed identities, and networking in Bicep.",
+            "Create separate development, staging, and production parameter files as required.",
+            "Apply least-privilege role assignments and configure secret references.",
+            "Configure database backups, retention, health checks, alerts, and budget notifications."
+          ],
+          "deliverables": [
+            "Bicep templates",
+            "Environment parameters",
+            "Identity and access configuration",
+            "Monitoring configuration"
+          ]
+        },
+        {
+          "phase": "Deployment pipeline",
+          "actions": [
+            "Configure GitHub Actions to authenticate to Azure using OpenID Connect rather than long-lived credentials.",
+            "Build, test, scan, package, provision, migrate, and deploy through staged jobs.",
+            "Deploy to a staging slot, run smoke tests, and swap to production after approval.",
+            "Retain the prior deployable artifact and define automated or manual rollback conditions."
+          ],
+          "deliverables": [
+            "CI/CD workflow",
+            "Staging validation",
+            "Production approval gate",
+            "Rollback workflow"
+          ]
+        },
+        {
+          "phase": "Deployment failure diagnosis and resolution",
+          "actions": [
+            "Capture the failing workflow run, exact step, timestamps, commit SHA, deployment operation ID, and sanitized error output.",
+            "Check GitHub Actions logs, Azure Activity Log, App Service deployment logs, application logs, Application Insights traces, resource health, and database migration output.",
+            "Classify the failure as build, test, authentication, authorization, infrastructure, configuration, networking, migration, startup, health-check, quota, or runtime related.",
+            "Reproduce the narrowest failing operation in a non-production environment.",
+            "Form and test a root-cause hypothesis using logs and configuration evidence.",
+            "Correct the defect in source code, infrastructure code, permissions, configuration, or pipeline logic without bypassing security controls.",
+            "Rerun automated checks, redeploy to staging, execute smoke tests, and only then promote to production.",
+            "Document the root cause, impact, resolution, and preventive action; add a regression test or pipeline guard where feasible."
+          ],
+          "commonFailureChecks": {
+            "build": [
+              "Runtime and package-manager version mismatch",
+              "Missing generated assets",
+              "Lockfile drift",
+              "Insufficient build memory"
+            ],
+            "identityAndPermissions": [
+              "Incorrect OIDC subject or audience",
+              "Expired or mis-scoped role assignment",
+              "Missing managed-identity access to Key Vault or database"
+            ],
+            "infrastructure": [
+              "Invalid Bicep parameters",
+              "Azure policy denial",
+              "Regional quota or service availability",
+              "Resource-name collision"
+            ],
+            "configuration": [
+              "Missing application setting",
+              "Incorrect secret reference",
+              "Wrong environment or callback URL"
+            ],
+            "networking": [
+              "Database firewall restriction",
+              "Private endpoint or DNS resolution issue",
+              "Blocked outbound dependency"
+            ],
+            "application": [
+              "Failed database migration",
+              "Incorrect startup command",
+              "Health-check timeout",
+              "Unhandled runtime exception"
+            ]
+          },
+          "deliverables": [
+            "Evidence-based root-cause record",
+            "Corrective change",
+            "Successful staging verification",
+            "Regression prevention",
+            "Production release or documented rollback"
+          ]
+        }
+      ],
+      "decomposition": {
+        "workstreams": [
+          {
+            "name": "Product and UX",
+            "tasks": [
+              "Define personas and journeys",
+              "Create wireframes",
+              "Specify accessibility behavior",
+              "Approve acceptance criteria"
+            ]
+          },
+          {
+            "name": "Frontend",
+            "tasks": [
+              "Create design system",
+              "Build authentication screens",
+              "Build dashboard",
+              "Build profile management",
+              "Build support-request screens",
+              "Add client-side validation and error states"
+            ]
+          },
+          {
+            "name": "Backend and data",
+            "tasks": [
+              "Define schema and migrations",
+              "Implement APIs",
+              "Implement authorization",
+              "Implement audit logging",
+              "Implement health endpoints"
+            ]
+          },
+          {
+            "name": "Identity and security",
+            "tasks": [
+              "Configure external customer identity",
+              "Define roles and claims",
+              "Model threats",
+              "Configure secret handling",
+              "Add security scanning"
+            ]
+          },
+          {
+            "name": "Testing",
+            "tasks": [
+              "Add unit tests",
+              "Add API integration tests",
+              "Add authentication and authorization tests",
+              "Add browser end-to-end tests",
+              "Add accessibility and smoke tests"
+            ]
+          },
+          {
+            "name": "GitHub and governance",
+            "tasks": [
+              "Create repository",
+              "Configure branch protections",
+              "Configure CODEOWNERS",
+              "Enable dependency updates",
+              "Configure protected deployment environments"
+            ]
+          },
+          {
+            "name": "Azure platform",
+            "tasks": [
+              "Author Bicep modules",
+              "Provision application hosting",
+              "Provision database",
+              "Provision Key Vault",
+              "Configure managed identities",
+              "Configure monitoring, alerts, and backups"
+            ]
+          },
+          {
+            "name": "CI/CD and operations",
+            "tasks": [
+              "Create continuous-integration workflow",
+              "Create infrastructure deployment workflow",
+              "Create application deployment workflow",
+              "Configure staging-slot validation",
+              "Create rollback and incident runbooks",
+              "Validate deployment-failure diagnostics"
+            ]
+          }
+        ],
+        "milestones": [
+          {
+            "name": "M1 Architecture approved",
+            "exitCriteria": [
+              "Scope and acceptance criteria are approved",
+              "Architecture, identity, data, and security decisions are documented"
+            ]
+          },
+          {
+            "name": "M2 Minimum viable portal complete",
+            "exitCriteria": [
+              "Core customer journeys work locally",
+              "Authorization and validation tests pass"
+            ]
+          },
+          {
+            "name": "M3 Repository and CI ready",
+            "exitCriteria": [
+              "GitHub controls are configured",
+              "Pull requests run required quality and security checks"
+            ]
+          },
+          {
+            "name": "M4 Azure staging ready",
+            "exitCriteria": [
+              "Infrastructure provisions from Bicep",
+              "Staging deployment and smoke tests pass",
+              "Telemetry and alerts are visible"
+            ]
+          },
+          {
+            "name": "M5 Production release ready",
+            "exitCriteria": [
+              "Security and accessibility criteria pass",
+              "Backup and rollback procedures are validated",
+              "Production approval is recorded"
+            ]
+          }
+        ]
+      },
+      "graph": {
+        "nodes": [
+          "requirements",
+          "architecture",
+          "ux-design",
+          "application-foundation",
+          "identity",
+          "database",
+          "frontend",
+          "backend",
+          "automated-tests",
+          "github-repository",
+          "azure-infrastructure",
+          "monitoring",
+          "ci-pipeline",
+          "cd-pipeline",
+          "staging-deployment",
+          "smoke-tests",
+          "production-deployment",
+          "failure-diagnosis",
+          "corrective-change",
+          "regression-verification",
+          "operational-handover"
+        ],
+        "edges": [
+          {
+            "from": "requirements",
+            "to": "architecture"
+          },
+          {
+            "from": "requirements",
+            "to": "ux-design"
+          },
+          {
+            "from": "architecture",
+            "to": "application-foundation"
+          },
+          {
+            "from": "architecture",
+            "to": "identity"
+          },
+          {
+            "from": "architecture",
+            "to": "database"
+          },
+          {
+            "from": "application-foundation",
+            "to": "frontend"
+          },
+          {
+            "from": "application-foundation",
+            "to": "backend"
+          },
+          {
+            "from": "ux-design",
+            "to": "frontend"
+          },
+          {
+            "from": "identity",
+            "to": "frontend"
+          },
+          {
+            "from": "identity",
+            "to": "backend"
+          },
+          {
+            "from": "database",
+            "to": "backend"
+          },
+          {
+            "from": "frontend",
+            "to": "automated-tests"
+          },
+          {
+            "from": "backend",
+            "to": "automated-tests"
+          },
+          {
+            "from": "application-foundation",
+            "to": "github-repository"
+          },
+          {
+            "from": "architecture",
+            "to": "azure-infrastructure"
+          },
+          {
+            "from": "azure-infrastructure",
+            "to": "monitoring"
+          },
+          {
+            "from": "github-repository",
+            "to": "ci-pipeline"
+          },
+          {
+            "from": "automated-tests",
+            "to": "ci-pipeline"
+          },
+          {
+            "from": "ci-pipeline",
+            "to": "cd-pipeline"
+          },
+          {
+            "from": "azure-infrastructure",
+            "to": "cd-pipeline"
+          },
+          {
+            "from": "cd-pipeline",
+            "to": "staging-deployment"
+          },
+          {
+            "from": "staging-deployment",
+            "to": "smoke-tests"
+          },
+          {
+            "from": "smoke-tests",
+            "to": "production-deployment",
+            "condition": "pass and approval granted"
+          },
+          {
+            "from": "staging-deployment",
+            "to": "failure-diagnosis",
+            "condition": "deployment failure"
+          },
+          {
+            "from": "smoke-tests",
+            "to": "failure-diagnosis",
+            "condition": "test failure"
+          },
+          {
+            "from": "production-deployment",
+            "to": "failure-diagnosis",
+            "condition": "deployment or health-check failure"
+          },
+          {
+            "from": "failure-diagnosis",
+            "to": "corrective-change"
+          },
+          {
+            "from": "corrective-change",
+            "to": "regression-verification"
+          },
+          {
+            "from": "regression-verification",
+            "to": "ci-pipeline",
+            "condition": "verification passes"
+          },
+          {
+            "from": "production-deployment",
+            "to": "operational-handover",
+            "condition": "release is healthy"
+          }
+        ]
+      }
+    },
+    "projectName": "customer-portal",
+    "planningExecutionId": "resp_075e51e621674d00006ab257922edc87d28cc5cda414fe72e8"
+  },
+  "extra": {
+    "derived": true,
+    "sourceExecutionId": "resp_075e51e621674d00006ab257922edc87d28cc5cda414fe72e8"
+  },
+  "savedAt": "2026-09-22T10:26:22.262Z"
+}
