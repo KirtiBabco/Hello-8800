@@ -1,0 +1,434 @@
+{
+  "prompt": "Build a Customer Portal, Create GitHub Repo, Deploy to Azure and if deployment fails find root cause and solve it.",
+  "preflight": {
+    "checkedAtUtc": "2026-09-22T08:03:01.0978277Z",
+    "rca": {
+      "endpoint": "https://ca-babco-rca-agent-rnd.mangodesert-69aab027.eastus2.azurecontainerapps.io/mcp",
+      "reachable": true,
+      "httpStatus": 401,
+      "authenticated": false,
+      "ready": false,
+      "missing": "Website Entra invocation adapter / RCA.Invoke authorization"
+    },
+    "rcs": {
+      "endpoint": "https://ca-babco-rcs-agent-rnd.mangodesert-69aab027.eastus2.azurecontainerapps.io/mcp",
+      "reachable": true,
+      "httpStatus": 405,
+      "authenticated": false,
+      "ready": false,
+      "missing": "Website Entra invocation adapter / allowed client authorization"
+    },
+    "openai": {
+      "configured": false,
+      "ready": false,
+      "missing": "Server-side OPENAI_API_KEY is not configured",
+      "model": ""
+    },
+    "proofContract": {
+      "required": true,
+      "fields": [
+        "executor",
+        "requestReceipt",
+        "executionId",
+        "terminalStatus",
+        "actualResultOrArtifact",
+        "verification",
+        "evidenceReference"
+      ]
+    }
+  },
+  "tasks": [
+    {
+      "mo": "Router Control",
+      "id": "0.1",
+      "t": "Validate executor connectivity and authentication",
+      "d": "Real preflight of RCA/RCS/OpenAI execution readiness.",
+      "dep": [],
+      "ro": {
+        "k": "OpenAI API",
+        "n": "OpenAI",
+        "m": "Configured server model",
+        "w": "No registered specialist Agent covers this task."
+      },
+      "s": "Done",
+      "res": "Real executor readiness check completed.",
+      "proof": {
+        "executor": true,
+        "requestReceipt": true,
+        "executionId": "preflight-1790064182074",
+        "terminal": true,
+        "result": true,
+        "verification": true,
+        "evidence": "https://github.com/KirtiBabco/Hello-8800/blob/agent-pilot-router/evidence/runtime/20260922-080301316-proof-0-1-validate-executor-connectivity-and-authentication.json"
+      },
+      "inp": 0,
+      "out": 0,
+      "c": 0,
+      "outUrl": ""
+    },
+    {
+      "mo": "Router Control",
+      "id": "0.2",
+      "t": "Enforce proof-gated Done contract",
+      "d": "Done requires request receipt, execution ID, actual result, verification and evidence.",
+      "dep": [
+        "0.1"
+      ],
+      "ro": {
+        "k": "OpenAI API",
+        "n": "OpenAI",
+        "m": "Configured server model",
+        "w": "No registered specialist Agent covers this task."
+      },
+      "s": "Done",
+      "res": "Proof-gated Done contract active.",
+      "proof": {
+        "executor": true,
+        "requestReceipt": true,
+        "executionId": "contract-v0.4.0",
+        "terminal": true,
+        "result": true,
+        "verification": true,
+        "evidence": "https://github.com/KirtiBabco/Hello-8800/blob/agent-pilot-router/evidence/runtime/20260922-080302476-proof-0-2-enforce-proof-gated-done-contract.json"
+      },
+      "inp": 0,
+      "out": 0,
+      "c": 0,
+      "outUrl": ""
+    },
+    {
+      "mo": "Discovery",
+      "id": "1.1",
+      "t": "Analyze project prompt and attachments",
+      "d": "Requires actual Agent/OpenAI execution, not local labels.",
+      "dep": [
+        "0.2"
+      ],
+      "ro": {
+        "k": "OpenAI API",
+        "n": "OpenAI",
+        "m": "Configured server model",
+        "w": "No registered specialist Agent covers this task."
+      },
+      "s": "Blocked",
+      "res": "OpenAI server-side executor/key is not configured.",
+      "proof": {
+        "executor": false,
+        "requestReceipt": false,
+        "executionId": "",
+        "terminal": false,
+        "result": false,
+        "verification": false,
+        "evidence": ""
+      },
+      "inp": 0,
+      "out": 0,
+      "c": 0,
+      "outUrl": ""
+    },
+    {
+      "mo": "Planning",
+      "id": "2.1",
+      "t": "Create build plan",
+      "d": "Produce actual build-plan result/artifact.",
+      "dep": [
+        "1.1"
+      ],
+      "ro": {
+        "k": "OpenAI API",
+        "n": "OpenAI",
+        "m": "Configured server model",
+        "w": "No registered specialist Agent covers this task."
+      },
+      "s": "Blocked",
+      "res": "OpenAI server-side executor/key is not configured.",
+      "proof": {
+        "executor": false,
+        "requestReceipt": false,
+        "executionId": "",
+        "terminal": false,
+        "result": false,
+        "verification": false,
+        "evidence": ""
+      },
+      "inp": 0,
+      "out": 0,
+      "c": 0,
+      "outUrl": ""
+    },
+    {
+      "mo": "Architecture",
+      "id": "3.1",
+      "t": "Recursively decompose modules into executable tasks",
+      "d": "Produce actual decomposition result.",
+      "dep": [
+        "2.1"
+      ],
+      "ro": {
+        "k": "OpenAI API",
+        "n": "OpenAI",
+        "m": "Configured server model",
+        "w": "No registered specialist Agent covers this task."
+      },
+      "s": "Blocked",
+      "res": "OpenAI server-side executor/key is not configured.",
+      "proof": {
+        "executor": false,
+        "requestReceipt": false,
+        "executionId": "",
+        "terminal": false,
+        "result": false,
+        "verification": false,
+        "evidence": ""
+      },
+      "inp": 0,
+      "out": 0,
+      "c": 0,
+      "outUrl": ""
+    },
+    {
+      "mo": "Architecture",
+      "id": "3.2",
+      "t": "Resolve dependency graph and parallel lanes",
+      "d": "Produce dependency sequence and concurrency proof.",
+      "dep": [
+        "2.1"
+      ],
+      "ro": {
+        "k": "OpenAI API",
+        "n": "OpenAI",
+        "m": "Configured server model",
+        "w": "No registered specialist Agent covers this task."
+      },
+      "s": "Blocked",
+      "res": "OpenAI server-side executor/key is not configured.",
+      "proof": {
+        "executor": false,
+        "requestReceipt": false,
+        "executionId": "",
+        "terminal": false,
+        "result": false,
+        "verification": false,
+        "evidence": ""
+      },
+      "inp": 0,
+      "out": 0,
+      "c": 0,
+      "outUrl": ""
+    },
+    {
+      "mo": "Execution",
+      "id": "4.1",
+      "t": "Execute implementation work packages",
+      "d": "Actual worker/AI execution required.",
+      "dep": [
+        "3.1",
+        "3.2"
+      ],
+      "ro": {
+        "k": "OpenAI API",
+        "n": "OpenAI",
+        "m": "Configured server model",
+        "w": "No registered specialist Agent covers this task."
+      },
+      "s": "Blocked",
+      "res": "OpenAI server-side executor/key is not configured.",
+      "proof": {
+        "executor": false,
+        "requestReceipt": false,
+        "executionId": "",
+        "terminal": false,
+        "result": false,
+        "verification": false,
+        "evidence": ""
+      },
+      "inp": 0,
+      "out": 0,
+      "c": 0,
+      "outUrl": ""
+    },
+    {
+      "mo": "Delivery",
+      "id": "4.2",
+      "t": "Perform GitHub repository work",
+      "d": "Actual repository operation + receipt required.",
+      "dep": [
+        "4.1"
+      ],
+      "ro": {
+        "k": "OpenAI API",
+        "n": "OpenAI",
+        "m": "Configured server model",
+        "w": "No registered specialist Agent covers this task."
+      },
+      "s": "Blocked",
+      "res": "OpenAI server-side executor/key is not configured.",
+      "proof": {
+        "executor": false,
+        "requestReceipt": false,
+        "executionId": "",
+        "terminal": false,
+        "result": false,
+        "verification": false,
+        "evidence": ""
+      },
+      "inp": 0,
+      "out": 0,
+      "c": 0,
+      "outUrl": ""
+    },
+    {
+      "mo": "Reliability",
+      "id": "4.4",
+      "t": "Run RCA on failure",
+      "d": "Actual RCA invocation + job/result proof required.",
+      "dep": [
+        "4.1"
+      ],
+      "ro": {
+        "k": "OpenAI API",
+        "n": "OpenAI",
+        "m": "Configured server model",
+        "w": "No registered specialist Agent covers this task."
+      },
+      "s": "Blocked",
+      "res": "OpenAI server-side executor/key is not configured.",
+      "proof": {
+        "executor": false,
+        "requestReceipt": false,
+        "executionId": "",
+        "terminal": false,
+        "result": false,
+        "verification": false,
+        "evidence": ""
+      },
+      "inp": 0,
+      "out": 0,
+      "c": 0,
+      "outUrl": ""
+    },
+    {
+      "mo": "Reliability",
+      "id": "4.5",
+      "t": "Run RCS correction",
+      "d": "Actual RCS invocation + correction proof required.",
+      "dep": [
+        "4.4"
+      ],
+      "ro": {
+        "k": "Agent",
+        "n": "Babco Labs RCS Solver Agent v2",
+        "m": "gpt-5.6-sol",
+        "w": "Registered capability match.",
+        "e": "https://ca-babco-rcs-agent-rnd.mangodesert-69aab027.eastus2.azurecontainerapps.io/mcp"
+      },
+      "s": "Blocked",
+      "res": "RCS endpoint exists but authenticated website invocation adapter is missing.",
+      "proof": {
+        "executor": false,
+        "requestReceipt": false,
+        "executionId": "",
+        "terminal": false,
+        "result": false,
+        "verification": false,
+        "evidence": ""
+      },
+      "inp": 0,
+      "out": 0,
+      "c": 0,
+      "outUrl": ""
+    },
+    {
+      "mo": "Delivery",
+      "id": "4.3",
+      "t": "Perform Azure deployment",
+      "d": "Actual Azure operation + deployment proof required.",
+      "dep": [
+        "4.2"
+      ],
+      "ro": {
+        "k": "OpenAI API",
+        "n": "OpenAI",
+        "m": "Configured server model",
+        "w": "No registered specialist Agent covers this task."
+      },
+      "s": "Blocked",
+      "res": "OpenAI server-side executor/key is not configured.",
+      "proof": {
+        "executor": false,
+        "requestReceipt": false,
+        "executionId": "",
+        "terminal": false,
+        "result": false,
+        "verification": false,
+        "evidence": ""
+      },
+      "inp": 0,
+      "out": 0,
+      "c": 0,
+      "outUrl": ""
+    },
+    {
+      "mo": "Verification",
+      "id": "5.1",
+      "t": "Verify actual project output",
+      "d": "HTTP/artifact/test verification required.",
+      "dep": [
+        "4.3"
+      ],
+      "ro": {
+        "k": "OpenAI API",
+        "n": "OpenAI",
+        "m": "Configured server model",
+        "w": "No registered specialist Agent covers this task."
+      },
+      "s": "Blocked",
+      "res": "OpenAI server-side executor/key is not configured.",
+      "proof": {
+        "executor": false,
+        "requestReceipt": false,
+        "executionId": "",
+        "terminal": false,
+        "result": false,
+        "verification": false,
+        "evidence": ""
+      },
+      "inp": 0,
+      "out": 0,
+      "c": 0,
+      "outUrl": ""
+    },
+    {
+      "mo": "Evidence",
+      "id": "5.2",
+      "t": "Store final evidence and handoff",
+      "d": "Store execution receipts, outputs and verification.",
+      "dep": [
+        "5.1"
+      ],
+      "ro": {
+        "k": "OpenAI API",
+        "n": "OpenAI",
+        "m": "Configured server model",
+        "w": "No registered specialist Agent covers this task."
+      },
+      "s": "Blocked",
+      "res": "OpenAI server-side executor/key is not configured.",
+      "proof": {
+        "executor": false,
+        "requestReceipt": false,
+        "executionId": "",
+        "terminal": false,
+        "result": false,
+        "verification": false,
+        "evidence": ""
+      },
+      "inp": 0,
+      "out": 0,
+      "c": 0,
+      "outUrl": ""
+    }
+  ],
+  "rule": "No Done without executor receipt, execution ID, actual result, verification and evidence.",
+  "savedAt": "2026-09-22T08:03:04.438Z"
+}
