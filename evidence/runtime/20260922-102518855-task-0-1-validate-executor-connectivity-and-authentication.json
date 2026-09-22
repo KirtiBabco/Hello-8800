@@ -1,0 +1,66 @@
+{
+  "prompt": "Build a Customer Portal, Create GitHub Repo, Deploy to Azure and if deployment fails find root cause and solve it.",
+  "task": {
+    "mo": "Router Control",
+    "id": "0.1",
+    "t": "Validate executor connectivity and authentication",
+    "d": "Real preflight for OpenAI, GitHub, Azure and registered Agents.",
+    "dep": [],
+    "ro": {
+      "k": "OpenAI API",
+      "n": "OpenAI",
+      "m": "Configured server model",
+      "w": "No registered specialist Agent covers this task."
+    },
+    "s": "Planned",
+    "res": "Real preflight completed: core pipeline ready.",
+    "proof": {
+      "executor": true,
+      "requestReceipt": true,
+      "executionId": "preflight-1790072719286",
+      "terminal": true,
+      "result": true,
+      "verification": true,
+      "evidence": ""
+    },
+    "inp": 0,
+    "out": 0,
+    "c": 0,
+    "outUrl": "",
+    "requiresUrl": false
+  },
+  "context": {},
+  "extra": {
+    "checkedAtUtc": "2026-09-22T10:25:18.6978154Z",
+    "rca": {
+      "reachable": true,
+      "httpStatus": 200,
+      "ready": false,
+      "fallback": true,
+      "missing": "RCA workload call requires RCA.Invoke app-role. OpenAI fallback will be used only if RCA becomes necessary."
+    },
+    "rcs": {
+      "reachable": true,
+      "httpStatus": 200,
+      "ready": false,
+      "fallback": true,
+      "missing": "RCS requires delegated access_as_user/OBO. OpenAI fallback will be used only if remediation becomes necessary."
+    },
+    "openai": {
+      "ready": true,
+      "model": "gpt-5.6-sol",
+      "missing": ""
+    },
+    "github": {
+      "ready": true,
+      "missing": ""
+    },
+    "azure": {
+      "ready": true,
+      "role": "Website Contributor",
+      "missing": ""
+    },
+    "pipelineReady": true
+  },
+  "savedAt": "2026-09-22T10:25:19.286Z"
+}
