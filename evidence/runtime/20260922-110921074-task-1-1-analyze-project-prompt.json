@@ -1,0 +1,473 @@
+{
+  "prompt": "Build a Customer Portal, Create GitHub Repo, Deploy to Azure and if deployment fails find root cause and solve it.",
+  "task": {
+    "mo": "Discovery",
+    "id": "1.1",
+    "t": "Analyze project prompt",
+    "d": "One real OpenAI planning execution creates analysis, build plan, decomposition and graph.",
+    "dep": [
+      "0.2"
+    ],
+    "ro": {
+      "k": "OpenAI API",
+      "n": "OpenAI",
+      "m": "gpt-5.6-sol",
+      "w": "One real planning execution."
+    },
+    "s": "Running",
+    "res": "[object Object]",
+    "proof": {
+      "executor": true,
+      "requestReceipt": true,
+      "executionId": "resp_09f382376b359aef006ab261b6ab2487d2bc394056b8ee6f03",
+      "terminal": true,
+      "result": true,
+      "verification": true,
+      "evidence": ""
+    },
+    "inp": 60,
+    "out": 2920,
+    "c": 0.05864,
+    "outUrl": "",
+    "requiresUrl": false
+  },
+  "context": {
+    "planning": {
+      "projectName": "Customer Portal",
+      "analysis": {
+        "objective": "Design, implement, test, publish, and deploy a secure customer-facing web portal.",
+        "proposedStack": {
+          "frontend": "Next.js with TypeScript",
+          "backend": "Next.js server APIs",
+          "database": "Azure Database for PostgreSQL",
+          "authentication": "Microsoft Entra External ID",
+          "hosting": "Azure App Service",
+          "ciCd": "GitHub Actions",
+          "infrastructure": "Bicep",
+          "monitoring": "Azure Application Insights"
+        },
+        "coreCapabilities": [
+          "Customer registration, sign-in, sign-out, and password recovery",
+          "Customer profile management",
+          "Dashboard with account summary",
+          "Support request creation and tracking",
+          "Secure document access",
+          "Responsive and accessible user interface",
+          "Administrative audit logging",
+          "Health checks, telemetry, and error reporting"
+        ],
+        "securityRequirements": [
+          "Use managed identities and avoid credentials in source control",
+          "Store necessary secrets in Azure Key Vault or protected GitHub environments",
+          "Enforce HTTPS, secure cookies, authorization checks, and least-privilege access",
+          "Validate all input and protect sensitive customer data",
+          "Enable dependency, code, and secret scanning",
+          "Separate development, staging, and production configuration"
+        ],
+        "assumptions": [
+          "The GitHub organization or account and Azure subscription will be supplied",
+          "Authorized access will be available for repository and Azure resource creation",
+          "Detailed branding, data fields, user roles, and integrations will be confirmed before implementation",
+          "Production deployment will require an approval gate",
+          "No repository or Azure resources should be created until names, region, budget, and access are confirmed"
+        ],
+        "successCriteria": [
+          "The portal passes automated tests and security checks",
+          "The GitHub repository contains reviewed source code, documentation, CI/CD workflows, and infrastructure definitions",
+          "The staging deployment passes smoke, authentication, database, and health checks",
+          "The production deployment is repeatable and protected by approval",
+          "A failed deployment produces sufficient diagnostics to identify, fix, and verify its root cause"
+        ]
+      },
+      "buildPlan": [
+        {
+          "phase": "Discovery and design",
+          "actions": [
+            "Confirm personas, workflows, roles, data model, branding, compliance needs, service-level objectives, Azure region, and budget",
+            "Define acceptance criteria and non-functional requirements",
+            "Create architecture, threat model, wireframes, and API contracts"
+          ],
+          "deliverables": [
+            "Approved requirements",
+            "Architecture decision records",
+            "Threat model",
+            "Implementation backlog"
+          ]
+        },
+        {
+          "phase": "Repository and project setup",
+          "actions": [
+            "Create a private GitHub repository using the approved organization and naming convention",
+            "Initialize the application, formatter, linter, test frameworks, commit conventions, and documentation",
+            "Configure branch protection, pull-request reviews, CODEOWNERS, Dependabot, code scanning, and secret scanning",
+            "Add environment-specific GitHub environments with staging and production approval rules"
+          ],
+          "deliverables": [
+            "Repository scaffold",
+            "Contribution guide",
+            "Branch and security policies",
+            "Initial CI workflow"
+          ]
+        },
+        {
+          "phase": "Application implementation",
+          "actions": [
+            "Build the responsive portal shell and reusable design system",
+            "Integrate Microsoft Entra External ID",
+            "Implement profile, dashboard, support request, and document workflows",
+            "Create database schema, migrations, authorization policies, validation, and audit events",
+            "Add accessible error, loading, empty, and session-expiry states"
+          ],
+          "deliverables": [
+            "Portal source code",
+            "Database migrations",
+            "API documentation",
+            "User and administrator workflows"
+          ]
+        },
+        {
+          "phase": "Quality and security",
+          "actions": [
+            "Add unit, integration, end-to-end, accessibility, and smoke tests",
+            "Run static analysis, dependency scanning, secret scanning, and container or package vulnerability checks",
+            "Validate authorization boundaries, input handling, session security, and privacy controls",
+            "Define release acceptance thresholds and rollback criteria"
+          ],
+          "deliverables": [
+            "Automated test suites",
+            "Security findings and remediations",
+            "Release checklist"
+          ]
+        },
+        {
+          "phase": "Azure infrastructure",
+          "actions": [
+            "Define resource groups, App Service plan, web app, PostgreSQL, Key Vault, managed identity, Application Insights, Log Analytics, networking, and alerts in Bicep",
+            "Configure staging and production parameters without embedding secrets",
+            "Grant least-privilege access between services",
+            "Add health endpoints, deployment slots where appropriate, backup policies, and retention settings"
+          ],
+          "deliverables": [
+            "Versioned Bicep modules",
+            "Environment parameter templates",
+            "Operational dashboards and alerts"
+          ]
+        },
+        {
+          "phase": "CI/CD and deployment",
+          "actions": [
+            "Configure pull-request validation for linting, type checking, tests, build, and security scans",
+            "Configure authenticated Azure deployment through GitHub OpenID Connect",
+            "Provision or update staging infrastructure, apply database migrations safely, and deploy the application",
+            "Run post-deployment health, smoke, authentication, and database connectivity checks",
+            "Require approval before production deployment and use a slot swap or controlled rollout where supported"
+          ],
+          "deliverables": [
+            "GitHub Actions workflows",
+            "Staging deployment pipeline",
+            "Approval-controlled production pipeline",
+            "Deployment and rollback runbooks"
+          ]
+        },
+        {
+          "phase": "Failure diagnosis and remediation",
+          "actions": [
+            "Capture the failed workflow stage, deployment operation ID, timestamps, commit SHA, and affected environment",
+            "Inspect GitHub Actions logs, Azure Activity Log, deployment logs, App Service logs, Application Insights traces, health metrics, and database diagnostics",
+            "Classify the failure as authentication, authorization, infrastructure, configuration, build, migration, startup, networking, quota, runtime, or health-check related",
+            "Reproduce the failure in staging with sanitized configuration when possible",
+            "Apply the smallest reviewed fix to code, configuration, infrastructure, permissions, or migration logic",
+            "Rerun automated checks and redeploy to staging",
+            "Verify telemetry, health checks, core journeys, data integrity, and rollback readiness before production promotion",
+            "Document the root cause, contributing factors, resolution, and preventive controls"
+          ],
+          "deliverables": [
+            "Root-cause analysis",
+            "Reviewed corrective change",
+            "Successful verification evidence",
+            "Preventive test, alert, or runbook update"
+          ]
+        }
+      ],
+      "decomposition": {
+        "epics": [
+          {
+            "id": "E1",
+            "name": "Requirements and UX",
+            "tasks": [
+              "Define personas and permissions",
+              "Specify customer journeys",
+              "Create wireframes and accessibility criteria",
+              "Approve acceptance criteria"
+            ]
+          },
+          {
+            "id": "E2",
+            "name": "GitHub Governance",
+            "tasks": [
+              "Create private repository",
+              "Configure branch protection and CODEOWNERS",
+              "Enable security scanning",
+              "Configure staging and production environments"
+            ]
+          },
+          {
+            "id": "E3",
+            "name": "Identity and Security",
+            "tasks": [
+              "Configure Entra External ID",
+              "Implement session handling",
+              "Implement role and resource authorization",
+              "Create audit logging and threat mitigations"
+            ]
+          },
+          {
+            "id": "E4",
+            "name": "Portal Features",
+            "tasks": [
+              "Build portal layout and navigation",
+              "Build customer dashboard",
+              "Build profile management",
+              "Build support request workflows",
+              "Build secure document access"
+            ]
+          },
+          {
+            "id": "E5",
+            "name": "Data and APIs",
+            "tasks": [
+              "Design schema",
+              "Create migrations",
+              "Implement validated APIs",
+              "Add data access authorization",
+              "Define backup and recovery procedures"
+            ]
+          },
+          {
+            "id": "E6",
+            "name": "Testing",
+            "tasks": [
+              "Add unit and integration tests",
+              "Add end-to-end and smoke tests",
+              "Add accessibility checks",
+              "Add security and performance checks"
+            ]
+          },
+          {
+            "id": "E7",
+            "name": "Azure Platform",
+            "tasks": [
+              "Author Bicep modules",
+              "Configure managed identity and Key Vault",
+              "Configure database and networking",
+              "Configure telemetry, dashboards, and alerts"
+            ]
+          },
+          {
+            "id": "E8",
+            "name": "Delivery and Operations",
+            "tasks": [
+              "Create CI workflow",
+              "Create staging deployment workflow",
+              "Create production approval and deployment workflow",
+              "Create rollback and incident runbooks",
+              "Perform root-cause analysis and remediation when deployment validation fails"
+            ]
+          }
+        ],
+        "milestones": [
+          {
+            "name": "M1: Design approved",
+            "exitCriteria": [
+              "Requirements, architecture, threat model, and acceptance criteria are approved"
+            ]
+          },
+          {
+            "name": "M2: Portal feature complete",
+            "exitCriteria": [
+              "Core workflows are implemented and reviewed",
+              "Automated tests meet agreed thresholds"
+            ]
+          },
+          {
+            "name": "M3: Staging ready",
+            "exitCriteria": [
+              "Infrastructure is provisioned",
+              "Staging deployment and smoke tests pass",
+              "Monitoring and rollback are validated"
+            ]
+          },
+          {
+            "name": "M4: Production ready",
+            "exitCriteria": [
+              "Security and accessibility checks pass",
+              "Operational approval is recorded",
+              "Production deployment plan and rollback plan are approved"
+            ]
+          }
+        ]
+      },
+      "graph": {
+        "nodes": [
+          {
+            "id": "N1",
+            "label": "Requirements"
+          },
+          {
+            "id": "N2",
+            "label": "Architecture and Threat Model"
+          },
+          {
+            "id": "N3",
+            "label": "GitHub Repository and Governance"
+          },
+          {
+            "id": "N4",
+            "label": "Application and Database"
+          },
+          {
+            "id": "N5",
+            "label": "Automated Quality and Security Checks"
+          },
+          {
+            "id": "N6",
+            "label": "Azure Infrastructure as Code"
+          },
+          {
+            "id": "N7",
+            "label": "Staging Deployment"
+          },
+          {
+            "id": "N8",
+            "label": "Post-Deployment Validation"
+          },
+          {
+            "id": "N9",
+            "label": "Failure Diagnostics"
+          },
+          {
+            "id": "N10",
+            "label": "Root-Cause Fix"
+          },
+          {
+            "id": "N11",
+            "label": "Production Approval"
+          },
+          {
+            "id": "N12",
+            "label": "Production Deployment"
+          },
+          {
+            "id": "N13",
+            "label": "Monitoring and Operations"
+          }
+        ],
+        "edges": [
+          {
+            "from": "N1",
+            "to": "N2",
+            "condition": "Requirements approved"
+          },
+          {
+            "from": "N2",
+            "to": "N3",
+            "condition": "Architecture approved"
+          },
+          {
+            "from": "N3",
+            "to": "N4",
+            "condition": "Repository controls active"
+          },
+          {
+            "from": "N4",
+            "to": "N5",
+            "condition": "Implementation submitted"
+          },
+          {
+            "from": "N2",
+            "to": "N6",
+            "condition": "Azure design approved"
+          },
+          {
+            "from": "N5",
+            "to": "N7",
+            "condition": "Checks pass"
+          },
+          {
+            "from": "N6",
+            "to": "N7",
+            "condition": "Infrastructure plan passes"
+          },
+          {
+            "from": "N7",
+            "to": "N8",
+            "condition": "Deployment completes"
+          },
+          {
+            "from": "N8",
+            "to": "N11",
+            "condition": "Validation passes"
+          },
+          {
+            "from": "N7",
+            "to": "N9",
+            "condition": "Deployment fails"
+          },
+          {
+            "from": "N8",
+            "to": "N9",
+            "condition": "Validation fails"
+          },
+          {
+            "from": "N9",
+            "to": "N10",
+            "condition": "Root cause identified"
+          },
+          {
+            "from": "N10",
+            "to": "N5",
+            "condition": "Fix reviewed and committed"
+          },
+          {
+            "from": "N11",
+            "to": "N12",
+            "condition": "Production approval granted"
+          },
+          {
+            "from": "N12",
+            "to": "N13",
+            "condition": "Production validation passes"
+          },
+          {
+            "from": "N12",
+            "to": "N9",
+            "condition": "Production deployment or validation fails"
+          }
+        ]
+      }
+    },
+    "projectName": "Customer Portal",
+    "planningExecutionId": "resp_09f382376b359aef006ab261b6ab2487d2bc394056b8ee6f03"
+  },
+  "extra": {
+    "ok": true,
+    "executor": "OpenAI API",
+    "model": "gpt-5.6-sol",
+    "executionId": "resp_09f382376b359aef006ab261b6ab2487d2bc394056b8ee6f03",
+    "result": "[object Object]",
+    "usage": {
+      "input_tokens": 60,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 2920,
+      "output_tokens_details": {
+        "reasoning_tokens": 34
+      },
+      "total_tokens": 2980
+    },
+    "estimatedCost": 0.05864
+  },
+  "savedAt": "2026-09-22T11:09:21.527Z"
+}
