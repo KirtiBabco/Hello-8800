@@ -1,0 +1,68 @@
+{
+  "task": {
+    "mo": "Router Control",
+    "id": "0.1",
+    "t": "Validate executor connectivity and authentication",
+    "d": "Real preflight of RCA/RCS/OpenAI execution readiness.",
+    "dep": [],
+    "ro": {
+      "k": "OpenAI API",
+      "n": "OpenAI",
+      "m": "Configured server model",
+      "w": "No registered specialist Agent covers this task."
+    },
+    "s": "Planned",
+    "res": "Real executor readiness check completed.",
+    "proof": {
+      "executor": true,
+      "requestReceipt": true,
+      "executionId": "preflight-1790064182074",
+      "terminal": true,
+      "result": true,
+      "verification": true,
+      "evidence": ""
+    },
+    "inp": 0,
+    "out": 0,
+    "c": 0,
+    "outUrl": ""
+  },
+  "preflight": {
+    "checkedAtUtc": "2026-09-22T08:03:01.0978277Z",
+    "rca": {
+      "endpoint": "https://ca-babco-rca-agent-rnd.mangodesert-69aab027.eastus2.azurecontainerapps.io/mcp",
+      "reachable": true,
+      "httpStatus": 401,
+      "authenticated": false,
+      "ready": false,
+      "missing": "Website Entra invocation adapter / RCA.Invoke authorization"
+    },
+    "rcs": {
+      "endpoint": "https://ca-babco-rcs-agent-rnd.mangodesert-69aab027.eastus2.azurecontainerapps.io/mcp",
+      "reachable": true,
+      "httpStatus": 405,
+      "authenticated": false,
+      "ready": false,
+      "missing": "Website Entra invocation adapter / allowed client authorization"
+    },
+    "openai": {
+      "configured": false,
+      "ready": false,
+      "missing": "Server-side OPENAI_API_KEY is not configured",
+      "model": ""
+    },
+    "proofContract": {
+      "required": true,
+      "fields": [
+        "executor",
+        "requestReceipt",
+        "executionId",
+        "terminalStatus",
+        "actualResultOrArtifact",
+        "verification",
+        "evidenceReference"
+      ]
+    }
+  },
+  "savedAt": "2026-09-22T08:03:02.074Z"
+}
