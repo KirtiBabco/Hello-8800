@@ -1,0 +1,470 @@
+{
+  "prompt": "Build a Customer Portal, Create GitHub Repo, Deploy to Azure and if deployment fails find root cause and solve it.",
+  "task": {
+    "mo": "Reliability",
+    "id": "4.5",
+    "t": "Run remediation if deployment fails",
+    "d": "Conditional: use RCS Agent when authorized; otherwise real OpenAI remediation fallback.",
+    "dep": [
+      "4.4"
+    ],
+    "ro": {
+      "k": "Conditional Gate",
+      "n": "Router",
+      "m": "No invocation required",
+      "w": "Condition was false; no model/agent call was needed."
+    },
+    "s": "Skipped",
+    "res": "Deployment succeeded; remediation was not needed.",
+    "proof": {
+      "executor": true,
+      "requestReceipt": true,
+      "executionId": "skip-4.5-1790075521839",
+      "terminal": true,
+      "result": true,
+      "verification": true,
+      "evidence": ""
+    },
+    "inp": 0,
+    "out": 0,
+    "c": 0,
+    "outUrl": "",
+    "requiresUrl": false
+  },
+  "context": {
+    "planning": {
+      "projectName": "Customer Portal",
+      "analysis": {
+        "objective": "Design, implement, test, publish, and deploy a secure customer-facing web portal.",
+        "proposedStack": {
+          "frontend": "Next.js with TypeScript",
+          "backend": "Next.js server APIs",
+          "database": "Azure Database for PostgreSQL",
+          "authentication": "Microsoft Entra External ID",
+          "hosting": "Azure App Service",
+          "ciCd": "GitHub Actions",
+          "infrastructure": "Bicep",
+          "monitoring": "Azure Application Insights"
+        },
+        "coreCapabilities": [
+          "Customer registration, sign-in, sign-out, and password recovery",
+          "Customer profile management",
+          "Dashboard with account summary",
+          "Support request creation and tracking",
+          "Secure document access",
+          "Responsive and accessible user interface",
+          "Administrative audit logging",
+          "Health checks, telemetry, and error reporting"
+        ],
+        "securityRequirements": [
+          "Use managed identities and avoid credentials in source control",
+          "Store necessary secrets in Azure Key Vault or protected GitHub environments",
+          "Enforce HTTPS, secure cookies, authorization checks, and least-privilege access",
+          "Validate all input and protect sensitive customer data",
+          "Enable dependency, code, and secret scanning",
+          "Separate development, staging, and production configuration"
+        ],
+        "assumptions": [
+          "The GitHub organization or account and Azure subscription will be supplied",
+          "Authorized access will be available for repository and Azure resource creation",
+          "Detailed branding, data fields, user roles, and integrations will be confirmed before implementation",
+          "Production deployment will require an approval gate",
+          "No repository or Azure resources should be created until names, region, budget, and access are confirmed"
+        ],
+        "successCriteria": [
+          "The portal passes automated tests and security checks",
+          "The GitHub repository contains reviewed source code, documentation, CI/CD workflows, and infrastructure definitions",
+          "The staging deployment passes smoke, authentication, database, and health checks",
+          "The production deployment is repeatable and protected by approval",
+          "A failed deployment produces sufficient diagnostics to identify, fix, and verify its root cause"
+        ]
+      },
+      "buildPlan": [
+        {
+          "phase": "Discovery and design",
+          "actions": [
+            "Confirm personas, workflows, roles, data model, branding, compliance needs, service-level objectives, Azure region, and budget",
+            "Define acceptance criteria and non-functional requirements",
+            "Create architecture, threat model, wireframes, and API contracts"
+          ],
+          "deliverables": [
+            "Approved requirements",
+            "Architecture decision records",
+            "Threat model",
+            "Implementation backlog"
+          ]
+        },
+        {
+          "phase": "Repository and project setup",
+          "actions": [
+            "Create a private GitHub repository using the approved organization and naming convention",
+            "Initialize the application, formatter, linter, test frameworks, commit conventions, and documentation",
+            "Configure branch protection, pull-request reviews, CODEOWNERS, Dependabot, code scanning, and secret scanning",
+            "Add environment-specific GitHub environments with staging and production approval rules"
+          ],
+          "deliverables": [
+            "Repository scaffold",
+            "Contribution guide",
+            "Branch and security policies",
+            "Initial CI workflow"
+          ]
+        },
+        {
+          "phase": "Application implementation",
+          "actions": [
+            "Build the responsive portal shell and reusable design system",
+            "Integrate Microsoft Entra External ID",
+            "Implement profile, dashboard, support request, and document workflows",
+            "Create database schema, migrations, authorization policies, validation, and audit events",
+            "Add accessible error, loading, empty, and session-expiry states"
+          ],
+          "deliverables": [
+            "Portal source code",
+            "Database migrations",
+            "API documentation",
+            "User and administrator workflows"
+          ]
+        },
+        {
+          "phase": "Quality and security",
+          "actions": [
+            "Add unit, integration, end-to-end, accessibility, and smoke tests",
+            "Run static analysis, dependency scanning, secret scanning, and container or package vulnerability checks",
+            "Validate authorization boundaries, input handling, session security, and privacy controls",
+            "Define release acceptance thresholds and rollback criteria"
+          ],
+          "deliverables": [
+            "Automated test suites",
+            "Security findings and remediations",
+            "Release checklist"
+          ]
+        },
+        {
+          "phase": "Azure infrastructure",
+          "actions": [
+            "Define resource groups, App Service plan, web app, PostgreSQL, Key Vault, managed identity, Application Insights, Log Analytics, networking, and alerts in Bicep",
+            "Configure staging and production parameters without embedding secrets",
+            "Grant least-privilege access between services",
+            "Add health endpoints, deployment slots where appropriate, backup policies, and retention settings"
+          ],
+          "deliverables": [
+            "Versioned Bicep modules",
+            "Environment parameter templates",
+            "Operational dashboards and alerts"
+          ]
+        },
+        {
+          "phase": "CI/CD and deployment",
+          "actions": [
+            "Configure pull-request validation for linting, type checking, tests, build, and security scans",
+            "Configure authenticated Azure deployment through GitHub OpenID Connect",
+            "Provision or update staging infrastructure, apply database migrations safely, and deploy the application",
+            "Run post-deployment health, smoke, authentication, and database connectivity checks",
+            "Require approval before production deployment and use a slot swap or controlled rollout where supported"
+          ],
+          "deliverables": [
+            "GitHub Actions workflows",
+            "Staging deployment pipeline",
+            "Approval-controlled production pipeline",
+            "Deployment and rollback runbooks"
+          ]
+        },
+        {
+          "phase": "Failure diagnosis and remediation",
+          "actions": [
+            "Capture the failed workflow stage, deployment operation ID, timestamps, commit SHA, and affected environment",
+            "Inspect GitHub Actions logs, Azure Activity Log, deployment logs, App Service logs, Application Insights traces, health metrics, and database diagnostics",
+            "Classify the failure as authentication, authorization, infrastructure, configuration, build, migration, startup, networking, quota, runtime, or health-check related",
+            "Reproduce the failure in staging with sanitized configuration when possible",
+            "Apply the smallest reviewed fix to code, configuration, infrastructure, permissions, or migration logic",
+            "Rerun automated checks and redeploy to staging",
+            "Verify telemetry, health checks, core journeys, data integrity, and rollback readiness before production promotion",
+            "Document the root cause, contributing factors, resolution, and preventive controls"
+          ],
+          "deliverables": [
+            "Root-cause analysis",
+            "Reviewed corrective change",
+            "Successful verification evidence",
+            "Preventive test, alert, or runbook update"
+          ]
+        }
+      ],
+      "decomposition": {
+        "epics": [
+          {
+            "id": "E1",
+            "name": "Requirements and UX",
+            "tasks": [
+              "Define personas and permissions",
+              "Specify customer journeys",
+              "Create wireframes and accessibility criteria",
+              "Approve acceptance criteria"
+            ]
+          },
+          {
+            "id": "E2",
+            "name": "GitHub Governance",
+            "tasks": [
+              "Create private repository",
+              "Configure branch protection and CODEOWNERS",
+              "Enable security scanning",
+              "Configure staging and production environments"
+            ]
+          },
+          {
+            "id": "E3",
+            "name": "Identity and Security",
+            "tasks": [
+              "Configure Entra External ID",
+              "Implement session handling",
+              "Implement role and resource authorization",
+              "Create audit logging and threat mitigations"
+            ]
+          },
+          {
+            "id": "E4",
+            "name": "Portal Features",
+            "tasks": [
+              "Build portal layout and navigation",
+              "Build customer dashboard",
+              "Build profile management",
+              "Build support request workflows",
+              "Build secure document access"
+            ]
+          },
+          {
+            "id": "E5",
+            "name": "Data and APIs",
+            "tasks": [
+              "Design schema",
+              "Create migrations",
+              "Implement validated APIs",
+              "Add data access authorization",
+              "Define backup and recovery procedures"
+            ]
+          },
+          {
+            "id": "E6",
+            "name": "Testing",
+            "tasks": [
+              "Add unit and integration tests",
+              "Add end-to-end and smoke tests",
+              "Add accessibility checks",
+              "Add security and performance checks"
+            ]
+          },
+          {
+            "id": "E7",
+            "name": "Azure Platform",
+            "tasks": [
+              "Author Bicep modules",
+              "Configure managed identity and Key Vault",
+              "Configure database and networking",
+              "Configure telemetry, dashboards, and alerts"
+            ]
+          },
+          {
+            "id": "E8",
+            "name": "Delivery and Operations",
+            "tasks": [
+              "Create CI workflow",
+              "Create staging deployment workflow",
+              "Create production approval and deployment workflow",
+              "Create rollback and incident runbooks",
+              "Perform root-cause analysis and remediation when deployment validation fails"
+            ]
+          }
+        ],
+        "milestones": [
+          {
+            "name": "M1: Design approved",
+            "exitCriteria": [
+              "Requirements, architecture, threat model, and acceptance criteria are approved"
+            ]
+          },
+          {
+            "name": "M2: Portal feature complete",
+            "exitCriteria": [
+              "Core workflows are implemented and reviewed",
+              "Automated tests meet agreed thresholds"
+            ]
+          },
+          {
+            "name": "M3: Staging ready",
+            "exitCriteria": [
+              "Infrastructure is provisioned",
+              "Staging deployment and smoke tests pass",
+              "Monitoring and rollback are validated"
+            ]
+          },
+          {
+            "name": "M4: Production ready",
+            "exitCriteria": [
+              "Security and accessibility checks pass",
+              "Operational approval is recorded",
+              "Production deployment plan and rollback plan are approved"
+            ]
+          }
+        ]
+      },
+      "graph": {
+        "nodes": [
+          {
+            "id": "N1",
+            "label": "Requirements"
+          },
+          {
+            "id": "N2",
+            "label": "Architecture and Threat Model"
+          },
+          {
+            "id": "N3",
+            "label": "GitHub Repository and Governance"
+          },
+          {
+            "id": "N4",
+            "label": "Application and Database"
+          },
+          {
+            "id": "N5",
+            "label": "Automated Quality and Security Checks"
+          },
+          {
+            "id": "N6",
+            "label": "Azure Infrastructure as Code"
+          },
+          {
+            "id": "N7",
+            "label": "Staging Deployment"
+          },
+          {
+            "id": "N8",
+            "label": "Post-Deployment Validation"
+          },
+          {
+            "id": "N9",
+            "label": "Failure Diagnostics"
+          },
+          {
+            "id": "N10",
+            "label": "Root-Cause Fix"
+          },
+          {
+            "id": "N11",
+            "label": "Production Approval"
+          },
+          {
+            "id": "N12",
+            "label": "Production Deployment"
+          },
+          {
+            "id": "N13",
+            "label": "Monitoring and Operations"
+          }
+        ],
+        "edges": [
+          {
+            "from": "N1",
+            "to": "N2",
+            "condition": "Requirements approved"
+          },
+          {
+            "from": "N2",
+            "to": "N3",
+            "condition": "Architecture approved"
+          },
+          {
+            "from": "N3",
+            "to": "N4",
+            "condition": "Repository controls active"
+          },
+          {
+            "from": "N4",
+            "to": "N5",
+            "condition": "Implementation submitted"
+          },
+          {
+            "from": "N2",
+            "to": "N6",
+            "condition": "Azure design approved"
+          },
+          {
+            "from": "N5",
+            "to": "N7",
+            "condition": "Checks pass"
+          },
+          {
+            "from": "N6",
+            "to": "N7",
+            "condition": "Infrastructure plan passes"
+          },
+          {
+            "from": "N7",
+            "to": "N8",
+            "condition": "Deployment completes"
+          },
+          {
+            "from": "N8",
+            "to": "N11",
+            "condition": "Validation passes"
+          },
+          {
+            "from": "N7",
+            "to": "N9",
+            "condition": "Deployment fails"
+          },
+          {
+            "from": "N8",
+            "to": "N9",
+            "condition": "Validation fails"
+          },
+          {
+            "from": "N9",
+            "to": "N10",
+            "condition": "Root cause identified"
+          },
+          {
+            "from": "N10",
+            "to": "N5",
+            "condition": "Fix reviewed and committed"
+          },
+          {
+            "from": "N11",
+            "to": "N12",
+            "condition": "Production approval granted"
+          },
+          {
+            "from": "N12",
+            "to": "N13",
+            "condition": "Production validation passes"
+          },
+          {
+            "from": "N12",
+            "to": "N9",
+            "condition": "Production deployment or validation fails"
+          }
+        ]
+      }
+    },
+    "projectName": "Customer Portal",
+    "planningExecutionId": "resp_09f382376b359aef006ab261b6ab2487d2bc394056b8ee6f03",
+    "files": [
+      {
+        "path": "index.html",
+        "content": "<!doctype html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<meta name=\"viewport\" content=\"width=device-width,initial-scale=1\">\n<meta name=\"description\" content=\"Customer Portal static prototype for Azure App Service\">\n<title>Customer Portal — Prototype</title>\n<style>\n:root{--navy:#102a43;--blue:#1769e0;--blue-dark:#0f55bb;--sky:#eaf3ff;--bg:#f4f7fb;--card:#fff;--text:#172b4d;--muted:#60738a;--border:#dce5ef;--green:#14805e;--green-bg:#e6f6f0;--amber:#a15c00;--amber-bg:#fff3d8;--red:#bd2c2c;--red-bg:#fdeaea;--shadow:0 8px 24px rgba(31,54,80,.08);--radius:14px}\n*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,Segoe UI,Arial,sans-serif;line-height:1.45}button,input,textarea,select{font:inherit}button,a{ -webkit-tap-highlight-color:transparent}.skip{position:absolute;left:-999px;top:8px;background:#fff;padding:10px;z-index:100}.skip:focus{left:8px}.app{min-height:100vh;display:grid;grid-template-columns:248px 1fr}.sidebar{position:fixed;inset:0 auto 0 0;width:248px;background:var(--navy);color:#fff;padding:22px 16px;display:flex;flex-direction:column;z-index:20}.brand{display:flex;align-items:center;gap:11px;padding:0 8px 24px}.brand-mark{width:38px;height:38px;display:grid;place-items:center;background:linear-gradient(135deg,#59a6ff,#1769e0);border-radius:11px;font-weight:800}.brand strong{display:block;font-size:17px}.prototype{display:inline-flex;margin-top:3px;padding:2px 7px;border:1px solid rgba(255,255,255,.35);border-radius:99px;font-size:10px;letter-spacing:.08em;text-transform:uppercase}.nav-label{padding:10px 12px 6px;color:#9db3c8;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em}.nav button{width:100%;border:0;background:transparent;color:#cdd9e5;display:flex;align-items:center;gap:12px;padding:11px 12px;margin:2px 0;border-radius:9px;cursor:pointer;text-align:left}.nav button:hover,.nav button.active{background:rgba(255,255,255,.11);color:#fff}.nav .icon{width:22px;text-align:center}.side-footer{margin-top:auto;border-top:1px solid rgba(255,255,255,.15);padding:17px 10px 2px}.status-line{display:flex;align-items:center;gap:8px;font-size:12px;color:#bad0df}.dot{width:8px;height:8px;background:#42d69b;border-radius:50%;box-shadow:0 0 0 3px rgba(66,214,155,.15)}.main{grid-column:2;min-width:0}.topbar{height:72px;background:#fff;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 32px;position:sticky;top:0;z-index:10}.mobile-menu{display:none;border:0;background:none;font-size:23px}.search{width:min(410px,42vw);position:relative}.search input{width:100%;background:#f5f8fb;border:1px solid transparent;border-radius:10px;padding:10px 14px 10px 38px;outline:none}.search input:focus{border-color:#77adf4;box-shadow:0 0 0 3px #deebfc}.search span{position:absolute;left:13px;top:9px;color:var(--muted)}.user{display:flex;align-items:center;gap:12px}.avatar{width:38px;height:38px;border-radius:50%;background:#dceaff;color:#1657a6;display:grid;place-items:center;font-weight:800}.user-meta{font-size:13px}.user-meta small{display:block;color:var(--muted)}.content{padding:30px 32px 50px;max-width:1450px;margin:auto}.view{display:none}.view.active{display:block}.page-head{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;margin-bottom:24px}.page-head h1{font-size:28px;margin:0 0 5px;letter-spacing:-.02em}.page-head p{margin:0;color:var(--muted)}.btn{border:1px solid var(--border);background:#fff;color:var(--text);border-radius:9px;padding:10px 15px;font-weight:650;cursor:pointer;display:inline-flex;align-items:center;gap:8px}.btn:hover{background:#f6f9fc}.btn.primary{background:var(--blue);border-color:var(--blue);color:#fff}.btn.primary:hover{background:var(--blue-dark)}.btn.small{padding:7px 11px;font-size:13px}.grid{display:grid;gap:18px}.stats{grid-template-columns:repeat(4,1fr);margin-bottom:18px}.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow)}.stat{padding:20px}.stat-top{display:flex;align-items:center;justify-content:space-between;color:var(--muted);font-size:13px}.stat-icon{width:36px;height:36px;background:var(--sky);border-radius:10px;display:grid;place-items:center;color:var(--blue)}.stat-value{font-size:25px;font-weight:750;margin:12px 0 2px}.stat-note{font-size:12px;color:var(--green)}.cols{grid-template-columns:minmax(0,1.6fr) minmax(280px,.8fr)}.card-head{padding:19px 21px 15px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)}.card-head h2{font-size:16px;margin:0}.card-body{padding:20px}.account-banner{background:linear-gradient(125deg,#12365e,#1769e0);color:#fff;padding:23px;border-radius:12px;margin-bottom:19px;display:flex;justify-content:space-between;align-items:center}.account-banner small{color:#c6dcf7}.account-banner strong{display:block;font-size:25px;margin-top:3px}.account-id{text-align:right}.account-id span{display:block;font-size:12px;color:#c6dcf7}.progress-row{display:grid;grid-template-columns:110px 1fr 50px;gap:12px;align-items:center;margin:16px 0;font-size:13px}.bar{height:8px;background:#e8eef5;border-radius:20px;overflow:hidden}.bar i{display:block;height:100%;background:var(--blue);border-radius:20px}.activity{list-style:none;margin:0;padding:0}.activity li{display:grid;grid-template-columns:36px 1fr auto;gap:12px;padding:13px 0;border-bottom:1px solid var(--border);align-items:center}.activity li:last-child{border:0}.activity-icon{width:34px;height:34px;border-radius:9px;background:#eef4fb;display:grid;place-items:center}.activity strong{font-size:13px;display:block}.activity small{color:var(--muted)}.activity time{color:var(--muted);font-size:12px}.quick{display:grid;grid-template-columns:1fr 1fr;gap:11px}.quick button{border:1px solid var(--border);background:#fff;padding:15px 10px;border-radius:10px;cursor:pointer;color:var(--text)}.quick button:hover{border-color:#8bb7ef;background:#f7fbff}.quick b{font-size:20px;display:block;color:var(--blue);margin-bottom:6px}.notice{margin-top:18px;padding:16px;background:var(--amber-bg);border-left:4px solid #e8a328;border-radius:8px;font-size:13px}.table-card{overflow:hidden}.table-wrap{overflow:auto}table{border-collapse:collapse;width:100%;min-width:650px}th,td{padding:14px 20px;text-align:left;border-bottom:1px solid var(--border);font-size:13px}th{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.06em;background:#fafcfe}.pill{display:inline-flex;align-items:center;padding:4px 9px;border-radius:99px;font-size:11px;font-weight:700}.pill.green{color:var(--green);background:var(--green-bg)}.pill.amber{color:var(--amber);background:var(--amber-bg)}.pill.red{color:var(--red);background:var(--red-bg)}.pill.blue{color:#155ab5;background:#e9f2ff}.doc-grid{grid-template-columns:repeat(3,1fr)}.doc{padding:21px}.doc-icon{width:45px;height:45px;border-radius:10px;background:#edf4ff;color:var(--blue);display:grid;place-items:center;font-weight:800;margin-bottom:17px}.doc h3{font-size:15px;margin:0 0 5px}.doc p{font-size:12px;color:var(--muted);margin:0 0 18px}.profile-grid{grid-template-columns:1fr 1fr}.form-card{padding:23px}.form-card h2{font-size:17px;margin:0 0 20px}.field{margin-bottom:16px}.field label{display:block;font-size:12px;font-weight:700;margin-bottom:6px}.field input,.field textarea,.field select{width:100%;border:1px solid #cbd8e5;border-radius:8px;padding:10px 11px;background:#fff;color:var(--text);outline:none}.field textarea{min-height:100px;resize:vertical}.field input:focus,.field textarea:focus,.field select:focus{border-color:var(--blue);box-shadow:0 0 0 3px #e2eeff}.pipeline{padding:22px}.steps{display:grid;grid-template-columns:repeat(5,1fr);gap:9px;margin:18px 0 23px}.step{padding:12px;border-radius:9px;background:#f0f4f8;border:1px solid var(--border);font-size:12px}.step strong{display:block;margin-bottom:4px}.step.done{background:var(--green-bg);border-color:#9dd9c3}.step.failed{background:var(--red-bg);border-color:#efb0b0}.rca{border:1px solid #f0c1c1;background:#fffafa;border-radius:10px;padding:18px}.rca h3{margin:0 0 9px;color:var(--red);font-size:15px}.rca-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px;font-size:13px}.rca-item strong{display:block;margin-bottom:3px}.success-box{display:none;margin-top:15px;padding:14px;border-radius:9px;background:var(--green-bg);color:var(--green);font-size:13px}.modal-backdrop{display:none;position:fixed;inset:0;background:rgba(8,25,43,.58);z-index:50;place-items:center;padding:18px}.modal-backdrop.open{display:grid}.modal{width:min(550px,100%);background:#fff;border-radius:15px;box-shadow:0 24px 60px rgba(0,0,0,.25)}.modal-head{display:flex;justify-content:space-between;align-items:center;padding:19px 22px;border-bottom:1px solid var(--border)}.modal-head h2{font-size:18px;margin:0}.close{border:0;background:none;font-size:24px;cursor:pointer}.modal-body{padding:22px}.modal-actions{padding:16px 22px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:10px}.toast{position:fixed;right:24px;bottom:24px;background:#102a43;color:#fff;padding:13px 17px;border-radius:10px;box-shadow:var(--shadow);z-index:80;transform:translateY(100px);opacity:0;transition:.25s}.toast.show{transform:none;opacity:1}.empty-search{display:none;padding:40px;text-align:center;color:var(--muted)}\n@media(max-width:1050px){.stats{grid-template-columns:1fr 1fr}.cols{grid-template-columns:1fr}.doc-grid{grid-template-columns:1fr 1fr}.steps{grid-template-columns:1fr 1fr}}\n@media(max-width:760px){.app{display:block}.sidebar{transform:translateX(-100%);transition:.25s}.sidebar.open{transform:none;box-shadow:20px 0 50px rgba(0,0,0,.25)}.main{display:block}.topbar{padding:0 16px}.mobile-menu{display:block}.search{display:none}.user-meta{display:none}.content{padding:22px 16px 40px}.stats,.doc-grid,.profile-grid{grid-template-columns:1fr}.page-head{align-items:stretch;flex-direction:column}.page-head .btn{justify-content:center}.rca-grid{grid-template-columns:1fr}.account-banner{align-items:flex-start;gap:15px;flex-direction:column}.account-id{text-align:left}.quick{grid-template-columns:1fr 1fr}}\n</style>\n</head>\n<body>\n<a class=\"skip\" href=\"#main\">Skip to main content</a>\n<div class=\"app\">\n<aside class=\"sidebar\" id=\"sidebar\" aria-label=\"Primary navigation\">\n<div class=\"brand\"><div class=\"brand-mark\">CP</div><div><strong>Customer Portal</strong><span class=\"prototype\">Prototype</span></div></div>\n<div class=\"nav-label\">Portal</div>\n<nav class=\"nav\">\n<button class=\"active\" data-view=\"overview\"><span class=\"icon\">⌂</span>Overview</button>\n<button data-view=\"accounts\"><span class=\"icon\">▣</span>Accounts</button>\n<button data-view=\"documents\"><span class=\"icon\">▤</span>Documents</button>\n<button data-view=\"support\"><span class=\"icon\">◉</span>Support</button>\n<button data-view=\"profile\"><span class=\"icon\">♙</span>Profile</button>\n</nav>\n<div class=\"nav-label\">Operations</div>\n<nav class=\"nav\"><button data-view=\"delivery\"><span class=\"icon\">↗</span>Delivery status</button></nav>\n<div class=\"side-footer\"><div class=\"status-line\"><span class=\"dot\"></span>All customer services operational</div></div>\n</aside>\n<main class=\"main\" id=\"main\">\n<header class=\"topbar\"><button class=\"mobile-menu\" id=\"menuBtn\" aria-label=\"Open navigation\">☰</button><div class=\"search\"><span>⌕</span><input id=\"globalSearch\" type=\"search\" placeholder=\"Search documents, requests, accounts…\" aria-label=\"Search portal\"></div><div class=\"user\"><button class=\"btn small\" id=\"notifyBtn\" aria-label=\"Notifications\">● <span class=\"pill red\">2</span></button><div class=\"avatar\">AM</div><div class=\"user-meta\"><strong>Alex Morgan</strong><small>Northwind Group</small></div></div></header>\n<div class=\"content\">\n<section class=\"view active\" id=\"overview\">\n<div class=\"page-head\"><div><h1>Good morning, Alex</h1><p>Here is what is happening with your account today.</p></div><button class=\"btn primary open-ticket\">＋ New support request</button></div>\n<div class=\"grid stats\">\n<div class=\"card stat\"><div class=\"stat-top\"><span>Account balance</span><span class=\"stat-icon\">$</span></div><div class=\"stat-value\">$12,480.00</div><div class=\"stat-note\">Paid through June 30</div></div>\n<div class=\"card stat\"><div class=\"stat-top\"><span>Open requests</span><span class=\"stat-icon\">?</span></div><div class=\"stat-value\">3</div><div class=\"stat-note\">1 updated today</div></div>\n<div class=\"card stat\"><div class=\"stat-top\"><span>Documents</span><span class=\"stat-icon\">▤</span></div><div class=\"stat-value\">24</div><div class=\"stat-note\">2 new this month</div></div>\n<div class=\"card stat\"><div class=\"stat-top\"><span>Profile security</span><span class=\"stat-icon\">✓</span></div><div class=\"stat-value\">Strong</div><div class=\"stat-note\">MFA is enabled</div></div>\n</div>\n<div class=\"grid cols\">\n<div class=\"card\"><div class=\"card-head\"><h2>Account summary</h2><button class=\"btn small nav-link\" data-view=\"accounts\">View account</button></div><div class=\"card-body\"><div class=\"account-banner\"><div><small>Available service credit</small><strong>$7,520.00</strong></div><div class=\"account-id\"><span>Customer number</span><b>NW-2048-73</b></div></div><div class=\"progress-row\"><span>Plan usage</span><div class=\"bar\"><i style=\"width:68%\"></i></div><b>68%</b></div><div class=\"progress-row\"><span>Storage</span><div class=\"bar\"><i style=\"width:42%\"></i></div><b>42%</b></div><div class=\"progress-row\"><span>Team seats</span><div class=\"bar\"><i style=\"width:80%\"></i></div><b>80%</b></div></div></div>\n<div class=\"grid\"><div class=\"card\"><div class=\"card-head\"><h2>Quick actions</h2></div><div class=\"card-body quick\"><button class=\"open-ticket\"><b>＋</b>Get support</button><button class=\"nav-link\" data-view=\"documents\"><b>⇩</b>Documents</button><button class=\"nav-link\" data-view=\"profile\"><b>♙</b>Edit profile</button><button id=\"paymentBtn\"><b>$</b>Make payment</button></div></div><div class=\"notice\"><strong>Scheduled maintenance</strong><br>Document services may be briefly unavailable Sunday from 02:00–03:00 UTC.</div></div>\n</div>\n<div class=\"card\" style=\"margin-top:18px\"><div class=\"card-head\"><h2>Recent activity</h2><button class=\"btn small nav-link\" data-view=\"support\">View all</button></div><div class=\"card-body\"><ul class=\"activity\"><li><span class=\"activity-icon\">✓</span><div><strong>Invoice INV-10482 paid</strong><small>Payment confirmed successfully</small></div><time>Today, 9:42</time></li><li><span class=\"activity-icon\">↻</span><div><strong>Support request updated</strong><small>SR-2841 · Access permissions</small></div><time>Yesterday</time></li><li><span class=\"activity-icon\">▤</span><div><strong>New statement available</strong><small>May 2025 account statement</small></div><time>Jun 2</time></li></ul></div></div>\n</section>\n<section class=\"view\" id=\"accounts\"><div class=\"page-head\"><div><h1>Accounts</h1><p>Review subscriptions, usage, and billing details.</p></div><button class=\"btn primary\" id=\"payTop\">Make a payment</button></div><div class=\"card table-card\"><div class=\"card-head\"><h2>Active services</h2><span class=\"pill green\">Account in good standing</span></div><div class=\"table-wrap\"><table><thead><tr><th>Service</th><th>Plan</th><th>Renewal</th><th>Monthly cost</th><th>Status</th></tr></thead><tbody><tr><td><strong>Customer Platform</strong><br><small>CP-4732</small></td><td>Enterprise</td><td>Jul 1, 2025</td><td>$1,240.00</td><td><span class=\"pill green\">Active</span></td></tr><tr><td><strong>Secure Storage</strong><br><small>SS-8821</small></td><td>2 TB</td><td>Jul 1, 2025</td><td>$320.00</td><td><span class=\"pill green\">Active</span></td></tr><tr><td><strong>Advanced Analytics</strong><br><small>AA-1029</small></td><td>Professional</td><td>Jul 1, 2025</td><td>$180.00</td><td><span class=\"pill amber\">Review</span></td></tr></tbody></table></div></div></section>\n<section class=\"view\" id=\"documents\"><div class=\"page-head\"><div><h1>Documents</h1><p>Securely access statements, invoices, and agreements.</p></div><button class=\"btn\">Filter documents</button></div><div class=\"grid doc-grid\"><article class=\"card doc\"><div class=\"doc-icon\">PDF</div><h3>May 2025 Statement</h3><p>Account statement · 842 KB · Jun 2, 2025</p><button class=\"btn small download\">⇩ Download</button></article><article class=\"card doc\"><div class=\"doc-icon\">PDF</div><h3>Invoice INV-10482</h3><p>Invoice · 324 KB · May 28, 2025</p><button class=\"btn small download\">⇩ Download</button></article><article class=\"card doc\"><div class=\"doc-icon\">DOC</div><h3>Service Agreement</h3><p>Agreement · 1.2 MB · Jan 12, 2025</p><button class=\"btn small download\">⇩ Download</button></article><article class=\"card doc\"><div class=\"doc-icon\">PDF</div><h3>April 2025 Statement</h3><p>Account statement · 811 KB · May 2, 2025</p><button class=\"btn small download\">⇩ Download</button></article></div></section>\n<section class=\"view\" id=\"support\"><div class=\"page-head\"><div><h1>Support requests</h1><p>Create and track requests with the customer care team.</p></div><button class=\"btn primary open-ticket\">＋ New request</button></div><div class=\"card table-card\"><div class=\"table-wrap\"><table><thead><tr><th>Reference</th><th>Subject</th><th>Last update</th><th>Priority</th><th>Status</th></tr></thead><tbody id=\"ticketRows\"><tr><td><strong>SR-2841</strong></td><td>Access permissions for new team member</td><td>Today, 10:18</td><td>Normal</td><td><span class=\"pill blue\">In progress</span></td></tr><tr><td><strong>SR-2793</strong></td><td>Billing address update</td><td>May 30, 2025</td><td>Low</td><td><span class=\"pill green\">Resolved</span></td></tr><tr><td><strong>SR-2761</strong></td><td>Document export question</td><td>May 27, 2025</td><td>Normal</td><td><span class=\"pill amber\">Waiting on you</span></td></tr></tbody></table></div></div></section>\n<section class=\"view\" id=\"profile\"><div class=\"page-head\"><div><h1>Profile & security</h1><p>Manage your personal details and sign-in preferences.</p></div></div><div class=\"grid profile-grid\"><form class=\"card form-card\" id=\"profileForm\"><h2>Personal information</h2><div class=\"field\"><label for=\"name\">Full name</label><input id=\"name\" value=\"Alex Morgan\"></div><div class=\"field\"><label for=\"email\">Email address</label><input id=\"email\" type=\"email\" value=\"alex.morgan@example.com\"></div><div class=\"field\"><label for=\"phone\">Phone number</label><input id=\"phone\" value=\"+1 (555) 014-8290\"></div><div class=\"field\"><label for=\"company\">Organization</label><input id=\"company\" value=\"Northwind Group\"></div><button class=\"btn primary\" type=\"submit\">Save changes</button></form><div class=\"card form-card\"><h2>Sign-in security</h2><div class=\"activity\"><li><span class=\"activity-icon\">✓</span><div><strong>Multi-factor authentication</strong><small>Enabled with Microsoft Authenticator</small></div><span class=\"pill green\">On</span></li><li><span class=\"activity-icon\">⌁</span><div><strong>Password</strong><small>Last changed 42 days ago</small></div><button class=\"btn small\" id=\"passwordBtn\">Change</button></li><li><span class=\"activity-icon\">↗</span><div><strong>Active sessions</strong><small>2 recognized devices</small></div><button class=\"btn small\" id=\"sessionsBtn\">Review</button></li></div></div></div></section>\n<section class=\"view\" id=\"delivery\"><div class=\"page-head\"><div><h1>Delivery status</h1><p>Prototype release diagnostics for the Azure App Service deployment.</p></div><span class=\"pill amber\">Staging investigation</span></div><div class=\"card pipeline\"><div class=\"card-head\" style=\"padding:0 0 16px\"><h2>Release customer-portal / a81d9c2</h2><span>Started 10:04 UTC</span></div><div class=\"steps\"><div class=\"step done\"><strong>✓ Build</strong>Passed · 2m 14s</div><div class=\"step done\"><strong>✓ Security checks</strong>Passed · 1m 08s</div><div class=\"step done\"><strong>✓ Infrastructure</strong>Passed · 3m 41s</div><div class=\"step failed\" id=\"deployStep\"><strong>✕ App startup</strong>Failed · 4m 02s</div><div class=\"step\"><strong>— Smoke tests</strong>Not started</div></div><div class=\"rca\"><h3>Root cause identified</h3><div class=\"rca-grid\"><div class=\"rca-item\"><strong>Failure</strong>Application health check returned HTTP 503 after deployment.</div><div class=\"rca-item\"><strong>Root cause</strong>App Service runtime was set to Node 18 while the build requires Node 20.</div><div class=\"rca-item\"><strong>Corrective action</strong>Update the runtime setting to Node 20 LTS and restart the staging slot.</div><div class=\"rca-item\"><strong>Prevention</strong>Add a runtime compatibility check before deployment.</div></div><button class=\"btn primary\" id=\"applyFix\" style=\"margin-top:17px\">Apply fix and verify</button><div class=\"success-box\" id=\"fixSuccess\"><strong>Verification passed.</strong> Runtime updated, health endpoint returned HTTP 200, and smoke tests completed successfully.</div></div></div></section>\n</div>\n</main>\n</div>\n<div class=\"modal-backdrop\" id=\"ticketModal\" role=\"dialog\" aria-modal=\"true\" aria-labelledby=\"ticketTitle\"><div class=\"modal\"><div class=\"modal-head\"><h2 id=\"ticketTitle\">New support request</h2><button class=\"close\" aria-label=\"Close\">×</button></div><form id=\"ticketForm\"><div class=\"modal-body\"><div class=\"field\"><label for=\"subject\">Subject</label><input id=\"subject\" required placeholder=\"Briefly describe your request\"></div><div class=\"field\"><label for=\"category\">Category</label><select id=\"category\"><option>Account access</option><option>Billing</option><option>Technical issue</option><option>Documents</option><option>Other</option></select></div><div class=\"field\"><label for=\"priority\">Priority</label><select id=\"priority\"><option>Low</option><option selected>Normal</option><option>High</option></select></div><div class=\"field\"><label for=\"details\">Details</label><textarea id=\"details\" required placeholder=\"Include any relevant details. Do not include passwords or secrets.\"></textarea></div></div><div class=\"modal-actions\"><button class=\"btn close-modal\" type=\"button\">Cancel</button><button class=\"btn primary\" type=\"submit\">Submit request</button></div></form></div></div>\n<div class=\"toast\" id=\"toast\" role=\"status\" aria-live=\"polite\"></div>\n<script>\nconst views=document.querySelectorAll('.view'),navButtons=document.querySelectorAll('.nav button[data-view]'),sidebar=document.getElementById('sidebar');\nfunction showView(id){views.forEach(v=>v.classList.toggle('active',v.id===id));navButtons.forEach(b=>b.classList.toggle('active',b.dataset.view===id));sidebar.classList.remove('open');window.scrollTo({top:0,behavior:'smooth'});}\ndocument.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>showView(b.dataset.view)));\ndocument.getElementById('menuBtn').addEventListener('click',()=>sidebar.classList.toggle('open'));\nconst modal=document.getElementById('ticketModal');\nfunction openModal(){modal.classList.add('open');setTimeout(()=>document.getElementById('subject').focus(),50)}\nfunction closeModal(){modal.classList.remove('open')}\ndocument.querySelectorAll('.open-ticket').forEach(b=>b.addEventListener('click',openModal));document.querySelector('.close').addEventListener('click',closeModal);document.querySelector('.close-modal').addEventListener('click',closeModal);modal.addEventListener('click',e=>{if(e.target===modal)closeModal()});\nfunction toast(message){const t=document.getElementById('toast');t.textContent=message;t.classList.add('show');clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>t.classList.remove('show'),2800)}\ndocument.getElementById('ticketForm').addEventListener('submit',e=>{e.preventDefault();const subject=document.getElementById('subject').value,priority=document.getElementById('priority').value,id='SR-'+Math.floor(3000+Math.random()*600);document.getElementById('ticketRows').insertAdjacentHTML('afterbegin','<tr><td><strong>'+id+'</strong></td><td>'+subject.replace(/[<>]/g,'')+'</td><td>Just now</td><td>'+priority+'</td><td><span class=\"pill blue\">Submitted</span></td></tr>');e.target.reset();closeModal();showView('support');toast('Support request '+id+' created successfully')});\ndocument.getElementById('profileForm').addEventListener('submit',e=>{e.preventDefault();toast('Profile changes saved')});\ndocument.querySelectorAll('.download').forEach(b=>b.addEventListener('click',()=>toast('Secure download prepared (prototype)')));\n['paymentBtn','payTop'].forEach(id=>document.getElementById(id).addEventListener('click',()=>toast('Payment flow opened (prototype)')));\ndocument.getElementById('notifyBtn').addEventListener('click',()=>toast('You have 2 account notifications'));\ndocument.getElementById('passwordBtn').addEventListener('click',()=>toast('Password management opened (prototype)'));document.getElementById('sessionsBtn').addEventListener('click',()=>toast('Session review opened (prototype)'));\ndocument.getElementById('applyFix').addEventListener('click',function(){this.disabled=true;this.textContent='Verifying…';setTimeout(()=>{const s=document.getElementById('deployStep');s.className='step done';s.innerHTML='<strong>✓ App startup</strong>Passed after fix · 1m 22s';document.getElementById('fixSuccess').style.display='block';this.textContent='Fix verified';toast('Staging deployment recovered successfully')},1300)});\ndocument.getElementById('globalSearch').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();toast(e.target.value?'Searching for “'+e.target.value+'” (prototype)':'Enter a search term')}});\ndocument.addEventListener('keydown',e=>{if(e.key==='Escape'){closeModal();sidebar.classList.remove('open')}});\n</script>\n</body>\n</html>"
+      }
+    ],
+    "repoOwner": "KirtiBabco",
+    "repoName": "customer-portal-0922-111109",
+    "repoUrl": "https://github.com/KirtiBabco/customer-portal-0922-111109",
+    "packageRawUrl": "https://raw.githubusercontent.com/KirtiBabco/customer-portal-0922-111109/main/deploy/site.zip",
+    "appName": "app-babco-customer-portal-0922111118",
+    "liveUrl": "https://app-babco-customer-portal-0922111118.azurewebsites.net/",
+    "verified": true
+  },
+  "extra": {
+    "skipped": true,
+    "reason": "Deployment succeeded; remediation was not needed."
+  },
+  "savedAt": "2026-09-22T11:12:01.839Z"
+}
