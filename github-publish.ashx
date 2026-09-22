@@ -19,9 +19,10 @@ public class GitHubPublish : IHttpHandler {
     c.Response.ContentType = "application/json; charset=utf-8";
     c.Response.Cache.SetNoStore();
     c.Response.TrySkipIisCustomErrors = true;
-    if (c.Request.HttpMethod != "POST") { Err(c, 405, "POST required."); return; }
+    ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+    if (String.Equals(c.Request.HttpMethod, "GET", StringComparison.OrdinalIgnoreCase)) { Health(c); return; }
+    if (!String.Equals(c.Request.HttpMethod, "POST", StringComparison.OrdinalIgnoreCase)) { Err(c, 405, "GET or POST required."); return; }
     try {
-      ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
       string raw; using (var sr = new StreamReader(c.Request.InputStream)) raw = sr.ReadToEnd();
       var b = Obj(raw);
       var files = Arr(b, "files");
@@ -79,6 +80,33 @@ public class GitHubPublish : IHttpHandler {
     }
     catch (WebException e) { Err(c, 502, WebErr(e)); }
     catch (Exception e) { Err(c, 500, e.GetType().Name + ": " + e.Message); }
+  }
+
+  private void Health(HttpContext c) {
+    try {
+      string token = Setting("BABCO_GITHUB_TOKEN");
+      if (!SecretReady(token)) { Err(c, 503, "GitHub token Key Vault reference is not resolved."); return; }
+      var q = (HttpWebRequest)WebRequest.Create("https://api.github.com/user");
+      q.Method = "GET";
+      q.UserAgent = "Babco-Agent-Pilot-Router/0.5.3";
+      q.Accept = "application/vnd.github+json";
+      q.Headers[HttpRequestHeader.Authorization] = "Bearer " + token;
+      q.Headers["X-GitHub-Api-Version"] = "2022-11-28";
+      q.Timeout = 30000;
+      using (var r = (HttpWebResponse)q.GetResponse())
+      using (var sr = new StreamReader(r.GetResponseStream())) {
+        var me = Obj(sr.ReadToEnd());
+        c.Response.StatusCode = 200;
+        c.Response.Write(J.Serialize(new {
+          ok = true,
+          adapterVersion = "0.5.3",
+          githubStatus = (int)r.StatusCode,
+          githubUser = S(me, "login"),
+          oauthScopes = r.Headers["X-OAuth-Scopes"] ?? ""
+        }));
+      }
+    } catch (WebException e) { Err(c, 502, WebErr(e)); }
+      catch (Exception e) { Err(c, 500, e.GetType().Name + ": " + e.Message); }
   }
 
   private void PutFile(string owner, string repo, string path, byte[] data, string token, string message) {
@@ -152,7 +180,7 @@ public class GitHubPublish : IHttpHandler {
   private string GH(string method, string url, string token, string json) {
     var q = (HttpWebRequest)WebRequest.Create(url);
     q.Method = method;
-    q.UserAgent = "Babco-Agent-Pilot-Router/0.5.1";
+    q.UserAgent = "Babco-Agent-Pilot-Router/0.5.3";
     q.Accept = "application/vnd.github+json";
     q.ContentType = "application/json; charset=utf-8";
     q.Headers[HttpRequestHeader.Authorization] = "Bearer " + token;
@@ -172,5 +200,5 @@ public class GitHubPublish : IHttpHandler {
   private string S(Dictionary<string, object> d, string k) { object v; return d.TryGetValue(k, out v) && v != null ? Convert.ToString(v).Trim() : ""; }
   private string SRaw(Dictionary<string, object> d, string k) { object v; return d.TryGetValue(k, out v) && v != null ? Convert.ToString(v) : ""; }
   private string WebErr(WebException e) { try { var r = e.Response as HttpWebResponse; using (var sr = new StreamReader(r.GetResponseStream())) return "GitHub HTTP " + ((int)r.StatusCode) + ": " + sr.ReadToEnd(); } catch { return e.Message; } }
-  private void Err(HttpContext c, int code, string msg) { c.Response.StatusCode = code; c.Response.Write(J.Serialize(new { ok = false, error = msg })); }
+  private void Err(HttpContext c, int code, string msg) { c.Response.StatusCode = code; c.Response.Write(J.Serialize(new { ok = false, adapterVersion = "0.5.3", error = msg })); }
 }
