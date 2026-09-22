@@ -150,7 +150,7 @@
     proc(2,1,-1);
 
     var c1=byId('0.1');c1.res='Real preflight completed: core pipeline ready.';baseProof(c1,'preflight-'+Date.now(),c1.res,true);c1.s=(await persistEvidence(c1,PF))?'Done':'Blocked';
-    var c2=byId('0.2');c2.res='Proof-gated Done contract active.';baseProof(c2,'contract-v0.5.1',c2.res,true);c2.s=(await persistEvidence(c2,{contract:'v0.5.1'}))?'Done':'Blocked';render();
+    var c2=byId('0.2');c2.res='Proof-gated Done contract active.';baseProof(c2,'contract-v0.5.2',c2.res,true);c2.s=(await persistEvidence(c2,{contract:'v0.5.2'}))?'Done':'Blocked';render();
 
     var x=byId('1.1');x.s='Running';setRoute(x,'OpenAI API','OpenAI',PF.openai.model||'gpt-5.6-sol','One real planning execution.');render();proc(3,2,-1);
     try{
@@ -224,6 +224,6 @@
 
   Q('#run').textContent='Run Real Pipeline';
   Q('#an').onclick=window.analyze;Q('#run').onclick=window.run;
-  var footer=document.querySelector('footer');if(footer)footer.textContent='Babco Labs Prototype - Agent Pilot Router - Version 0.5.1';
-  var mode=document.querySelector('.proofMode');if(mode)mode.textContent='REAL EXECUTION v0.5.1';
+  var footer=document.querySelector('footer');if(footer)footer.textContent='Babco Labs Prototype - Agent Pilot Router - Version 0.5.2';
+  var mode=document.querySelector('.proofMode');if(mode)mode.textContent='REAL EXECUTION v0.5.2';
 })();

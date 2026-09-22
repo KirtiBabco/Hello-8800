@@ -26,7 +26,7 @@ public class ExecutorPreflight : IHttpHandler {
 
     c.Response.Write(js.Serialize(new {
       checkedAtUtc = DateTime.UtcNow.ToString("o"),
-      adapterVersion = "0.5.1",
+      adapterVersion = "0.5.2",
       rca = new {
         reachable = rca.reachable,
         httpStatus = rca.status,
@@ -68,7 +68,7 @@ public class ExecutorPreflight : IHttpHandler {
     try {
       var q = (HttpWebRequest)WebRequest.Create("https://api.github.com/user");
       q.Method = "GET";
-      q.UserAgent = "Babco-Agent-Pilot-Router/0.5.1";
+      q.UserAgent = "Babco-Agent-Pilot-Router/0.5.2";
       q.Accept = "application/vnd.github+json";
       q.Headers[HttpRequestHeader.Authorization] = "Bearer " + token;
       q.Headers["X-GitHub-Api-Version"] = "2022-11-28";

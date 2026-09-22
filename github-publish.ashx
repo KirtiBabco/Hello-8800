@@ -79,7 +79,7 @@ public class GitHubPublish : IHttpHandler {
       c.Response.StatusCode = 200;
       c.Response.Write(J.Serialize(new {
         ok = true,
-        adapterVersion = "0.5.1",
+        adapterVersion = "0.5.2",
         executor = "GitHub API",
         executionId = "github-" + S(repo, "id"),
         repoOwner = owner,
@@ -100,7 +100,7 @@ public class GitHubPublish : IHttpHandler {
 
       var q = (HttpWebRequest)WebRequest.Create("https://api.github.com/user");
       q.Method = "GET";
-      q.UserAgent = "Babco-Agent-Pilot-Router/0.5.1";
+      q.UserAgent = "Babco-Agent-Pilot-Router/0.5.2";
       q.Accept = "application/vnd.github+json";
       q.Headers[HttpRequestHeader.Authorization] = "Bearer " + token;
       q.Headers["X-GitHub-Api-Version"] = "2022-11-28";
@@ -112,7 +112,7 @@ public class GitHubPublish : IHttpHandler {
         c.Response.StatusCode = 200;
         c.Response.Write(J.Serialize(new {
           ok = true,
-          adapterVersion = "0.5.1",
+          adapterVersion = "0.5.2",
           tokenResolved = true,
           githubStatus = (int)r.StatusCode,
           githubUser = S(me, "login"),
@@ -232,7 +232,7 @@ public class GitHubPublish : IHttpHandler {
   string GH(string method, string url, string token, string json) {
     var q = (HttpWebRequest)WebRequest.Create(url);
     q.Method = method;
-    q.UserAgent = "Babco-Agent-Pilot-Router/0.5.1";
+    q.UserAgent = "Babco-Agent-Pilot-Router/0.5.2";
     q.Accept = "application/vnd.github+json";
     q.ContentType = "application/json; charset=utf-8";
     q.Headers[HttpRequestHeader.Authorization] = "Bearer " + token;
@@ -282,7 +282,7 @@ public class GitHubPublish : IHttpHandler {
   void Err(HttpContext c, int code, string msg) {
     c.Response.StatusCode = code;
     c.Response.TrySkipIisCustomErrors = true;
-    c.Response.Write(J.Serialize(new { ok = false, adapterVersion = "0.5.1", error = msg }));
+    c.Response.Write(J.Serialize(new { ok = false, adapterVersion = "0.5.2", error = msg }));
   }
 
   class ZipEntryInfo {
