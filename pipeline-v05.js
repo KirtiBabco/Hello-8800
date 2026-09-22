@@ -95,6 +95,21 @@
   window.doPreflight=async function(){
     Q('#pb').textContent='Checking';proc(1,0,-1);
     var r=await fetch('/executor-preflight.ashx?ts='+Date.now(),{cache:'no-store'});PF=await r.json();
+    try{
+      var gr=await fetch('/github-publish.ashx?health=1&ts='+Date.now(),{cache:'no-store'});
+      var gt=await gr.text(),gj=null;
+      try{gj=JSON.parse(gt);}catch(parseErr){throw new Error('Non-JSON health response HTTP '+gr.status+': '+String(gt||'').replace(/<[^>]*>/g,' ').replace(/\\s+/g,' ').trim().substring(0,300));}
+      PF.github={
+        ready:gr.ok&&gj.ok===true,
+        githubUser:gj.githubUser||'',
+        httpStatus:gj.githubStatus||gr.status,
+        oauthScopes:gj.oauthScopes||'',
+        missing:gr.ok&&gj.ok===true?'':(gj.error||'GitHub adapter health failed.')
+      };
+    }catch(ghErr){
+      PF.github={ready:false,missing:'GitHub adapter smoke test failed: '+ghErr.message};
+    }
+    PF.pipelineReady=!!(PF.openai&&PF.openai.ready&&PF.github&&PF.github.ready&&PF.azure&&PF.azure.ready);
     Q('#preflight').innerHTML=pfRow('RCA',PF.rca)+pfRow('RCS',PF.rcs)+pfRow('OpenAI',PF.openai)+pfRow('GitHub',PF.github)+pfRow('Azure',PF.azure);
     var state=Q('#pipelineState');
     if(!state){state=document.createElement('div');state.id='pipelineState';Q('#preflight').parentNode.appendChild(state);}
@@ -150,7 +165,7 @@
     proc(2,1,-1);
 
     var c1=byId('0.1');c1.res='Real preflight completed: core pipeline ready.';baseProof(c1,'preflight-'+Date.now(),c1.res,true);c1.s=(await persistEvidence(c1,PF))?'Done':'Blocked';
-    var c2=byId('0.2');c2.res='Proof-gated Done contract active.';baseProof(c2,'contract-v0.5.2',c2.res,true);c2.s=(await persistEvidence(c2,{contract:'v0.5.2'}))?'Done':'Blocked';render();
+    var c2=byId('0.2');c2.res='Proof-gated Done contract active.';baseProof(c2,'contract-v0.5.3',c2.res,true);c2.s=(await persistEvidence(c2,{contract:'v0.5.3'}))?'Done':'Blocked';render();
 
     var x=byId('1.1');x.s='Running';setRoute(x,'OpenAI API','OpenAI',PF.openai.model||'gpt-5.6-sol','One real planning execution.');render();proc(3,2,-1);
     try{
@@ -224,6 +239,6 @@
 
   Q('#run').textContent='Run Real Pipeline';
   Q('#an').onclick=window.analyze;Q('#run').onclick=window.run;
-  var footer=document.querySelector('footer');if(footer)footer.textContent='Babco Labs Prototype - Agent Pilot Router - Version 0.5.2';
-  var mode=document.querySelector('.proofMode');if(mode)mode.textContent='REAL EXECUTION v0.5.2';
+  var footer=document.querySelector('footer');if(footer)footer.textContent='Babco Labs Prototype - Agent Pilot Router - Version 0.5.3';
+  var mode=document.querySelector('.proofMode');if(mode)mode.textContent='REAL EXECUTION v0.5.3';
 })();
