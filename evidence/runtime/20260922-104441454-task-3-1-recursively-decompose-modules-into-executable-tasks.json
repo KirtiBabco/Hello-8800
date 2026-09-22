@@ -1,0 +1,413 @@
+{
+  "prompt": "Build a Customer Portal, Create GitHub Repo, Deploy to Azure and if deployment fails find root cause and solve it.",
+  "task": {
+    "mo": "Architecture",
+    "id": "3.1",
+    "t": "Recursively decompose modules into executable tasks",
+    "d": "Derived from the real planning execution.",
+    "dep": [
+      "1.1"
+    ],
+    "ro": {
+      "k": "OpenAI API",
+      "n": "OpenAI",
+      "m": "Derived from planning",
+      "w": "Derived from one real OpenAI planning execution."
+    },
+    "s": "Planned",
+    "res": "[object Object]",
+    "proof": {
+      "executor": true,
+      "requestReceipt": true,
+      "executionId": "resp_0d5585f3f42ebe1d006ab25becb1fc87d28643ae1d1766459f-decompose",
+      "terminal": true,
+      "result": true,
+      "verification": true,
+      "evidence": ""
+    },
+    "inp": 0,
+    "out": 0,
+    "c": 0,
+    "outUrl": "",
+    "requiresUrl": false
+  },
+  "context": {
+    "planning": {
+      "projectName": "customer-portal",
+      "analysis": {
+        "objective": "Build a secure customer portal, establish its GitHub repository, deploy it to Azure, validate the deployment, and diagnose and remediate deployment failures.",
+        "assumptions": [
+          "The portal will be a responsive web application with authenticated customer access.",
+          "Azure and GitHub credentials, subscription details, tenant configuration, and required permissions will be provided securely.",
+          "Initial scope includes authentication, customer profile management, a dashboard, support requests, and administrator-ready APIs.",
+          "A managed Azure architecture and automated CI/CD are preferred."
+        ],
+        "proposedArchitecture": {
+          "frontend": "React with TypeScript",
+          "backend": "ASP.NET Core Web API",
+          "database": "Azure SQL Database",
+          "authentication": "Microsoft Entra External ID or Azure AD B2C, subject to tenant availability",
+          "hosting": "Azure Static Web Apps for the frontend and Azure App Service for the API",
+          "secrets": "Azure Key Vault with managed identities",
+          "observability": "Azure Application Insights and Log Analytics",
+          "infrastructure": "Bicep templates",
+          "cicd": "GitHub Actions using Azure workload identity federation"
+        },
+        "coreCapabilities": [
+          "Customer registration, sign-in, sign-out, and password recovery",
+          "Role-based authorization",
+          "Customer dashboard",
+          "Profile and account management",
+          "Support request submission and history",
+          "Accessible responsive user interface",
+          "API validation, structured error handling, and audit-friendly logging",
+          "Automated build, test, security scan, infrastructure provisioning, and deployment"
+        ],
+        "constraintsAndRisks": [
+          "Repository creation and deployment require authorized access to GitHub and Azure.",
+          "Identity tenant policies may affect authentication implementation.",
+          "Azure quotas, provider registration, region availability, naming conflicts, and subscription policies may block provisioning.",
+          "Production data handling, retention, compliance, and disaster recovery requirements must be confirmed before launch."
+        ],
+        "successCriteria": [
+          "Application builds and automated tests pass.",
+          "Infrastructure can be provisioned reproducibly from source control.",
+          "GitHub Actions deploys without long-lived Azure credentials.",
+          "The portal is reachable over HTTPS and authenticated workflows function.",
+          "Application Insights receives logs and dependency telemetry.",
+          "Failed deployments produce an identified root cause, a documented correction, and a successful validation run."
+        ]
+      },
+      "buildPlan": [
+        {
+          "phase": "Discovery and design",
+          "actions": [
+            "Confirm user roles, workflows, branding, accessibility, compliance, environments, and acceptance criteria.",
+            "Finalize the identity provider, domain model, API contract, and Azure region.",
+            "Create threat model, architecture diagram, and environment strategy."
+          ],
+          "outputs": [
+            "Approved requirements",
+            "Architecture decision records",
+            "Prioritized backlog"
+          ]
+        },
+        {
+          "phase": "Application implementation",
+          "actions": [
+            "Scaffold the React frontend and ASP.NET Core API.",
+            "Implement identity integration, authorization policies, dashboard, profile management, and support requests.",
+            "Add database migrations, input validation, secure headers, error handling, telemetry, and health endpoints.",
+            "Add unit, integration, accessibility, and end-to-end tests."
+          ],
+          "outputs": [
+            "Frontend application",
+            "Backend API",
+            "Database schema and migrations",
+            "Automated test suites"
+          ]
+        },
+        {
+          "phase": "GitHub repository setup",
+          "actions": [
+            "Create a private GitHub repository after authorization is available.",
+            "Add source code, README, contribution guidance, environment documentation, issue templates, and pull request templates.",
+            "Configure branch protection, required reviews, status checks, Dependabot, secret scanning, and code scanning.",
+            "Configure GitHub environments for development, staging, and production with appropriate approvals."
+          ],
+          "outputs": [
+            "Protected GitHub repository",
+            "Documented developer workflow",
+            "Security and quality controls"
+          ]
+        },
+        {
+          "phase": "Azure infrastructure",
+          "actions": [
+            "Create Bicep modules for resource groups, Static Web Apps, App Service, Azure SQL, Key Vault, Application Insights, and Log Analytics.",
+            "Configure managed identities, least-privilege RBAC, network restrictions, diagnostic settings, backups, and environment-specific parameters.",
+            "Configure GitHub-to-Azure workload identity federation."
+          ],
+          "outputs": [
+            "Version-controlled infrastructure",
+            "Repeatable Azure environments",
+            "Credential-free CI/CD authentication"
+          ]
+        },
+        {
+          "phase": "CI/CD and deployment",
+          "actions": [
+            "Create pull request workflows for restore, linting, compilation, tests, dependency review, and security scanning.",
+            "Create deployment workflows for infrastructure and application components.",
+            "Deploy first to development, execute smoke and end-to-end tests, then promote through staging to production with approval gates.",
+            "Record deployment identifiers, commit SHAs, and environment URLs."
+          ],
+          "outputs": [
+            "GitHub Actions workflows",
+            "Deployed and validated environments",
+            "Traceable release records"
+          ]
+        },
+        {
+          "phase": "Failure diagnosis and remediation",
+          "actions": [
+            "Capture the failed GitHub Actions job, Azure deployment operation details, correlation IDs, resource activity logs, and application logs.",
+            "Classify the failure as authentication, authorization, policy, quota, template, configuration, build, startup, networking, database, identity, or health-check related.",
+            "Reproduce the failure in the smallest safe scope and compare intended configuration with deployed state.",
+            "Correct the underlying source, infrastructure, permission, policy, or configuration defect rather than bypassing validation.",
+            "Add a regression test or preflight check, redeploy, run smoke tests, and document the root cause and prevention."
+          ],
+          "outputs": [
+            "Root-cause analysis",
+            "Reviewed remediation",
+            "Regression protection",
+            "Validated redeployment"
+          ]
+        }
+      ],
+      "decomposition": {
+        "workstreams": [
+          {
+            "name": "Requirements and UX",
+            "tasks": [
+              "Define personas and authorization matrix",
+              "Map customer journeys",
+              "Create responsive wireframes",
+              "Define accessibility acceptance criteria"
+            ]
+          },
+          {
+            "name": "Frontend",
+            "tasks": [
+              "Create application shell and routing",
+              "Integrate authentication",
+              "Implement dashboard, profile, and support views",
+              "Add form validation and API client",
+              "Add component, accessibility, and end-to-end tests"
+            ]
+          },
+          {
+            "name": "Backend",
+            "tasks": [
+              "Create API structure and domain model",
+              "Implement authentication and authorization",
+              "Implement profile and support endpoints",
+              "Add persistence and migrations",
+              "Add validation, logging, health checks, and tests"
+            ]
+          },
+          {
+            "name": "Security",
+            "tasks": [
+              "Create threat model",
+              "Apply least-privilege access",
+              "Use managed identities and Key Vault",
+              "Configure dependency, code, and secret scanning",
+              "Validate OWASP-aligned controls"
+            ]
+          },
+          {
+            "name": "Platform and infrastructure",
+            "tasks": [
+              "Author modular Bicep templates",
+              "Configure Azure environments",
+              "Configure observability and alerts",
+              "Configure backup and recovery settings",
+              "Add infrastructure validation and what-if checks"
+            ]
+          },
+          {
+            "name": "Repository and CI/CD",
+            "tasks": [
+              "Create and configure the GitHub repository",
+              "Establish branch protections and environments",
+              "Implement validation workflows",
+              "Implement deployment and rollback workflows",
+              "Document release procedures"
+            ]
+          },
+          {
+            "name": "Validation and operations",
+            "tasks": [
+              "Run functional and accessibility testing",
+              "Run security and performance checks",
+              "Execute deployment smoke tests",
+              "Prepare dashboards, alerts, and runbooks",
+              "Perform failure triage and root-cause remediation when needed"
+            ]
+          }
+        ],
+        "failureRunbook": {
+          "buildFailure": [
+            "Inspect compiler, package manager, lint, and test output.",
+            "Verify locked dependency versions and runtime SDK versions.",
+            "Reproduce with the same clean runner configuration.",
+            "Correct source or dependency issues and add regression coverage."
+          ],
+          "infrastructureFailure": [
+            "Inspect Azure deployment operations and Bicep diagnostics.",
+            "Check provider registration, region support, quotas, naming rules, policy denials, and dependency ordering.",
+            "Run Bicep validation and Azure what-if before retrying.",
+            "Correct templates or subscription prerequisites and redeploy idempotently."
+          ],
+          "authenticationOrAuthorizationFailure": [
+            "Validate GitHub OIDC claims, federated credential settings, tenant, subscription, and audience.",
+            "Inspect Azure role assignments and scope.",
+            "Apply only the minimum required permission and rerun the failed stage."
+          ],
+          "applicationStartupFailure": [
+            "Inspect App Service logs, Application Insights exceptions, configuration, runtime stack, health probes, and database connectivity.",
+            "Verify Key Vault references and managed identity permissions.",
+            "Correct configuration or code, deploy to a slot, validate, and swap safely."
+          ],
+          "postDeploymentFailure": [
+            "Run health, authentication, API, database, and browser smoke tests.",
+            "Compare application settings and schema versions across environments.",
+            "Roll back to the last known-good release if customer impact requires it, then remediate forward."
+          ]
+        }
+      },
+      "graph": {
+        "nodes": [
+          {
+            "id": "requirements",
+            "label": "Requirements and acceptance criteria"
+          },
+          {
+            "id": "architecture",
+            "label": "Architecture and threat model"
+          },
+          {
+            "id": "application",
+            "label": "Frontend, API, and database implementation"
+          },
+          {
+            "id": "tests",
+            "label": "Automated quality and security tests"
+          },
+          {
+            "id": "repository",
+            "label": "GitHub repository and governance"
+          },
+          {
+            "id": "infrastructure",
+            "label": "Azure infrastructure as code"
+          },
+          {
+            "id": "cicd",
+            "label": "GitHub Actions CI/CD"
+          },
+          {
+            "id": "deployment",
+            "label": "Azure deployment"
+          },
+          {
+            "id": "validation",
+            "label": "Smoke, integration, and end-to-end validation"
+          },
+          {
+            "id": "triage",
+            "label": "Failure evidence collection and classification"
+          },
+          {
+            "id": "rootCause",
+            "label": "Root-cause determination"
+          },
+          {
+            "id": "remediation",
+            "label": "Corrective change and regression protection"
+          },
+          {
+            "id": "redeployment",
+            "label": "Redeployment and verification"
+          },
+          {
+            "id": "operations",
+            "label": "Monitoring, alerting, and runbooks"
+          }
+        ],
+        "edges": [
+          {
+            "from": "requirements",
+            "to": "architecture"
+          },
+          {
+            "from": "architecture",
+            "to": "application"
+          },
+          {
+            "from": "architecture",
+            "to": "infrastructure"
+          },
+          {
+            "from": "application",
+            "to": "tests"
+          },
+          {
+            "from": "application",
+            "to": "repository"
+          },
+          {
+            "from": "tests",
+            "to": "cicd"
+          },
+          {
+            "from": "repository",
+            "to": "cicd"
+          },
+          {
+            "from": "infrastructure",
+            "to": "cicd"
+          },
+          {
+            "from": "cicd",
+            "to": "deployment"
+          },
+          {
+            "from": "deployment",
+            "to": "validation",
+            "condition": "deployment succeeds"
+          },
+          {
+            "from": "deployment",
+            "to": "triage",
+            "condition": "deployment fails"
+          },
+          {
+            "from": "validation",
+            "to": "triage",
+            "condition": "validation fails"
+          },
+          {
+            "from": "triage",
+            "to": "rootCause"
+          },
+          {
+            "from": "rootCause",
+            "to": "remediation"
+          },
+          {
+            "from": "remediation",
+            "to": "redeployment"
+          },
+          {
+            "from": "redeployment",
+            "to": "validation"
+          },
+          {
+            "from": "validation",
+            "to": "operations",
+            "condition": "all acceptance checks pass"
+          }
+        ]
+      }
+    },
+    "projectName": "customer-portal",
+    "planningExecutionId": "resp_0d5585f3f42ebe1d006ab25becb1fc87d28643ae1d1766459f"
+  },
+  "extra": {
+    "derived": true,
+    "sourceExecutionId": "resp_0d5585f3f42ebe1d006ab25becb1fc87d28643ae1d1766459f"
+  },
+  "savedAt": "2026-09-22T10:44:41.940Z"
+}
