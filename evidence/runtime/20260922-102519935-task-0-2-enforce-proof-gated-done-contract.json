@@ -1,0 +1,39 @@
+{
+  "prompt": "Build a Customer Portal, Create GitHub Repo, Deploy to Azure and if deployment fails find root cause and solve it.",
+  "task": {
+    "mo": "Router Control",
+    "id": "0.2",
+    "t": "Enforce proof-gated Done contract",
+    "d": "Done requires receipt, execution ID, actual result, verification and durable evidence.",
+    "dep": [
+      "0.1"
+    ],
+    "ro": {
+      "k": "OpenAI API",
+      "n": "OpenAI",
+      "m": "Configured server model",
+      "w": "No registered specialist Agent covers this task."
+    },
+    "s": "Planned",
+    "res": "Proof-gated Done contract active.",
+    "proof": {
+      "executor": true,
+      "requestReceipt": true,
+      "executionId": "contract-v0.5.0",
+      "terminal": true,
+      "result": true,
+      "verification": true,
+      "evidence": ""
+    },
+    "inp": 0,
+    "out": 0,
+    "c": 0,
+    "outUrl": "",
+    "requiresUrl": false
+  },
+  "context": {},
+  "extra": {
+    "contract": "v0.5.0"
+  },
+  "savedAt": "2026-09-22T10:25:20.412Z"
+}
