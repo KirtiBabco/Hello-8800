@@ -1,0 +1,457 @@
+{
+  "prompt": "Build a Customer Portal, Create GitHub Repo, Deploy to Azure and if deployment fails find root cause and solve it.",
+  "task": {
+    "mo": "Planning",
+    "id": "2.1",
+    "t": "Create build plan",
+    "d": "Derived from the real planning execution.",
+    "dep": [
+      "1.1"
+    ],
+    "ro": {
+      "k": "OpenAI API",
+      "n": "OpenAI",
+      "m": "Derived from planning",
+      "w": "Derived from one real OpenAI planning execution."
+    },
+    "s": "Planned",
+    "res": "[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object]",
+    "proof": {
+      "executor": true,
+      "requestReceipt": true,
+      "executionId": "resp_0e94cc3ab0b9f2e8006ab250c8febc87d297b14db78178a46b-plan",
+      "terminal": true,
+      "result": true,
+      "verification": true,
+      "evidence": ""
+    },
+    "inp": 0,
+    "out": 0,
+    "c": 0,
+    "outUrl": "",
+    "requiresUrl": false
+  },
+  "context": {
+    "planning": {
+      "projectName": "customer-portal",
+      "analysis": {
+        "objective": "Build a secure, responsive customer portal, create a GitHub repository, deploy it to Microsoft Azure, and diagnose and resolve deployment failures.",
+        "assumptions": [
+          "The portal will use a React or Next.js frontend, a Node.js API, and a PostgreSQL database.",
+          "Customers will need authentication, profile management, and access to account-specific data.",
+          "Azure and GitHub credentials, subscription details, DNS settings, and required business rules will be provided securely.",
+          "Infrastructure will be provisioned through infrastructure as code rather than manual-only configuration.",
+          "Production secrets will be stored in Azure Key Vault and will not be committed to Git."
+        ],
+        "proposedArchitecture": {
+          "frontend": "Next.js with TypeScript and responsive UI components",
+          "backend": "Next.js server routes or a separate Node.js TypeScript API, selected after confirming scale and integration requirements",
+          "database": "Azure Database for PostgreSQL",
+          "authentication": "Microsoft Entra External ID or another approved identity provider",
+          "hosting": "Azure App Service or Azure Container Apps",
+          "secrets": "Azure Key Vault with managed identities",
+          "observability": "Azure Application Insights, Log Analytics, health checks, and deployment logs",
+          "sourceControl": "Private GitHub repository with protected main branch",
+          "ciCd": "GitHub Actions using Azure OpenID Connect instead of long-lived deployment credentials",
+          "infrastructure": "Bicep or Terraform"
+        },
+        "securityAndQuality": [
+          "Role-based authorization and tenant-safe data access",
+          "Input validation, secure headers, rate limiting, and CSRF/XSS protections where applicable",
+          "Automated unit, integration, accessibility, and end-to-end tests",
+          "Dependency, secret, and code scanning in CI",
+          "Database migrations with rollback or forward-fix procedures",
+          "Least-privilege Azure and GitHub permissions",
+          "Backup, restore, retention, and incident-response considerations"
+        ],
+        "constraints": [
+          "Repository creation and Azure deployment require authorized access to the target GitHub organization and Azure subscription.",
+          "Exact portal features, branding, data sources, compliance requirements, environments, region, and budget must be confirmed.",
+          "No implementation, repository creation, or deployment is represented as already completed."
+        ]
+      },
+      "buildPlan": [
+        {
+          "phase": "Discovery and acceptance criteria",
+          "actions": [
+            "Confirm personas, customer journeys, required pages, integrations, roles, compliance needs, branding, availability targets, Azure region, environments, and budget.",
+            "Define measurable acceptance criteria and a minimum viable product scope.",
+            "Create a threat model and data classification."
+          ],
+          "outputs": [
+            "Approved requirements",
+            "Architecture decision record",
+            "Acceptance-test checklist",
+            "Threat model"
+          ]
+        },
+        {
+          "phase": "Repository and engineering foundation",
+          "actions": [
+            "Create a private GitHub repository named customer-portal in the authorized organization.",
+            "Add README, license or proprietary notice, contribution guidance, CODEOWNERS, pull-request template, issue templates, and environment documentation.",
+            "Configure protected branches, required reviews, required status checks, Dependabot, secret scanning, and code scanning.",
+            "Initialize the TypeScript application, linting, formatting, tests, environment validation, and conventional commit workflow."
+          ],
+          "outputs": [
+            "Configured GitHub repository",
+            "Application scaffold",
+            "Branch protection and security controls",
+            "Local development instructions"
+          ]
+        },
+        {
+          "phase": "Portal implementation",
+          "actions": [
+            "Implement authentication, logout, session handling, password recovery or identity-provider equivalents, and role enforcement.",
+            "Build the dashboard, customer profile, account data views, settings, support/contact workflow, and error states.",
+            "Create API endpoints, domain services, database schema, migrations, validation, and audit logging.",
+            "Add responsive design, keyboard support, semantic markup, and WCAG-oriented accessibility checks.",
+            "Add unit, integration, and end-to-end tests using non-production test data."
+          ],
+          "outputs": [
+            "Working portal source code",
+            "Database migrations",
+            "Automated test suite",
+            "API and operational documentation"
+          ]
+        },
+        {
+          "phase": "Azure infrastructure",
+          "actions": [
+            "Define resource groups, hosting, PostgreSQL, Key Vault, Application Insights, Log Analytics, networking, managed identities, and role assignments in Bicep or Terraform.",
+            "Create separate development, staging, and production configurations where required.",
+            "Configure secure database connectivity, TLS, health probes, autoscaling parameters, backups, and retention.",
+            "Configure custom domain and certificates after DNS ownership is available."
+          ],
+          "outputs": [
+            "Versioned infrastructure code",
+            "Environment parameter files",
+            "Security and networking configuration",
+            "Monitoring and backup configuration"
+          ]
+        },
+        {
+          "phase": "Continuous integration and deployment",
+          "actions": [
+            "Create a pull-request workflow for install, lint, type-check, test, build, security scans, and infrastructure validation.",
+            "Configure GitHub-to-Azure federation with OpenID Connect and least-privilege deployment roles.",
+            "Create a deployment workflow that provisions infrastructure, applies migrations safely, deploys the application, and runs smoke tests.",
+            "Use staging slots or revisions and require approval before production promotion.",
+            "Implement rollback to the last healthy artifact or revision when post-deployment checks fail."
+          ],
+          "outputs": [
+            "CI workflow",
+            "Staging and production deployment workflows",
+            "Approval gates",
+            "Rollback procedure"
+          ]
+        },
+        {
+          "phase": "Deployment validation",
+          "actions": [
+            "Validate infrastructure state, application startup, database connectivity, identity callbacks, secrets, health endpoints, and external integrations.",
+            "Run smoke, accessibility, security, and critical-path end-to-end tests against staging.",
+            "Promote the verified immutable artifact to production after approval.",
+            "Verify telemetry, alerts, dashboards, backups, and operational runbooks."
+          ],
+          "outputs": [
+            "Deployment evidence",
+            "Validation results",
+            "Operational dashboard",
+            "Release and rollback notes"
+          ]
+        },
+        {
+          "phase": "Failure diagnosis and resolution",
+          "actions": [
+            "Capture the failed GitHub Actions job, Azure deployment operation ID, timestamps, artifact version, and correlation IDs.",
+            "Determine whether the failure occurred during authentication, infrastructure provisioning, build, migration, application startup, routing, or health verification.",
+            "Inspect GitHub Actions logs, Azure Activity Log, resource deployment operations, App Service or Container Apps logs, Application Insights traces, and PostgreSQL diagnostics.",
+            "Reproduce the failure in staging with the same immutable artifact and sanitized configuration.",
+            "Identify the root cause using evidence, implement the smallest durable correction, and add a regression test or preventive validation.",
+            "Redeploy through the pipeline, confirm health and critical user journeys, and document root cause, remediation, impact, and prevention.",
+            "If safe remediation cannot be completed immediately, roll back to the last healthy version and preserve diagnostic evidence."
+          ],
+          "commonChecks": [
+            "Expired or misconfigured OpenID Connect federation and insufficient Azure RBAC",
+            "Incorrect environment variables, Key Vault references, or managed identity permissions",
+            "Unsupported runtime, build command, package lock mismatch, or missing production dependency",
+            "Database firewall, DNS, TLS, credential, connection-pool, or migration failure",
+            "Container port, startup command, health probe, memory, or architecture mismatch",
+            "Infrastructure naming, quota, policy, region, provider-registration, or dependency errors",
+            "Identity-provider redirect URI, issuer, audience, cookie, or custom-domain mismatch"
+          ],
+          "outputs": [
+            "Root-cause analysis",
+            "Corrective change",
+            "Regression coverage",
+            "Successful validation or documented rollback"
+          ]
+        }
+      ],
+      "decomposition": {
+        "epics": [
+          {
+            "id": "E1",
+            "name": "Requirements and architecture",
+            "tasks": [
+              "Define MVP and personas",
+              "Confirm integrations and data model",
+              "Select Azure services and regions",
+              "Define security, compliance, SLOs, and acceptance criteria"
+            ]
+          },
+          {
+            "id": "E2",
+            "name": "GitHub repository",
+            "tasks": [
+              "Create private repository",
+              "Add project standards and documentation",
+              "Configure branch protection and ownership",
+              "Enable dependency, code, and secret scanning"
+            ]
+          },
+          {
+            "id": "E3",
+            "name": "Application foundation",
+            "tasks": [
+              "Scaffold TypeScript application",
+              "Configure linting, formatting, testing, and environment validation",
+              "Implement shared UI system and layouts",
+              "Add structured logging and health endpoints"
+            ]
+          },
+          {
+            "id": "E4",
+            "name": "Identity and authorization",
+            "tasks": [
+              "Configure identity provider",
+              "Implement login, logout, and session handling",
+              "Enforce roles and resource ownership",
+              "Add authentication and authorization tests"
+            ]
+          },
+          {
+            "id": "E5",
+            "name": "Customer features",
+            "tasks": [
+              "Build dashboard",
+              "Build profile and settings",
+              "Build customer account data views",
+              "Build support workflow and error states"
+            ]
+          },
+          {
+            "id": "E6",
+            "name": "Data and API",
+            "tasks": [
+              "Design schema",
+              "Implement migrations and seed strategy",
+              "Build validated APIs and domain services",
+              "Add audit logging and integration tests"
+            ]
+          },
+          {
+            "id": "E7",
+            "name": "Azure infrastructure",
+            "tasks": [
+              "Author infrastructure as code",
+              "Provision hosting, database, Key Vault, and monitoring",
+              "Configure identities, RBAC, networking, backups, and TLS",
+              "Prepare environment-specific configuration"
+            ]
+          },
+          {
+            "id": "E8",
+            "name": "CI/CD",
+            "tasks": [
+              "Build pull-request validation workflow",
+              "Configure Azure OpenID Connect federation",
+              "Build staging and production deployment workflows",
+              "Add migration safeguards, smoke tests, approvals, and rollback"
+            ]
+          },
+          {
+            "id": "E9",
+            "name": "Verification and operations",
+            "tasks": [
+              "Run accessibility, security, performance, and end-to-end checks",
+              "Configure dashboards and alerts",
+              "Write deployment, rollback, backup, and incident runbooks",
+              "Verify production readiness against acceptance criteria"
+            ]
+          },
+          {
+            "id": "E10",
+            "name": "Deployment failure remediation",
+            "tasks": [
+              "Collect logs and correlation identifiers",
+              "Classify the failing deployment stage",
+              "Reproduce safely in staging",
+              "Fix the evidence-backed root cause",
+              "Add regression prevention and redeploy or roll back",
+              "Publish a root-cause report"
+            ]
+          }
+        ],
+        "definitionOfDone": [
+          "All approved acceptance criteria pass.",
+          "Main branch checks, reviews, and security scans pass.",
+          "Infrastructure and application deployment are reproducible from version control.",
+          "No secrets are stored in the repository or build artifacts.",
+          "Staging and production health checks and critical customer journeys pass.",
+          "Monitoring, alerts, backups, rollback, and incident documentation are validated.",
+          "Any deployment failure has an evidence-backed root cause, durable remediation, and regression protection."
+        ]
+      },
+      "graph": {
+        "nodes": [
+          {
+            "id": "E1",
+            "label": "Requirements and architecture"
+          },
+          {
+            "id": "E2",
+            "label": "GitHub repository"
+          },
+          {
+            "id": "E3",
+            "label": "Application foundation"
+          },
+          {
+            "id": "E4",
+            "label": "Identity and authorization"
+          },
+          {
+            "id": "E5",
+            "label": "Customer features"
+          },
+          {
+            "id": "E6",
+            "label": "Data and API"
+          },
+          {
+            "id": "E7",
+            "label": "Azure infrastructure"
+          },
+          {
+            "id": "E8",
+            "label": "CI/CD"
+          },
+          {
+            "id": "E9",
+            "label": "Verification and operations"
+          },
+          {
+            "id": "E10",
+            "label": "Deployment failure remediation"
+          },
+          {
+            "id": "DONE",
+            "label": "Production-ready customer portal"
+          }
+        ],
+        "edges": [
+          {
+            "from": "E1",
+            "to": "E2",
+            "type": "blocks"
+          },
+          {
+            "from": "E1",
+            "to": "E3",
+            "type": "blocks"
+          },
+          {
+            "from": "E1",
+            "to": "E7",
+            "type": "blocks"
+          },
+          {
+            "from": "E2",
+            "to": "E3",
+            "type": "enables"
+          },
+          {
+            "from": "E3",
+            "to": "E4",
+            "type": "blocks"
+          },
+          {
+            "from": "E3",
+            "to": "E5",
+            "type": "blocks"
+          },
+          {
+            "from": "E3",
+            "to": "E6",
+            "type": "blocks"
+          },
+          {
+            "from": "E4",
+            "to": "E5",
+            "type": "enables"
+          },
+          {
+            "from": "E6",
+            "to": "E5",
+            "type": "enables"
+          },
+          {
+            "from": "E2",
+            "to": "E8",
+            "type": "blocks"
+          },
+          {
+            "from": "E7",
+            "to": "E8",
+            "type": "blocks"
+          },
+          {
+            "from": "E4",
+            "to": "E9",
+            "type": "blocks"
+          },
+          {
+            "from": "E5",
+            "to": "E9",
+            "type": "blocks"
+          },
+          {
+            "from": "E6",
+            "to": "E9",
+            "type": "blocks"
+          },
+          {
+            "from": "E8",
+            "to": "E9",
+            "type": "blocks"
+          },
+          {
+            "from": "E8",
+            "to": "E10",
+            "type": "triggers_on_failure"
+          },
+          {
+            "from": "E10",
+            "to": "E9",
+            "type": "returns_to_validation"
+          },
+          {
+            "from": "E9",
+            "to": "DONE",
+            "type": "gates"
+          }
+        ]
+      }
+    },
+    "projectName": "customer-portal",
+    "planningExecutionId": "resp_0e94cc3ab0b9f2e8006ab250c8febc87d297b14db78178a46b"
+  },
+  "extra": {
+    "derived": true,
+    "sourceExecutionId": "resp_0e94cc3ab0b9f2e8006ab250c8febc87d297b14db78178a46b"
+  },
+  "savedAt": "2026-09-22T09:57:23.095Z"
+}
